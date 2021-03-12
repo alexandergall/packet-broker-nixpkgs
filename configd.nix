@@ -3,7 +3,7 @@
 let
   bf-drivers-runtime = bf-sde.pkgs.bf-drivers-runtime;
   python = bf-drivers-runtime.pythonModule;
-in python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication {
   pname = "packet-broker-configd";
   version = "0.1";
 
