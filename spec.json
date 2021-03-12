@@ -11,7 +11,7 @@
         "emailoverride": "",
         "keepnr": 3,
         "inputs": {
-            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nix.git", "emailresponsible": false }
+            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git", "emailresponsible": false }
         }
     }
 }
