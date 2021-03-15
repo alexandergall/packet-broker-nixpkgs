@@ -2,7 +2,11 @@ let
   ## Pull in nixpkgs containing the SDE as our nixpkgs repository
   bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/1576f8ba68a5af090f9b0667d877a7916b75aea9.tar.gz;
   pkgs = import (fetchTarball bf-sde-nixpkgs-url) {
-    overlays = import ./overlay;
+    overlays = import ./overlay ++ [
+      ## For services/configuration.nix
+      (self: super: {
+        packet-broker = { inherit moduleWrapper configd; };
+    }) ];
   };
 
   ## Build the main components with the latest SDE version
@@ -19,13 +23,7 @@ let
 
   ## These derivations have to be built on the final install target
   moduleWrapper = packet-broker.makeModuleWrapper;
-  services = import ./services {
-    pkgs = pkgs // {
-      packet-broker = {
-        inherit moduleWrapper configd;
-      };
-    };
-  };
+  services = import ./services { inherit pkgs; };
 
   ## Closure for binary deployments containing the release derivations
   ## plus the modules for all supported kernels and the SNMP agent.
