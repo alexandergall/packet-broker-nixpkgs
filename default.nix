@@ -1,3 +1,4 @@
+{ kernelID ? null }:
 let
   ## Pull in nixpkgs containing the SDE as our nixpkgs repository
   bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/1576f8ba68a5af090f9b0667d877a7916b75aea9.tar.gz;
@@ -22,7 +23,11 @@ let
   release = { inherit packet-broker configd; };
 
   ## These derivations have to be built on the final install target
-  moduleWrapper = packet-broker.makeModuleWrapper;
+  moduleWrapper =
+    if kernelID == null then
+      packet-broker.makeModuleWrapper
+    else
+      packet-broker.makeModuleWrapperForKernel kernelID;
   services = import ./services { inherit pkgs; };
 
   ## Closure for binary deployments containing the release derivations
