@@ -2,7 +2,8 @@
 let
   ## Packet Broker release version in <major>.<minor> form, where
   ## <major> is the day as yyyymmdd and <minor> is a two-digit
-  ## serial number
+  ## serial number.  For a version to be available through the
+  ## release-manager, it must be tagged with "release-<major>.<minor>
   version = "20210319.00";
 
   ## Pull in nixpkgs containing the SDE as our nixpkgs repository
@@ -25,8 +26,9 @@ let
   };
   packet-broker = pkgs.callPackage ./packet-broker.nix { inherit bf-sde src; };
   configd = pkgs.callPackage ./configd.nix { inherit bf-sde src; };
+  release-manager = pkgs.callPackage ./release-manager.nix { inherit version; };
   release = {
-    inherit packet-broker configd;
+    inherit packet-broker configd release-manager;
     version = pkgs.writeTextDir "version" "${version}";
   };
 
