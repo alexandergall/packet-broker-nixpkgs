@@ -24,8 +24,8 @@ let
     rev = "v1";
     sha256 = "1rfm286mxkws8ra92xy4jwplmqq825xf3fhwary3lgvbb59zayr9";
   };
-  packet-broker = pkgs.callPackage ./packet-broker.nix { inherit bf-sde src; };
-  configd = pkgs.callPackage ./configd.nix { inherit bf-sde src; };
+  packet-broker = pkgs.callPackage ./packet-broker.nix { inherit bf-sde src version; };
+  configd = pkgs.callPackage ./configd.nix { inherit bf-sde src version; };
   release-manager = pkgs.callPackage ./release-manager.nix { inherit version; };
   release = {
     inherit packet-broker configd release-manager;

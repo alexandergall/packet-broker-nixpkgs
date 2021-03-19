@@ -1,8 +1,8 @@
-{ bf-sde, src }:
+{ bf-sde, src, version }:
 
 bf-sde.buildP4Program {
-  version = "0.1";
   pname = "packet-broker";
+  inherit version;
   p4Name = "packet_broker";
   inherit src;
   requiredKernelModule = "bf_kpkt";

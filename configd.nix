@@ -1,11 +1,11 @@
-{ bf-sde, src }:
+{ bf-sde, src, version }:
 
 let
   bf-drivers-runtime = bf-sde.pkgs.bf-drivers-runtime;
   python = bf-drivers-runtime.pythonModule;
 in python.pkgs.buildPythonApplication {
   pname = "packet-broker-configd";
-  version = "0.1";
+  inherit version;
 
   inherit src;
   propagatedBuildInputs = [
