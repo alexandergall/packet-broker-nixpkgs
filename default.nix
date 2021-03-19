@@ -1,5 +1,10 @@
 { kernelID ? null }:
 let
+  ## Packet Broker release version in <major>.<minor> form, where
+  ## <major> is the day as yyyymmdd and <minor> is a two-digit
+  ## serial number
+  version = "20210319.00";
+
   ## Pull in nixpkgs containing the SDE as our nixpkgs repository
   bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/1576f8ba68a5af090f9b0667d877a7916b75aea9.tar.gz;
   pkgs = import (fetchTarball bf-sde-nixpkgs-url) {
@@ -15,12 +20,15 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "alexandergall";
     repo = "packet-broker";
-    rev = "366999";
+    rev = "v1";
     sha256 = "1rfm286mxkws8ra92xy4jwplmqq825xf3fhwary3lgvbb59zayr9";
   };
   packet-broker = pkgs.callPackage ./packet-broker.nix { inherit bf-sde src; };
   configd = pkgs.callPackage ./configd.nix { inherit bf-sde src; };
-  release = { inherit packet-broker configd; };
+  release = {
+    inherit packet-broker configd;
+    version = pkgs.writeTextDir "version" "${version}";
+  };
 
   ## These derivations have to be built on the final install target
   moduleWrapper =
