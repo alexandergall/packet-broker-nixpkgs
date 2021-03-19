@@ -6,6 +6,8 @@ in {
   systemd.services = {
     packet-broker = {
       description = "Packet Broker Daemon (bf_switchd)";
+      after = [ "networking.service" ];
+      requires = [ "networking.service" ];
       serviceConfig = {
         ExecStart = "${packet-broker.moduleWrapper}/bin/packet_broker-module-wrapper /var/run/packet-broker";
         ExecStartPre = "+/bin/mkdir -p /var/run/packet-broker";
