@@ -11,19 +11,22 @@ SHELL_PROFILE=/etc/profile.d/packet-broker.sh
 REPO_GIT="https://github.com//alexandergall/packet-broker-nixpkgs"
 REPO_API="https://api.github.com/repos/alexandergall/packet-broker-nixpkgs"
 
-PATH=/nix/var/nix/profiles/default/bin:$PATH
+PATH=/nix/var/nix/profiles/default/bin:@PATH@
+
+self=$(basename $0)
 
 usage () {
-    echo "usage: release-manager
-                    --list-installed
-                    --list-available
-                    --switch-to-version VERSION
-                    --install-version VERSION
-                    --uninstall-version VERSION
-                    --activate-current
-                    --deactivate-current
-                    --cleanup
-                    --help"
+    echo "usage: $self OPTIONS
+       Available options:
+         --list-installed
+         --list-available
+         --switch-to-version VERSION
+         --install-version VERSION
+         --uninstall-version VERSION
+         --activate-current
+         --deactivate-current
+         --cleanup
+         --help"
     exit 0
 }
 
@@ -34,12 +37,13 @@ opts=$(getopt -l list-installed \
               -l uninstall-version: \
               -l activate-current \
               -l deactivate-current \
-	      -l cleanup \
-	      -l help \
+              -l cleanup \
+              -l help \
               -o "" \
-              -n release-manager \
+              -n $self \
               -- "$@")
 [ $? -eq 0 ] || usage
+[ $# -eq 0 ] && usage
 eval set -- $opts
 
 while [ $# -gt 0 ]; do
@@ -76,9 +80,9 @@ while [ $# -gt 0 ]; do
             cleanup=1
             shift
             ;;
-	--help)
-	    usage
-	    ;;
+        --help)
+            usage
+            ;;
         *)
             break
             ;;

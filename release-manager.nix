@@ -11,7 +11,7 @@ stdenv.mkDerivation {
     cp ${./release-manager} $out/bin/release-manager
     chmod a+x $out/bin/*
     patchShebangs $out/bin
-    wrapProgram $out/bin/release-manager --set PATH \
+    substituteInPlace $out/bin/release-manager --subst-var-by PATH \
       "${lib.strings.makeBinPath [ coreutils utillinux gnused jq curl systemd gnutar gzip ]}"
   '';
 }
