@@ -4,7 +4,7 @@ let
   ## <major> is the day as yyyymmdd and <minor> is a two-digit
   ## serial number.  For a version to be available through the
   ## release-manager, it must be tagged with "release-<major>.<minor>
-  version = "20210319.00";
+  version = "20210322.00";
 
   ## Pull in nixpkgs containing the SDE as our nixpkgs repository
   bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/1576f8ba68a5af090f9b0667d877a7916b75aea9.tar.gz;
