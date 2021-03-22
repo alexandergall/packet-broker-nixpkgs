@@ -2,8 +2,7 @@
 
 bf-sde.buildP4Program {
   pname = "packet-broker";
-  inherit version;
+  inherit version src;
   p4Name = "packet_broker";
-  inherit src;
   requiredKernelModule = "bf_kpkt";
 }

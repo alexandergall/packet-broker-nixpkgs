@@ -5,9 +5,8 @@ let
   python = bf-drivers-runtime.pythonModule;
 in python.pkgs.buildPythonApplication {
   pname = "packet-broker-configd";
-  inherit version;
+  inherit version src;
 
-  inherit src;
   propagatedBuildInputs = [
     bf-drivers-runtime
   ] ++ (with python.pkgs; [ jsonschema ipaddress ]);
