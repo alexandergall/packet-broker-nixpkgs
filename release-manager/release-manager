@@ -1,0 +1,267 @@
+#!/bin/bash
+set -e
+
+PROFILE_BASE=/nix/var/nix/profiles/per-user/root
+PROFILE=$PROFILE_BASE/packet-broker
+REPO_GIT="https://github.com//alexandergall/packet-broker-nixpkgs"
+REPO_API="https://api.github.com/repos/alexandergall/packet-broker-nixpkgs"
+
+PATH=/nix/var/nix/profiles/default/bin:@PATH@
+
+self=$(basename $0)
+
+usage () {
+    echo "usage: $self OPTIONS
+       Available options:
+         --list-installed
+         --list-available
+         --switch-to-version VERSION
+         --install-version VERSION
+         --uninstall-version VERSION
+         --activate-current
+         --deactivate-current
+         --cleanup
+         --help"
+    exit 0
+}
+
+opts=$(getopt -l list-installed \
+              -l list-available \
+              -l switch-to-version: \
+              -l install-version: \
+              -l uninstall-version: \
+              -l activate-current \
+              -l deactivate-current \
+              -l cleanup \
+              -l help \
+              -o "" \
+              -n $self \
+              -- "$@")
+[ $? -eq 0 ] || usage
+[ $# -eq 0 ] && usage
+eval set -- $opts
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --list-available)
+            list_available=1
+            shift
+            ;;
+        --list-installed)
+            list_installed=1
+            shift
+            ;;
+        --switch-to-version)
+            switch_to_version=$2
+            shift 2
+            ;;
+        --uninstall-version)
+            uninstall_version=$2
+            shift 2
+            ;;
+        --install-version)
+            install_version=$2
+            shift 2
+            ;;
+        --activate-current)
+            activate=1
+            shift
+            ;;
+        --deactivate-current)
+            deactivate=1
+            shift
+            ;;
+        --cleanup)
+            cleanup=1
+            shift
+            ;;
+        --help)
+            usage
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+[ $# -gt 1 ] && usage
+
+declare -A gens gens_by_path gens_by_version install_date available_versions
+
+for path in $PROFILE-*-link; do
+    [ -h $path ] || continue
+    short_path=$(basename $path)
+    gen=$(echo $short_path | sed -e 's/.*-\([0-9]*\)-link$/\1/')
+    gens[$gen]=$short_path
+    gens_by_path[$short_path]=$gen
+    version=$(cat $path/version)
+    versions[$gen]=$version
+    gens_by_version[$version]=$gen
+    install_date[$gen]=$(stat -c "%z" $path)
+done
+current_path=$(readlink $PROFILE)
+current_gen=${gens_by_path[$current_path]}
+
+check_root () {
+    [ $(id -u) == 0 ] && return
+    echo "Please run this command as root"
+    exit 1
+}
+
+### Activate the current profile
+SYSTEMD_DIR=/etc/systemd/system
+CONFIG_DIR=/etc/packet-broker
+CONFIG=$CONFIG_DIR/config.json
+SCHEMA=$CONFIG_DIR/schema.json
+SNMP_CONFIG_DIR=/etc/snmp
+SNMPD_CONFIG=$SNMP_CONFIG_DIR/snmpd.conf
+IFINDEX=$SNMP_CONFIG_DIR/ifindex
+SNMP_STATE_DIR=/var/lib/net-snmp
+INTERFACE_CONFIG=$SNMP_STATE_DIR/interface.conf
+SHELL_PROFILE=/etc/profile.d/packet-broker.sh
+activate () {
+    check_root
+    echo "Enabling services"
+    for service in $PROFILE$SYSTEMD_DIR/*.service; do
+        ln -fs $service $SYSTEMD_DIR
+        systemctl enable $(basename $service)
+    done
+    systemctl daemon-reload
+    for dir in $CONFIG_DIR $SNMP_CONFIG_DIR $SNMP_STATE_DIR; do
+	[ -d $dir ] || mkdir -p $dir
+    done
+    for file in $SCHEMA $IFINDEX $INTERFACE_CONFIG; do
+	[ -e $file ] || ln -s $PROFILE$file $file
+    done
+    for config in $CONFIG $SNMPD_CONFIG; do
+	[ -e $CONFIG ] || cp $PROFILE$config $config
+    done
+    if [ ! -e $SHELL_PROFILE ]; then
+        echo PATH=$PROFILE/bin:\$PATH >$SHELL_PROFILE
+    fi
+    echo "Starting services"
+    systemctl start packet-broker
+}
+
+### Deactivate the current profile
+deactivate () {
+    check_root
+    echo "Stopping services"
+    systemctl stop packet-broker
+    echo "Disabling services"
+    for service in $PROFILE/$SYSTEMD_DIR/*.service; do
+        systemctl disable $(basename $service)
+    done
+}
+
+list_installed () {
+    echo "Generation Current Version     Install date"
+    echo "-----------------------------------------------------------------"
+    for gen in $(printf '%s\n' "${!gens[@]}" | sort -n); do
+        version=$(cat $PROFILE_BASE/${gens[$gen]}/version)
+        current=' '
+        [ $gen -eq $current_gen ] && current='*'
+        printf "%10d $current       %-11s %s\n" "$gen" $version "${install_date[$gen]}"
+    done
+}
+
+get_available_versions () {
+    echo "Checking for release tags of $REPO_GIT"
+    for tag in $(curl $REPO_API/tags 2>/dev/null| jq '.[].name'); do
+        tag=$(echo $tag | sed -e 's/"//g')
+        [[ $tag =~ ^release-.*$ ]] || continue
+        version=$(echo $tag | cut -d- -f2)
+        available_versions[$version]=$tag
+    done
+}
+
+list_available () {
+    get_available_versions
+    echo
+    echo "Version      Status"
+    echo "-----------------------------------------------"
+    for version in $(printf '%s\n' "${!available_versions[@]}" | sort); do
+        printf "%11s  " $version
+        gen="${gens_by_version[$version]}"
+        if [ -n "$gen" ]; then
+            echo "Locally installed as generation $gen"
+        else
+            echo "Not installed locally"
+        fi
+    done
+}
+
+switch_to_version () {
+    check_root
+    gen=${gens_by_version[$switch_to_version]}
+    if [ -z "$gen" ]; then
+        echo "Version $switch_to_version does not exist"
+        exit 1
+    fi
+    if [ $gen -eq $current_gen ]; then
+        echo "Version $switch_to_version is already the current version"
+        exit 1
+    fi
+    echo "Switching from version ${versions[$current_gen]} to $switch_to_version"
+    deactivate
+    echo "Switching package profile"
+    nix-env -p $PROFILE --switch-generation $gen
+    ## The new release may have a different activation procedure.  Use
+    ## its native release-manager to perform the activation.
+    $PROFILE/bin/release-manager --activate
+}
+
+install_version () {
+    check_root
+    gen=${gens_by_version[$install_version]}
+    if [ -n "$gen" ]; then
+        echo "Version $install_version is already installed as generation $gen"
+        exit 1
+    fi
+    get_available_versions
+    if [ -z "${available_versions[$install_version]}" ]; then
+        echo "Version $install_version does not exist"
+        exit 1
+    fi
+    tarball=$REPO_GIT/archive/${available_versions[$install_version]}.tar.gz
+    echo "Fetching package release tarball $tarball"
+    tmp=$(mktemp -d)
+    pushd $tmp >/dev/null
+    curl -L -O $tarball 2>/dev/null
+    tar xf release-* --strip-component 1
+
+    ## This makes the new version the current one
+    nix-env -f . -p $PROFILE -r -i -A install
+    ## Revert back
+    nix-env -p $PROFILE --switch-generation $current_gen
+
+    popd >/dev/null
+    rm -rf $tmp
+}
+
+uninstall_version () {
+    check_root
+    gen=${gens_by_version[$uninstall_version]}
+    if [ -z "$gen" ]; then
+        echo "Version $uninstall_version does not exist"
+        exit 1
+    fi
+    if [ $gen -eq $current_gen ]; then
+        echo "Can't uninstall current version"
+        exit 1
+    fi
+    echo "Deleting version $uninstall_version (generation $gen)"
+    nix-env -p $PROFILE --delete-generations $gen
+}
+
+cleanup () {
+    nix-collect-garbage
+}
+
+[ -n "$list_installed" ] && list_installed
+[ -n "$list_available" ] && list_available
+[ -n "$switch_to_version" ] && switch_to_version
+[ -n "$install_version" ] && install_version
+[ -n "$uninstall_version" ] && uninstall_version
+[ -n "$activate" ] && activate
+[ -n "$deactivate" ] && deactivate
+[ -n "$cleanup" ] && cleanup

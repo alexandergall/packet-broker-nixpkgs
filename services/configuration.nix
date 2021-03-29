@@ -1,15 +1,13 @@
 { config, pkgs, ... }:
 
-let
-  packet-broker = pkgs.packet-broker;
-in {
+{
   systemd.services = {
     packet-broker = {
       description = "Packet Broker Daemon (bf_switchd)";
       after = [ "networking.service" ];
       requires = [ "networking.service" ];
       serviceConfig = {
-        ExecStart = "${packet-broker.moduleWrapper}/bin/packet_broker-module-wrapper /var/run/packet-broker";
+        ExecStart = "${pkgs.moduleWrapper}/bin/packet_broker-module-wrapper /var/run/packet-broker";
         ExecStartPre = "+/bin/mkdir -p /var/run/packet-broker";
         Restart = "on-failure";
         Type = "simple";
@@ -20,9 +18,9 @@ in {
       after = [ "packet-broker.service" ];
       requires = [ "packet-broker.service" ];
       serviceConfig = {
-        ExecStart = "${packet-broker.configd}/bin/configd.py --config-dir /etc/packet-broker --ifmibs-dir /var/run/packet-broker-snmp";
+        ExecStart = "${pkgs.configd}/bin/configd.py --config-dir /etc/packet-broker --ifmibs-dir /var/run/packet-broker-snmp";
         ExecStartPre = "+/bin/mkdir -p /var/run/packet-broker-snmp";
-        ExecReload = "${packet-broker.configd}/bin/brokerctl reload";
+        ExecReload = "${pkgs.configd}/bin/brokerctl reload";
         Restart = "on-failure";
         Type = "simple";
       };
@@ -34,9 +32,16 @@ in {
       serviceConfig = {
         ExecStart = "${pkgs.SNMPAgent}/bin/interface --ifindex=/etc/snmp/ifindex --shmem-dir=/var/run/packet-broker-snmp";
         ExecStartPre = "+/bin/mkdir -p /var/run/packet-broker-snmp";
-        Group = "Debian-snmp";
-        User = "Debian-snmp";
         Type = "simple";
+      };
+    };
+    snmpd = {
+      description = "Simple Network Management Protocol (SNMP) Daemon";
+      after = [ "network.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.net-snmp}/sbin/snmpd -Lsd -Lf /dev/null -I -smux,mteTrigger,mteTriggerConf -f -p /run/snmpd.pid -c /etc/snmp/snmpd.conf";
+	ExecStartPre = "/bin/mkdir -p /var/run/agentx";
+	ExecReload = "/bin/kill -HUP $MAINPID";
       };
     };
   };

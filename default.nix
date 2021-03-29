@@ -1,4 +1,3 @@
-{ kernelID ? null }:
 let
   ## Packet Broker release version in <major>.<minor> form, where
   ## <major> is the day as yyyymmdd and <minor> is a two-digit
@@ -9,11 +8,7 @@ let
   ## Pull in nixpkgs containing the SDE as our nixpkgs repository
   bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/1576f8ba68a5af090f9b0667d877a7916b75aea9.tar.gz;
   pkgs = import (fetchTarball bf-sde-nixpkgs-url) {
-    overlays = import ./overlay ++ [
-      ## For services/configuration.nix
-      (self: super: {
-        packet-broker = { inherit moduleWrapper configd; };
-    }) ];
+    overlays = import ./overlay;
   };
 
   ## Build the main components with the latest SDE version
@@ -26,19 +21,50 @@ let
   };
   packet-broker = pkgs.callPackage ./packet-broker.nix { inherit bf-sde src version; };
   configd = pkgs.callPackage ./configd.nix { inherit bf-sde src version; };
-  release-manager = pkgs.callPackage ./release-manager.nix { inherit version; };
+  release-manager = pkgs.callPackage ./release-manager { inherit version; };
   release = {
     inherit packet-broker configd release-manager;
     version = pkgs.writeTextDir "version" "${version}";
   };
 
-  ## These derivations have to be built on the final install target
-  moduleWrapper =
-    if kernelID == null then
-      packet-broker.makeModuleWrapper
-    else
-      packet-broker.makeModuleWrapperForKernel kernelID;
-  services = import ./services { inherit pkgs; };
+  ## The moduleWrapper and services derivations have to be built on
+  ## the final install target because they depend on the local kernel.
+  mkInstall = { kernelID ? null }:
+    let
+      moduleWrapper =
+        if kernelID == null then
+          packet-broker.makeModuleWrapper
+        else
+          packet-broker.makeModuleWrapperForKernel kernelID;
+      services = import ./services {
+        ## Make moduleWrapper and configd accessible from
+        ## services/configuration.nix
+        pkgs = pkgs // { inherit moduleWrapper configd; };
+      };
+    in release // services // {
+      inherit bf-utils-env;
+    };
+
+  mkOnieInstaller = pkgs.callPackage (pkgs.fetchgit {
+    url = "https://github.com/alexandergall/onie-debian-nix-installer";
+    rev = "9003cdd";
+    sha256 = "03h7jviqd7z4bxchv1fpsj6kdrbbgryqdz6lzii6c8cpax0qqm76";
+  }) {};
+  onieInstaller = mkOnieInstaller rec {
+    ## The kernel selected by the kernelID must match the kernel
+    ## provided by the installer profile
+    rootPaths = builtins.attrValues (mkInstall { kernelID = "Debian10"; });
+    nixProfile = "/nix/var/nix/profiles/per-user/root/packet-broker";
+    binaryCaches = [ {
+      url = "http://p4.cache.nix.net.switch.ch";
+      key = "p4.cache.nix.net.switch.ch:cR3VMGz/gdZIdBIaUuh42clnVi5OS1McaiJwFTn5X5g=";
+    } ];
+    bootstrapProfile = ./installer/profile;
+    fileTree = ./installer/files;
+    activationCmd = "${nixProfile}/bin/release-manager --activate-current";
+    component = "packet-broker";
+    inherit version;
+  };
 
   ## Closure for binary deployments containing the release derivations
   ## plus the modules for all supported kernels and the SNMP agent.
@@ -69,14 +95,11 @@ let
     name = "bf-utils-env";
     paths = [ bf-sde.pkgs.bf-utils ];
   };
-
 in {
   ## For release.nix
-  inherit release closure;
+  inherit release closure onieInstaller;
 
   ## Final installation on the target system with
   ##   nix-env -f . -p <some-profile-name> -r -i -A install
-  install = release // services // {
-    inherit moduleWrapper bf-utils-env;
-  };
+  install = mkInstall {};
 }

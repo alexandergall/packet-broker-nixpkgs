@@ -1,0 +1,2 @@
+SUBSYSTEM=="net", ACTION=="add", ATTRS{address}=="02:00:00:00:00:02", NAME="usb0"
+SUBSYSTEMS=="pci", DRIVERS="bf", NAME="bf_pci0"

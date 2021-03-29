@@ -15,10 +15,11 @@ let
     let
       unit = units.${name}.unit;
     in pkgs.runCommand "${name}" {} ''
-      mkdir $out
-      cp ${unit}/*service $out
-      chmod a+w $out/*.service
-      cat <<EOF >>$out/*.service
+      dest=$out/etc/systemd/system
+      mkdir -p $dest
+      cp ${unit}/*service $dest
+      chmod a+w $dest/*.service
+      cat <<EOF >>$dest/*.service
       [Install]
       WantedBy=${wantedBy}
       EOF
@@ -27,4 +28,5 @@ in {
   packet-broker-service = addWantedBy "packet-broker.service" "multi-user.target";
   packet-broker-configd-service = addWantedBy "packet-broker-configd.service" "packet-broker.service";
   snabb-snmp-agent-service = addWantedBy "snabb-snmp-agent.service" "snmpd.service";
+  snmpd-service = addWantedBy "snmpd.service" "multi-user.target";
 }

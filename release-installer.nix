@@ -1,0 +1,7 @@
+{ }:
+
+with import ./.;
+
+{
+  inherit installer;
+}
