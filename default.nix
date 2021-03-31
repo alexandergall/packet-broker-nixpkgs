@@ -67,8 +67,8 @@ let
 
   mkOnieInstaller = pkgs.callPackage (pkgs.fetchgit {
     url = "https://github.com/alexandergall/onie-debian-nix-installer";
-    rev = "9003cdd";
-    sha256 = "03h7jviqd7z4bxchv1fpsj6kdrbbgryqdz6lzii6c8cpax0qqm76";
+    rev = "b866dde";
+    sha256 = "09x3qiaimmd9pkwrixx62fbajxqds9m2jl5mcvrr7cnvc35gh8mc";
   }) {};
   onieInstaller = mkOnieInstaller rec {
     ## The kernel selected by the kernelID must match the kernel
