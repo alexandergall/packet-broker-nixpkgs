@@ -1,9 +1,13 @@
+## When called from Hydra via release.nix, we get the result of "git
+## describe" passed in as gitTag
+{ gitTag ? null }:
+
 let
-  ## Packet Broker release version in <major>.<minor> form, where
-  ## <major> is the day as yyyymmdd and <minor> is a two-digit
-  ## serial number.  For a version to be available through the
-  ## release-manager, it must be tagged with "release-<major>.<minor>
-  version = "20210322.00";
+
+  ## Release version of the packet broker service.  The commit for the
+  ## release is tagged with "release-<version>". The version should be
+  ## bumped to the next planned release right after tagging.
+  version = "1";
 
   ## Pull in nixpkgs containing the SDE as our nixpkgs repository
   bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/1576f8ba68a5af090f9b0667d877a7916b75aea9.tar.gz;
@@ -24,7 +28,23 @@ let
   release-manager = pkgs.callPackage ./release-manager { inherit version; };
   release = {
     inherit packet-broker configd release-manager;
-    version = pkgs.writeTextDir "version" "${version}";
+    version = pkgs.writeTextDir "version" (version + "\n");
+    version-git =
+      if gitTag != null then
+        pkgs.writeTextDir "version.git" (gitTag + "\n")
+      else
+        ## We have not been called by Hydra.  Reproduce the tag
+        ## that we would get from Hydra for this release.  Can only
+	## be done when built from a Git checkout.
+        pkgs.runCommand "version.git" {} ''
+          mkdir $out
+          if [ -d ${./.}/.git ]; then
+            cd ${./.}
+            ${pkgs.git}/bin/git describe --always >$out/version.git
+          else
+            touch $out/version.git
+          fi
+        '';
   };
 
   ## The moduleWrapper and services derivations have to be built on
