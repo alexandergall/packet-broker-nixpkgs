@@ -7,6 +7,13 @@ let
   ## Release version of the packet broker service.  The commit for the
   ## release is tagged with "release-<version>". The version should be
   ## bumped to the next planned release right after tagging.
+  ##
+  ## The release version is stored in the file "release" in the Nix
+  ## profile of the service.  Tagged releases are the principal
+  ## entities that are installable with the release-manager.  To make
+  ## arbitrary commits installable as well, we also keep track of the
+  ## Git commit as the unique ID for an installed service instance in
+  ## the file "release.id" in the Nix profile.
   version = "1";
 
   ## Pull in nixpkgs containing the SDE as our nixpkgs repository
@@ -28,21 +35,21 @@ let
   release-manager = pkgs.callPackage ./release-manager { inherit version; };
   release = {
     inherit packet-broker configd release-manager;
-    version = pkgs.writeTextDir "version" (version + "\n");
-    version-git =
+    release = pkgs.writeTextDir "release" (version + "\n");
+    release-id =
       if gitTag != null then
-        pkgs.writeTextDir "version.git" (gitTag + "\n")
+        pkgs.writeTextDir "release.id" (gitTag + "\n")
       else
         ## We have not been called by Hydra.  Reproduce the tag
         ## that we would get from Hydra for this release.  Can only
 	## be done when built from a Git checkout.
-        pkgs.runCommand "version.git" {} ''
+        pkgs.runCommand "release.id" {} ''
           mkdir $out
           if [ -d ${./.}/.git ]; then
             cd ${./.}
-            ${pkgs.git}/bin/git describe --always >$out/version.git
+            ${pkgs.git}/bin/git describe --always >$out/release.id
           else
-            touch $out/version.git
+            touch $out/release.id
           fi
         '';
   };

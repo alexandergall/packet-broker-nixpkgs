@@ -15,9 +15,10 @@ usage () {
        Available options:
          --list-installed
          --list-available
-         --switch-to-version VERSION
-         --install-version VERSION
-         --uninstall-version VERSION
+         --switch-to-generation GENERATION
+         --install-release RELEASE
+         --install-git COMMIT
+         --uninstall-generation GENERATION
          --activate-current
          --deactivate-current
          --cleanup
@@ -27,9 +28,10 @@ usage () {
 
 opts=$(getopt -l list-installed \
               -l list-available \
-              -l switch-to-version: \
-              -l install-version: \
-              -l uninstall-version: \
+              -l switch-to-generation: \
+              -l install-release: \
+	      -l install-git: \
+              -l uninstall-generation: \
               -l activate-current \
               -l deactivate-current \
               -l cleanup \
@@ -51,16 +53,20 @@ while [ $# -gt 0 ]; do
             list_installed=1
             shift
             ;;
-        --switch-to-version)
-            switch_to_version=$2
+        --switch-to-generation)
+            switch_to_generation=$2
             shift 2
             ;;
-        --uninstall-version)
-            uninstall_version=$2
+        --uninstall-generation)
+            uninstall_generation=$2
             shift 2
             ;;
-        --install-version)
-            install_version=$2
+        --install-release)
+            install_release=$2
+            shift 2
+            ;;
+        --install-git)
+            install_git=$2
             shift 2
             ;;
         --activate-current)
@@ -85,7 +91,7 @@ while [ $# -gt 0 ]; do
 done
 [ $# -gt 1 ] && usage
 
-declare -A gens gens_by_path gens_by_version install_date available_versions
+declare -A gens gens_by_path gens_by_id install_date available_releases
 
 for path in $PROFILE-*-link; do
     [ -h $path ] || continue
@@ -93,9 +99,8 @@ for path in $PROFILE-*-link; do
     gen=$(echo $short_path | sed -e 's/.*-\([0-9]*\)-link$/\1/')
     gens[$gen]=$short_path
     gens_by_path[$short_path]=$gen
-    version=$(cat $path/version)
-    versions[$gen]=$version
-    gens_by_version[$version]=$gen
+    id=$(cat $path/release.id)
+    gens_by_id[$id]=$gen
     install_date[$gen]=$(stat -c "%z" $path)
 done
 current_path=$(readlink $PROFILE)
@@ -115,7 +120,7 @@ SCHEMA=$CONFIG_DIR/schema.json
 SNMP_CONFIG_DIR=/etc/snmp
 SNMPD_CONFIG=$SNMP_CONFIG_DIR/snmpd.conf
 IFINDEX=$SNMP_CONFIG_DIR/ifindex
-SNMP_STATE_DIR=/var/lib/net-snmp
+SNMP_STATE_DIR=/var/lib/snmp
 INTERFACE_CONFIG=$SNMP_STATE_DIR/interface.conf
 SHELL_PROFILE=/etc/profile.d/packet-broker.sh
 activate () {
@@ -133,7 +138,7 @@ activate () {
 	[ -e $file ] || ln -s $PROFILE$file $file
     done
     for config in $CONFIG $SNMPD_CONFIG; do
-	[ -e $CONFIG ] || cp $PROFILE$config $config
+	[ -e $config ] || cp $PROFILE$config $config
     done
     if [ ! -e $SHELL_PROFILE ]; then
         echo PATH=$PROFILE/bin:\$PATH >$SHELL_PROFILE
@@ -154,34 +159,37 @@ deactivate () {
 }
 
 list_installed () {
-    echo "Generation Current Version     Install date"
-    echo "-----------------------------------------------------------------"
+    echo "Generation Current Release Install date                        Id"
+    echo "------------------------------------------------------------------------"
     for gen in $(printf '%s\n' "${!gens[@]}" | sort -n); do
-        version=$(cat $PROFILE_BASE/${gens[$gen]}/version)
+	path=$PROFILE_BASE/${gens[$gen]}
+        release=$(cat $path/release)
+	id=$(cat $path/release.id)
         current=' '
         [ $gen -eq $current_gen ] && current='*'
-        printf "%10d $current       %-11s %s\n" "$gen" $version "${install_date[$gen]}"
+        printf "%10d $current       %-7s %s %s\n" $gen $release "${install_date[$gen]}" $id
     done
 }
 
-get_available_versions () {
+get_available_releases () {
     echo "Checking for release tags of $REPO_GIT"
     for tag in $(curl $REPO_API/tags 2>/dev/null| jq '.[].name'); do
         tag=$(echo $tag | sed -e 's/"//g')
         [[ $tag =~ ^release-.*$ ]] || continue
-        version=$(echo $tag | cut -d- -f2)
-        available_versions[$version]=$tag
+        release=$(echo $tag | cut -d- -f2)
+        available_releases[$release]=$tag
     done
 }
 
 list_available () {
-    get_available_versions
+    get_available_releases
     echo
-    echo "Version      Status"
+    echo "Release  Status"
     echo "-----------------------------------------------"
-    for version in $(printf '%s\n' "${!available_versions[@]}" | sort); do
-        printf "%11s  " $version
-        gen="${gens_by_version[$version]}"
+    for release in $(printf '%s\n' "${!available_releases[@]}" | sort); do
+        printf "%8s  " $release
+	id=${available_releases[$release]}
+        gen="${gens_by_id[$id]}"
         if [ -n "$gen" ]; then
             echo "Locally installed as generation $gen"
         else
@@ -190,44 +198,34 @@ list_available () {
     done
 }
 
-switch_to_version () {
+switch_to_generation () {
     check_root
-    gen=${gens_by_version[$switch_to_version]}
-    if [ -z "$gen" ]; then
-        echo "Version $switch_to_version does not exist"
+    if [ -z "${gens[$switch_to_generation]}" ]; then
+        echo "Generation $switch_to_generation does not exist"
         exit 1
     fi
-    if [ $gen -eq $current_gen ]; then
-        echo "Version $switch_to_version is already the current version"
+    if [ $switch_to_generation -eq $current_gen ]; then
+        echo "Generation $switch_to_generation is already the current version"
         exit 1
     fi
-    echo "Switching from version ${versions[$current_gen]} to $switch_to_version"
+    echo "Switching from generation $current_gen to $switch_to_generation"
     deactivate
     echo "Switching package profile"
-    nix-env -p $PROFILE --switch-generation $gen
+    nix-env -p $PROFILE --switch-generation $switch_to_generation
     ## The new release may have a different activation procedure.  Use
     ## its native release-manager to perform the activation.
     $PROFILE/bin/release-manager --activate
 }
 
-install_version () {
+install_git () {
     check_root
-    gen=${gens_by_version[$install_version]}
-    if [ -n "$gen" ]; then
-        echo "Version $install_version is already installed as generation $gen"
-        exit 1
-    fi
-    get_available_versions
-    if [ -z "${available_versions[$install_version]}" ]; then
-        echo "Version $install_version does not exist"
-        exit 1
-    fi
-    tarball=$REPO_GIT/archive/${available_versions[$install_version]}.tar.gz
-    echo "Fetching package release tarball $tarball"
     tmp=$(mktemp -d)
     pushd $tmp >/dev/null
-    curl -L -O $tarball 2>/dev/null
-    tar xf release-* --strip-component 1
+    echo "Cloning $REPO_GIT"
+    git clone ${REPO_GIT}.git
+    cd *
+    echo "Checking out $install_git"
+    git checkout $install_git
 
     ## This makes the new version the current one
     nix-env -f . -p $PROFILE -r -i -A install
@@ -238,18 +236,45 @@ install_version () {
     rm -rf $tmp
 }
 
-uninstall_version () {
+install_release () {
     check_root
-    gen=${gens_by_version[$uninstall_version]}
-    if [ -z "$gen" ]; then
-        echo "Version $uninstall_version does not exist"
+    gen=${gens_by_id[$install_release]}
+    if [ -n "$gen" ]; then
+        echo "Release $install_release is already installed as generation $gen"
         exit 1
     fi
-    if [ $gen -eq $current_gen ]; then
-        echo "Can't uninstall current version"
+    get_available_releases
+    if [ -z "${available_releases[$install_release]}" ]; then
+        echo "Release $install_release does not exist"
         exit 1
     fi
-    echo "Deleting version $uninstall_version (generation $gen)"
+    tarball=$REPO_GIT/archive/${available_versions[$install_release]}.tar.gz
+    echo "Fetching package release tarball $tarball"
+    tmp=$(mktemp -d)
+    pushd $tmp >/dev/null
+    curl -L -O $tarball 2>/dev/null
+    tar xf release-* --strip-component 1
+
+    ## This makes the new version the current one
+    nix-env -f . -p $PROFILE -r -i -A install --argstr giTag $install_release
+    ## Revert back
+    nix-env -p $PROFILE --switch-generation $current_gen
+
+    popd >/dev/null
+    rm -rf $tmp
+}
+
+uninstall_generation () {
+    check_root
+    if [ -z "${gens[$uninstall_generation]}" ]; then
+        echo "Generation $uninstall_generation does not exist"
+        exit 1
+    fi
+    if [ $uninstall_generation -eq $current_gen ]; then
+        echo "Can't uninstall current generation"
+        exit 1
+    fi
+    echo "Deleting generation $uninstall_generation"
     nix-env -p $PROFILE --delete-generations $gen
 }
 
@@ -259,9 +284,10 @@ cleanup () {
 
 [ -n "$list_installed" ] && list_installed
 [ -n "$list_available" ] && list_available
-[ -n "$switch_to_version" ] && switch_to_version
-[ -n "$install_version" ] && install_version
-[ -n "$uninstall_version" ] && uninstall_version
+[ -n "$switch_to_generation" ] && switch_to_generation
+[ -n "$install_release" ] && install_release
+[ -n "$install_git" ] && install_git
+[ -n "$uninstall_generation" ] && uninstall_generation
 [ -n "$activate" ] && activate
 [ -n "$deactivate" ] && deactivate
 [ -n "$cleanup" ] && cleanup
