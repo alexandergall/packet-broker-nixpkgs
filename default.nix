@@ -10,7 +10,7 @@ let
   version = "1";
 
   ## Pull in nixpkgs containing the SDE as our nixpkgs repository
-  bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/1576f8ba68a5af090f9b0667d877a7916b75aea9.tar.gz;
+  bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v2.tar.gz;
   pkgs = import (fetchTarball bf-sde-nixpkgs-url) {
     overlays = import ./overlay;
   };
@@ -73,7 +73,7 @@ let
   onieInstaller = mkOnieInstaller rec {
     ## The kernel selected by the kernelID must match the kernel
     ## provided by the installer profile
-    rootPaths = builtins.attrValues (mkInstall { kernelID = "Debian10"; });
+    rootPaths = builtins.attrValues (mkInstall { kernelID = "Debian10_9"; });
     nixProfile = "/nix/var/nix/profiles/per-user/root/packet-broker";
     binaryCaches = [ {
       url = "http://p4.cache.nix.net.switch.ch";
