@@ -212,12 +212,12 @@ switch_to_generation () {
         echo "Generation $switch_to_generation is already the current version"
         exit 1
     fi
-    echo "Switching from generation $current_gen to $switch_to_generation"
+    echo "Deactivating current instance"
     deactivate
-    echo "Switching package profile"
     nix-env -p $PROFILE --switch-generation $switch_to_generation
     ## The new release may have a different activation procedure.  Use
     ## its native release-manager to perform the activation.
+    echo "Activating new instance"
     $PROFILE/bin/release-manager --activate
 }
 
@@ -231,9 +231,9 @@ install_git () {
     echo "Checking out $install_git"
     git checkout $install_git
 
-    ## This makes the new version the current one
     nix-env -f . -p $PROFILE -r -i -A install
-    ## Revert back
+    ## nix-env has automatically switched to the new
+    ## generation, revert back
     nix-env -p $PROFILE --switch-generation $current_gen
 
     popd >/dev/null
@@ -259,9 +259,9 @@ install_release () {
     curl -L -O $tarball 2>/dev/null
     tar xf release-* --strip-component 1
 
-    ## This makes the new version the current one
-    nix-env -f . -p $PROFILE -r -i -A install --argstr giTag $install_release
-    ## Revert back
+    nix-env -f . -p $PROFILE -r -i -A install --argstr gitTag $install_release
+    ## nix-env has automatically switched to the new
+    ## generation, revert back
     nix-env -p $PROFILE --switch-generation $current_gen
 
     popd >/dev/null
@@ -278,7 +278,6 @@ uninstall_generation () {
         echo "Can't uninstall current generation"
         exit 1
     fi
-    echo "Deleting generation $uninstall_generation"
     nix-env -p $PROFILE --delete-generations $gen
 }
 
