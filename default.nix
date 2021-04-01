@@ -1,6 +1,6 @@
 ## When called from Hydra via release.nix, we get the result of "git
 ## describe" passed in as gitTag
-{ gitTag ? null }:
+{ gitTag ? "" }:
 
 let
 
@@ -37,7 +37,7 @@ let
     inherit packet-broker configd release-manager;
     release = pkgs.writeTextDir "release" (version + "\n");
     release-id =
-      if gitTag != null then
+      if gitTag != "" then
         pkgs.writeTextDir "release.id" (gitTag + "\n")
       else
         ## We have not been called by Hydra.  Reproduce the tag

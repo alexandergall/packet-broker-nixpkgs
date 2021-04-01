@@ -1,4 +1,4 @@
-{ src }:
+{ src ? { gitTag = ""; }, buildOnieInstaller ? false }:
 
 with import ./. { inherit (src) gitTag; };
 
@@ -8,7 +8,7 @@ with import ./. { inherit (src) gitTag; };
   inherit release closure;
 } //
 ## Build the ONIE installer only for releases
-(if (builtins.match "release-[0-9]+" src.gitTag != null) then
+(if ((builtins.match "release-[0-9]+" src.gitTag != null) && buildOnieInstaller) then
   { inherit onieInstaller; }
 else
   {})
