@@ -17,7 +17,7 @@ let
   version = "1";
 
   ## Pull in nixpkgs containing the SDE as our nixpkgs repository
-  bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v2.tar.gz;
+  bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v3.tar.gz;
   pkgs = import (fetchTarball bf-sde-nixpkgs-url) {
     overlays = import ./overlay;
   };
