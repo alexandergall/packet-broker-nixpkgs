@@ -11,7 +11,8 @@
         "emailoverride": "",
         "keepnr": 3,
         "inputs": {
-            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git master deepClone ", "emailresponsible": false }
+            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git master deepClone ", "emailresponsible": false },
+	    "buildOnieInstaller": { "type": "boolean", "value": "true" }
         }
     }
 }
