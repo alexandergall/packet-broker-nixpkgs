@@ -39,9 +39,9 @@
       description = "Simple Network Management Protocol (SNMP) Daemon";
       after = [ "network.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.net-snmp}/sbin/snmpd -Lsd -Lf /dev/null -I -smux,mteTrigger,mteTriggerConf -f -p /run/snmpd.pid -c /etc/snmp/snmpd.conf";
-	ExecStartPre = "/bin/mkdir -p /var/run/agentx";
-	ExecReload = "/bin/kill -HUP $MAINPID";
+        ExecStart = "${pkgs.net-snmp}/sbin/snmpd -Lsd -Lf /dev/null -I -smux,mteTrigger,mteTriggerConf -I -ifTable -f -p /run/snmpd.pid -c /etc/snmp/snmpd.conf";
+        ExecStartPre = "/bin/mkdir -p /var/run/agentx";
+        ExecReload = "/bin/kill -HUP $MAINPID";
       };
     };
   };
