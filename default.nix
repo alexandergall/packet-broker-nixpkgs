@@ -1,26 +1,32 @@
-## When called from Hydra via release.nix, we get the result of "git
-## describe" passed in as gitTag
-{ gitTag ? "" }:
+## When called from Hydra via release.nix or from "release-manager
+## --installl-git", we get the result of "git describe" passed in as
+## gitTag.
+{ gitTag ? "WIP" }:
 
 let
+  pkgs = import (fetchTarball {
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v4.tar.gz;
+    sha256 = "0nfg0k0n8sk1bfi6bi1rc9kp4x2kbg2jb9q2rb4ajdcjhqa2zf86";
+  }) {
+    overlays = import ./overlay;
+  };
 
   ## Release version of the packet broker service.  The commit for the
   ## release is tagged with "release-<version>". The version should be
   ## bumped to the next planned release right after tagging.
   ##
-  ## The release version is stored in the file "release" in the Nix
+  ## The release version is stored in the file "version" in the Nix
   ## profile of the service.  Tagged releases are the principal
   ## entities that are installable with the release-manager.  To make
   ## arbitrary commits installable as well, we also keep track of the
   ## Git commit as the unique ID for an installed service instance in
-  ## the file "release.id" in the Nix profile.
+  ## the file "version.id" in the Nix profile.
   version = "1";
-
-  ## Pull in nixpkgs containing the SDE as our nixpkgs repository
-  bf-sde-nixpkgs-url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v3.tar.gz;
-  pkgs = import (fetchTarball bf-sde-nixpkgs-url) {
-    overlays = import ./overlay;
+  versionFiles = {
+    version = pkgs.writeTextDir "version" (version + "\n");
+    version-id = pkgs.writeTextDir "version.id" (gitTag + "\n");
   };
+  nixProfile = "/nix/var/nix/profiles/per-user/root/packet-broker";
 
   ## Build the main components with the latest SDE version
   bf-sde = pkgs.bf-sde.latest;
@@ -30,103 +36,81 @@ let
     rev = "v1";
     sha256 = "1rfm286mxkws8ra92xy4jwplmqq825xf3fhwary3lgvbb59zayr9";
   };
-  packet-broker = pkgs.callPackage ./packet-broker.nix { inherit bf-sde src version; };
-  configd = pkgs.callPackage ./configd.nix { inherit bf-sde src version; };
-  release-manager = pkgs.callPackage ./release-manager { inherit version; };
-  release = {
-    inherit packet-broker configd release-manager;
-    release = pkgs.writeTextDir "release" (version + "\n");
-    release-id =
-      if gitTag != "" then
-        pkgs.writeTextDir "release.id" (gitTag + "\n")
-      else
-        ## We have not been called by Hydra.  Reproduce the tag
-        ## that we would get from Hydra for this release.  Can only
-	## be done when built from a Git checkout.
-        pkgs.runCommand "release.id" {} ''
-          mkdir $out
-          if [ -d ${./.}/.git ]; then
-            cd ${./.}
-            ${pkgs.git}/bin/git describe --always >$out/release.id
-          else
-            touch $out/release.id
-          fi
-        '';
-  };
 
-  ## The moduleWrapper and services derivations have to be built on
-  ## the final install target because they depend on the local kernel.
-  mkInstall = { kernelID ? null }:
+  ## A release is a set of all derivations to be installed into the
+  ## Nix profile for the service.  The moduleWrapper attribute depends
+  ## on the kernel of the system on which the installation will take
+  ## place. This function creates the release for one particular
+  ## kernel.
+  release = kernelModules:
     let
-      moduleWrapper =
-        if kernelID == null then
-          packet-broker.makeModuleWrapper
-        else
-          packet-broker.makeModuleWrapperForKernel kernelID;
+      packet-broker = pkgs.callPackage ./packet-broker.nix { inherit bf-sde src version; };
+      configd = pkgs.callPackage ./configd.nix { inherit bf-sde src version; };
+      release-manager = pkgs.callPackage ./release-manager { inherit version; };
+      moduleWrapper = packet-broker.moduleWrapper' kernelModules;
       services = import ./services {
         ## Make moduleWrapper and configd accessible from
         ## services/configuration.nix
         pkgs = pkgs // { inherit moduleWrapper configd; };
       };
-    in release // services // {
-      inherit bf-utils-env;
+    in services // {
+      inherit packet-broker configd release-manager moduleWrapper;
+      inherit (versionFiles) version version-id;
+
+      ## We want to have bfshell in the profile's bin directory. To
+      ## achieve that, it should be enough to inherit bf-utils here.
+      ## However, bf-utils is a multi-output package and nix-env
+      ## unconditonally realizes all outputs when it should just use
+      ## meta.outputsToInstall. In this case, the second output is
+      ## "dev", which requires the full SDE to be available. This will
+      ## fail in a runtime-only binary deployment.  We work around this
+      ## by wrapping bf-utils in an environment.
+      bf-utils-env = pkgs.buildEnv {
+        name = "bf-utils-env";
+        paths = [ bf-sde.pkgs.bf-utils ];
+      };
     };
+  releases = builtins.map release (builtins.attrValues bf-sde.pkgs.kernel-modules);
+
+  ## The closure of the set of all releases.  This is the set of paths
+  ## that needs to be available on a binary cache for pure binary
+  ## deployments.  To satisfy restrictions imposed by Intel on the
+  ## distribution of parts of the SDE as a runtime system, we set up a
+  ## post-build hook on the Hydra CI system to copy these paths to a
+  ## separate binary cache which can be made available to third
+  ## parties.  The post-build hook is triggered by the name
+  ## of the derivation.
+  releasesClosure = (pkgs.closureInfo {
+    rootPaths = builtins.foldl' (final: next: final ++ (builtins.attrValues next)) [] releases;
+  }).overrideAttrs (_: { name = "packet-broker-releases-closure"; });
 
   mkOnieInstaller = pkgs.callPackage (pkgs.fetchgit {
     url = "https://github.com/alexandergall/onie-debian-nix-installer";
     rev = "b866dde";
     sha256 = "09x3qiaimmd9pkwrixx62fbajxqds9m2jl5mcvrr7cnvc35gh8mc";
   }) {};
-  onieInstaller = mkOnieInstaller rec {
-    ## The kernel selected by the kernelID must match the kernel
-    ## provided by the installer profile
-    rootPaths = builtins.attrValues (mkInstall { kernelID = "Debian10_9"; });
-    nixProfile = "/nix/var/nix/profiles/per-user/root/packet-broker";
+  onieInstaller = mkOnieInstaller {
+    inherit nixProfile version;
+    component = "packet-broker";
+    ## The kernel selected here must match the kernel provided by the
+    ## bootstrap profile.
+    rootPaths = builtins.attrValues (release bf-sde.pkgs.kernel-modules.Debian10_9);
     binaryCaches = [ {
       url = "http://p4.cache.nix.net.switch.ch";
       key = "p4.cache.nix.net.switch.ch:cR3VMGz/gdZIdBIaUuh42clnVi5OS1McaiJwFTn5X5g=";
     } ];
-    bootstrapProfile = ./installer/profile;
-    fileTree = ./installer/files;
+    bootstrapProfile = ./installers/onie/profile;
+    fileTree = ./installers/onie/files;
     activationCmd = "${nixProfile}/bin/release-manager --activate-current";
-    component = "packet-broker";
-    inherit version;
+  };
+  releaseInstaller = pkgs.callPackage ./installers/release-installer.nix {
+    inherit releases versionFiles nixProfile;
   };
 
-  ## Closure for binary deployments containing the release derivations
-  ## plus the modules for all supported kernels and the SNMP agent.
-  ## If this closure is available in the Nix store of the target or
-  ## through a binary cache, only the services and wrapper will be
-  ## built locally. Note that bf-utils is part of the closure of
-  ## release.packet-broker so we don't have to include it explicitly.
-  closure = pkgs.buildEnv {
-    name = "packet-broker-closure";
-    paths = builtins.attrValues (release // bf-sde.buildModulesForAllKernels //
-                                 { inherit (pkgs) SNMPAgent; });
-
-    ## Ignore collisions of the module install scripts. The
-    ## environment is just a vehicle to collect everything in a single
-    ## derivation.
-    ignoreCollisions = true;
-  };
-
-  ## We want to have bfshell in the profile's bin directory. To
-  ## achieve that, it should be enough to inherit bf-utils in the
-  ## "install" attribute set below here. However, bf-utils is a
-  ## multi-output package and nix-env unconditonally realizes all
-  ## outputs when it should just use meta.outputsToInstall. In this
-  ## case, the second output is "dev", which requires the full SDE to
-  ## be available. This will fail in a runtime-only binary deployment.
-  ## We work around this by wrapping bf-utils in an environment.
-  bf-utils-env = pkgs.buildEnv {
-    name = "bf-utils-env";
-    paths = [ bf-sde.pkgs.bf-utils ];
-  };
 in {
-  ## For release.nix
-  inherit release closure onieInstaller;
+  inherit releases releasesClosure onieInstaller releaseInstaller;
 
   ## Final installation on the target system with
   ##   nix-env -f . -p <some-profile-name> -r -i -A install
-  install = mkInstall {};
+  install = release bf-sde.modulesForLocalKernel;
 }

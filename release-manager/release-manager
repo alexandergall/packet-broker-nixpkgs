@@ -99,7 +99,7 @@ for path in $PROFILE-*-link; do
     gen=$(echo $short_path | sed -e 's/.*-\([0-9]*\)-link$/\1/')
     gens[$gen]=$short_path
     gens_by_path[$short_path]=$gen
-    id=$(cat $path/release.id)
+    id=$(cat $path/version.id)
     gens_by_id[$id]=$gen
     install_date[$gen]=$(stat -c "%z" $path)
 done
@@ -167,8 +167,8 @@ list_installed () {
     echo "------------------------------------------------------------------------"
     for gen in $(printf '%s\n' "${!gens[@]}" | sort -n); do
 	path=$PROFILE_BASE/${gens[$gen]}
-        release=$(cat $path/release)
-	id=$(cat $path/release.id)
+        release=$(cat $path/version)
+	id=$(cat $path/version.id)
         current=' '
         [ $gen -eq $current_gen ] && current='*'
         printf "%10d $current       %-7s %s %s\n" $gen $release "${install_date[$gen]}" $id
@@ -221,20 +221,24 @@ switch_to_generation () {
     $PROFILE/bin/release-manager --activate
 }
 
+_install () {
+    nix-env -f . -p $PROFILE -r -i -A install --argstr gitTag $1
+    ## nix-env has automatically switched to the new
+    ## generation, revert back
+    nix-env -p $PROFILE --switch-generation $current_gen
+}
+
 install_git () {
     check_root
     tmp=$(mktemp -d)
     pushd $tmp >/dev/null
-    echo "Cloning $REPO_GIT"
-    git clone ${REPO_GIT}.git
-    cd *
-    echo "Checking out $install_git"
-    git checkout $install_git
+    echo "Fetching $install_git"
+    git init
+    git remote add origin $REPO_GIT
+    git fetch origin
+    git reset --hard $install_git
 
-    nix-env -f . -p $PROFILE -r -i -A install
-    ## nix-env has automatically switched to the new
-    ## generation, revert back
-    nix-env -p $PROFILE --switch-generation $current_gen
+    _install $(git describe --always)
 
     popd >/dev/null
     rm -rf $tmp
@@ -259,10 +263,7 @@ install_release () {
     curl -L -O $tarball 2>/dev/null
     tar xf release-* --strip-component 1
 
-    nix-env -f . -p $PROFILE -r -i -A install --argstr gitTag $install_release
-    ## nix-env has automatically switched to the new
-    ## generation, revert back
-    nix-env -p $PROFILE --switch-generation $current_gen
+    _install $install_release
 
     popd >/dev/null
     rm -rf $tmp

@@ -1,14 +1,15 @@
-{ src ? { gitTag = ""; }, buildOnieInstaller ? false }:
+{ src ? { gitTag = "WIP"; }, buildInstallers ? false }:
 
 with import ./. { inherit (src) gitTag; };
 
-## Have the CI build the data-plane and control-plane programs as well
-## as the closure for binary deployments.
+## The releases and releasesClosure derivations have the same
+## closure. releasesClosure is used by the Hydra post-build hook
+## to copy the closure to a separate binary cache.
 {
-  inherit release closure;
+  inherit releases releasesClosure;
 } //
-## Build the ONIE installer only for releases
-(if ((builtins.match "release-[0-9]+" src.gitTag != null) && buildOnieInstaller) then
-  { inherit onieInstaller; }
+## Build the installers for releases only
+(if ((builtins.match "release-[0-9]+" src.gitTag) != null) && buildInstallers then
+  { inherit onieInstaller releaseInstaller; }
 else
   {})
