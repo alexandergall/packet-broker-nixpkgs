@@ -70,7 +70,7 @@ let
         paths = [ bf-sde.pkgs.bf-utils ];
       };
     };
-  releases = builtins.map release (builtins.attrValues bf-sde.pkgs.kernel-modules);
+  releases = builtins.mapAttrs (_: modules: release modules) bf-sde.pkgs.kernel-modules;
 
   ## The closure of the set of all releases.  This is the set of paths
   ## that needs to be available on a binary cache for pure binary
@@ -81,7 +81,8 @@ let
   ## parties.  The post-build hook is triggered by the name
   ## of the derivation.
   releasesClosure = (pkgs.closureInfo {
-    rootPaths = builtins.foldl' (final: next: final ++ (builtins.attrValues next)) [] releases;
+    rootPaths = builtins.foldl' (final: next: final ++ (builtins.attrValues next)) []
+                                (builtins.attrValues releases);
   }).overrideAttrs (_: { name = "packet-broker-releases-closure"; });
 
   mkOnieInstaller = pkgs.callPackage (pkgs.fetchgit {

@@ -6,7 +6,8 @@ cleanup () {
 export TMPDIR=$(mktemp -d /tmp/selfextract.XXXXXX)
 trap cleanup EXIT TERM INT
 archive=$(awk '/^___ARCHIVE_BELOW___/ {print NR + 1; exit 0; }' $0)
-tail -n+$archive $0 | tar x -C $TMPDIR
+echo "Unpacking archive"
+tail -n+$archive $0 | tar xJ -C $TMPDIR
 cwd=$(pwd)
 cd $TMPDIR
 ./install.sh

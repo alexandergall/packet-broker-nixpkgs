@@ -11,7 +11,7 @@ error () {
     exit 1
 }
 
-echo "Installing packet broker $version($versionID)"\
+echo "Installing packet broker release $version (Id: $versionID)"\
      "for kernel $kernelRelease in $profile"
 [ $(id -u) == 0 ] || error "Please run this command as root"
 
@@ -43,14 +43,26 @@ echo "Registering paths in DB"
 cat $closureInfo/registration | nix-store --load-db
 
 echo "Installing the service in $profile"
-cat $closureInfo/rootPaths
-nix-env -p $profile -i -r $(cat $closureInfo/rootPaths)
-gen=$(readlink $profile | sed -e 's/.*-\([0-9]*\)-link$/\1/')
-nix-env -p $profile --rollback
+current_gen () {
+    [ -e $profile ] || echo ""
+    echo $(readlink $profile | sed -e 's/.*-\([0-9]*\)-link$/\1/')
+}
 
+gen=$(current_gen)
+nix-env -p $profile -i -r $(cat $closureInfo/rootPaths)
 echo
 echo "Installation completed"
-echo "Use \"release-manager --switch-to-generation $gen\" to switch to this release"
+if [ -n "$gen" ]; then
+    if [ $(current_gen) != $gen ]; then
+	nix-env -p $profile --rollback
+	echo "Use \"release-manager --switch-to-generation $gen\" to switch to this release"
+    else
+	echo -n "The new release is identical to that "
+        echo -n "in the latest generation ($gen) of the profile, "
+	echo    "nothing changed"
+    fi
+fi
+
 echo
 echo "Currently installed releases:"
 $profile/bin/release-manager --list-installed

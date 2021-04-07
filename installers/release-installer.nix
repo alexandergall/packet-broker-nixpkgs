@@ -10,7 +10,7 @@ let
     in builtins.concatStringsSep ":" (
        [ modules.kernelID modules.release closure ]
        ++ rootPaths);
-  releaseInfos = builtins.map releaseInfo releases;
+  releaseInfos = builtins.map releaseInfo (builtins.attrValues releases);
 in runCommand "packet-broker-release-installer" {
   inherit releaseInfos;
 } ''
@@ -36,6 +36,7 @@ in runCommand "packet-broker-release-installer" {
 
   tar cf store-paths.tar $(cat $storePaths | sort | uniq | tr '\n' ' ')
   cp ${versionFiles.version + "/version"} version
+  cp version $out
   cp ${versionFiles.version-id + "/version.id"} version.id
   echo ${nixProfile} >profile
   cp ${./install.sh} install.sh
@@ -46,9 +47,8 @@ in runCommand "packet-broker-release-installer" {
 
   tar cf ../archive.tar *
   cd ..
-  #xz -T0 archive.tar
-  #cat ${./self-extractor.sh} archive.tar.xz >$out/installer.sh
-  cat ${./self-extractor.sh} archive.tar >$out/installer.sh
+  xz -T0 archive.tar
+  cat ${./self-extractor.sh} archive.tar.xz >$out/installer.sh
   chmod a+x $out/installer.sh
   patchShebangs $out/installer.sh
 ''
