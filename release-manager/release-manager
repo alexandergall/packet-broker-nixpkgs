@@ -7,6 +7,7 @@ REPO_GIT="https://github.com//alexandergall/packet-broker-nixpkgs"
 REPO_API="https://api.github.com/repos/alexandergall/packet-broker-nixpkgs"
 
 PATH=/nix/var/nix/profiles/default/bin:@PATH@
+NIX_PATH=
 
 self=$(basename $0)
 
@@ -91,7 +92,7 @@ while [ $# -gt 0 ]; do
 done
 [ $# -gt 1 ] && usage
 
-declare -A gens gens_by_path gens_by_id install_date available_releases
+declare -A gens gens_by_path gens_by_id versions_by_id install_date available_releases
 
 for path in $PROFILE-*-link; do
     [ -h $path ] || continue
@@ -101,6 +102,7 @@ for path in $PROFILE-*-link; do
     gens_by_path[$short_path]=$gen
     id=$(cat $path/version.id)
     gens_by_id[$id]=$gen
+    versions_by_id[$id]=$(cat $path/version)
     install_date[$gen]=$(stat -c "%z" $path)
 done
 current_path=$(readlink $PROFILE)
@@ -221,11 +223,25 @@ switch_to_generation () {
     $PROFILE/bin/release-manager --activate
 }
 
+_check_installed () {
+    local gen
+    gen=${gens_by_id[$1]}
+    if [ -n "$gen" ]; then
+	version=${versions_by_id[$1]}
+        echo "Release $version (Id: $1) is already installed as generation $gen"
+        exit 1
+    fi
+}
+
 _install () {
     nix-env -f . -p $PROFILE -r -i -A install --argstr gitTag $1
+    new_gen=$(readlink $PROFILE | sed -e 's/.*-\([0-9]*\)-link$/\1/')
     ## nix-env has automatically switched to the new
     ## generation, revert back
-    nix-env -p $PROFILE --switch-generation $current_gen
+    nix-env -p $PROFILE --switch-generation $current_gen 2>/dev/null
+
+    echo -n "Use \"release-manager --switch-to-generation $new_gen\" to "
+    echo    "switch to the new release"
 }
 
 install_git () {
@@ -238,7 +254,9 @@ install_git () {
     git fetch origin
     git reset --hard $install_git
 
-    _install $(git describe --always)
+    tag=$(git describe --always)
+    _check_installed $tag
+    _install $tag
 
     popd >/dev/null
     rm -rf $tmp
@@ -246,24 +264,21 @@ install_git () {
 
 install_release () {
     check_root
-    gen=${gens_by_id[$install_release]}
-    if [ -n "$gen" ]; then
-        echo "Release $install_release is already installed as generation $gen"
-        exit 1
-    fi
     get_available_releases
-    if [ -z "${available_releases[$install_release]}" ]; then
+    tag=${available_releases[$install_release]}
+    if [ -z "$tag" ]; then
         echo "Release $install_release does not exist"
         exit 1
     fi
-    tarball=$REPO_GIT/archive/${available_versions[$install_release]}.tar.gz
+    _check_installed $tag
+    tarball=$REPO_GIT/archive/$tag.tar.gz
     echo "Fetching package release tarball $tarball"
     tmp=$(mktemp -d)
     pushd $tmp >/dev/null
     curl -L -O $tarball 2>/dev/null
     tar xf release-* --strip-component 1
 
-    _install $install_release
+    _install $tag
 
     popd >/dev/null
     rm -rf $tmp
