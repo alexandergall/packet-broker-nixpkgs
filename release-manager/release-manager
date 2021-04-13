@@ -31,7 +31,7 @@ opts=$(getopt -l list-installed \
               -l list-available \
               -l switch-to-generation: \
               -l install-release: \
-	      -l install-git: \
+              -l install-git: \
               -l uninstall-generation: \
               -l activate-current \
               -l deactivate-current \
@@ -92,21 +92,34 @@ while [ $# -gt 0 ]; do
 done
 [ $# -gt 1 ] && usage
 
-declare -A gens gens_by_path gens_by_id versions_by_id install_date available_releases
+declare -A gens gens_by_id install_dates installed_releases available_releases
+declare -A slices
+
+gen_from_path () {
+    echo $1 | sed -e 's/.*-\([0-9]*\)-link$/\1/'
+}
 
 for path in $PROFILE-*-link; do
     [ -h $path ] || continue
-    short_path=$(basename $path)
-    gen=$(echo $short_path | sed -e 's/.*-\([0-9]*\)-link$/\1/')
-    gens[$gen]=$short_path
-    gens_by_path[$short_path]=$gen
-    id=$(cat $path/version.id)
-    gens_by_id[$id]=$gen
-    versions_by_id[$id]=$(cat $path/version)
-    install_date[$gen]=$(stat -c "%z" $path)
+    slice=$(cat $path/slice)
+    id=$(cat $path/version):$slice
+    gen=$(gen_from_path $path)
+    if [ -n "${gens_by_id[$id]}" ]; then
+        echo "Generation $gen is a duplicate of ${gens_by_id[$id]}, ignoring"
+    else
+        gens[$gen]=$id
+        gens_by_id[$id]=$gen
+        install_dates[$gen]=$(stat -c "%z" $path)
+        slices[$gen]=$slice
+
+        read version gitTag rest < <(echo $id | tr ':' ' ')
+        if [ "release-$version" == "$gitTag" ]; then
+            installed_releases[$version]="${installed_releases[$version]} $gen"
+        fi
+    fi
 done
-current_path=$(readlink $PROFILE)
-current_gen=${gens_by_path[$current_path]}
+current_gen=$(gen_from_path $(readlink $PROFILE))
+kernel_release=$(uname -r)
 
 check_root () {
     [ $(id -u) == 0 ] && return
@@ -134,17 +147,17 @@ activate () {
     done
     systemctl daemon-reload
     for dir in $CONFIG_DIR $SNMP_CONFIG_DIR $SNMP_STATE_DIR; do
-	[ -d $dir ] || mkdir -p $dir
+        [ -d $dir ] || mkdir -p $dir
     done
     for file in $SCHEMA $IFINDEX $INTERFACE_CONFIG; do
-	## For some weird reason, the Snabb SNMP agent barfs
-	## when doing a stat() on the ifindex file in the Nix
-	## store. So, instead of linking to the file, we copy
-	## it.  Need to figure what exactly the problem is.
-	cp $PROFILE$file $file
+        ## For some weird reason, the Snabb SNMP agent barfs
+        ## when doing a stat() on the ifindex file in the Nix
+        ## store. So, instead of linking to the file, we copy
+        ## it.  Need to figure what exactly the problem is.
+        cp $PROFILE$file $file
     done
     for config in $CONFIG $SNMPD_CONFIG; do
-	[ -e $config ] || cp $PROFILE$config $config
+        [ -e $config ] || cp $PROFILE$config $config
     done
     if [ ! -e $SHELL_PROFILE ]; then
         echo PATH=$PROFILE/bin:\$PATH >$SHELL_PROFILE
@@ -165,41 +178,38 @@ deactivate () {
 }
 
 list_installed () {
-    echo "Generation Current Release Install date                        Id"
-    echo "------------------------------------------------------------------------"
+    echo "Generation Current Release Git Tag      KernelID       Kernel Release            Install date"
+    echo "-------------------------------------------------------------------------------------------------------------------"
     for gen in $(printf '%s\n' "${!gens[@]}" | sort -n); do
-	path=$PROFILE_BASE/${gens[$gen]}
-        release=$(cat $path/version)
-	id=$(cat $path/version.id)
-        current=' '
-        [ $gen -eq $current_gen ] && current='*'
-        printf "%10d $current       %-7s %s %s\n" $gen $release "${install_date[$gen]}" $id
+        read version gitTag kernelID kernelRelease < <(echo ${gens[$gen]} | tr ':' ' ')
+        is_current=' '
+        [ $gen -eq $current_gen ] && is_current='*'
+        printf "%10d $is_current       %-7s %-12s %-14s %-25s %s\n" $gen $version $gitTag $kernelID $kernelRelease "${install_dates[$gen]}"
     done
 }
 
 get_available_releases () {
     echo "Checking for release tags of $REPO_GIT"
     for tag in $(curl $REPO_API/tags 2>/dev/null| jq '.[].name'); do
-        tag=$(echo $tag | sed -e 's/"//g')
-        [[ $tag =~ ^release-.*$ ]] || continue
-        release=$(echo $tag | cut -d- -f2)
-        available_releases[$release]=$tag
+        gitTag=$(echo $tag | sed -e 's/"//g')
+        [[ $gitTag =~ ^release-.*$ ]] || continue
+        version=$(echo $gitTag | cut -d- -f2)
+        available_releases[$version]=$gitTag
     done
 }
 
 list_available () {
     get_available_releases
     echo
-    echo "Release  Status"
+    echo "Version  Status"
     echo "-----------------------------------------------"
-    for release in $(printf '%s\n' "${!available_releases[@]}" | sort); do
-        printf "%8s  " $release
-	id=${available_releases[$release]}
-        gen="${gens_by_id[$id]}"
-        if [ -n "$gen" ]; then
-            echo "Locally installed as generation $gen"
+    for version in $(printf '%s\n' "${!available_releases[@]}" | sort); do
+        printf "%8s  " $version
+        if [ -n "${installed_releases[$version]}" ]; then
+            printf 'Installed in generaton(s) %s\n'\
+                   $(echo "${installed_releases[$version]}" | sed -e 's/^ //;s/ /, /g')
         else
-            echo "Not installed locally"
+            echo "Not installed"
         fi
     done
 }
@@ -216,6 +226,17 @@ switch_to_generation () {
     fi
     echo "Deactivating current instance"
     deactivate
+    if [ "${slices[$switch_to_generation]}" != "${slices[$current_gen]}" ]; then
+        ## Kernel has changed, unload modules and let them
+        ## be reloaded by the wrapper during activation.
+        echo "New generation uses a different kernel (${slices[$switch_to_generation]})"
+        for module in $(lsmod | awk '{print $1}'); do
+            if [[ $module =~ bf_ ]]; then
+                echo "Unloading module $module"
+                rmmod $module
+            fi
+        done
+    fi
     nix-env -p $PROFILE --switch-generation $switch_to_generation
     ## The new release may have a different activation procedure.  Use
     ## its native release-manager to perform the activation.
@@ -224,18 +245,23 @@ switch_to_generation () {
 }
 
 _check_installed () {
-    local gen
-    gen=${gens_by_id[$1]}
+    gitTag=$1
+    version=$(echo $gitTag | cut -d- -f2)
+    kernel_id=$(nix eval --raw \
+                    '(with import ./. { gitTag = "'$gitTag'"; kernelRelease = "'$kernel_release'"; };
+                     install.moduleWrapper.modules.kernelID)')
+    id=$version:$gitTag:$kernel_id:$kernel_release
+    gen=${gens_by_id[$id]}
     if [ -n "$gen" ]; then
-	version=${versions_by_id[$1]}
-        echo "Release $version (Id: $1) is already installed as generation $gen"
+        echo "Release $version (Id: $id) is already installed as generation $gen"
         exit 1
     fi
 }
 
 _install () {
-    nix-env -f . -p $PROFILE -r -i -A install --argstr gitTag $1
-    new_gen=$(readlink $PROFILE | sed -e 's/.*-\([0-9]*\)-link$/\1/')
+    gitTag=$1
+    nix-env -f . -p $PROFILE -r -i -A install --argstr gitTag $gitTag --argstr kernelRelease $kernel_release
+    new_gen=$(gen_from_path $(readlink $PROFILE))
     ## nix-env has automatically switched to the new
     ## generation, revert back
     nix-env -p $PROFILE --switch-generation $current_gen 2>/dev/null
@@ -254,9 +280,9 @@ install_git () {
     git fetch origin
     git reset --hard $install_git
 
-    tag=$(git describe --always)
-    _check_installed $tag
-    _install $tag
+    gitTag=$(git describe --always)
+    _check_installed $gitTag
+    _install $gitTag
 
     popd >/dev/null
     rm -rf $tmp
@@ -265,20 +291,20 @@ install_git () {
 install_release () {
     check_root
     get_available_releases
-    tag=${available_releases[$install_release]}
-    if [ -z "$tag" ]; then
+    gitTag=${available_releases[$install_release]}
+    if [ -z "$gitTag" ]; then
         echo "Release $install_release does not exist"
         exit 1
     fi
-    _check_installed $tag
-    tarball=$REPO_GIT/archive/$tag.tar.gz
+    tarball=$REPO_GIT/archive/$gitTag.tar.gz
     echo "Fetching package release tarball $tarball"
     tmp=$(mktemp -d)
     pushd $tmp >/dev/null
     curl -L -O $tarball 2>/dev/null
     tar xf release-* --strip-component 1
 
-    _install $tag
+    _check_installed $gitTag
+    _install $gitTag
 
     popd >/dev/null
     rm -rf $tmp
@@ -294,7 +320,7 @@ uninstall_generation () {
         echo "Can't uninstall current generation"
         exit 1
     fi
-    nix-env -p $PROFILE --delete-generations $gen
+    nix-env -p $PROFILE --delete-generations $uninstall_generation
 }
 
 cleanup () {

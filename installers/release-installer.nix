@@ -1,43 +1,33 @@
-{ releases, versionFiles, nixProfile, lib, runCommand, closureInfo,
+{ release, version, gitTag, nixProfile, lib, runCommand, closureInfo,
   coreutils, gnutar, gnused, rsync }:
 
 let
-  releaseInfo = release:
+  sliceInfo = slice:
     let
-      rootPaths = builtins.attrValues release;
+      rootPaths = builtins.attrValues slice;
       closure = closureInfo { inherit rootPaths; };
-      modules = release.moduleWrapper.modules;
+      modules = slice.moduleWrapper.modules;
     in builtins.concatStringsSep ":" (
-       [ modules.kernelID modules.release closure ]
+       with modules; [ kernelID kernelRelease closure ]
        ++ rootPaths);
-  releaseInfos = builtins.map releaseInfo (builtins.attrValues releases);
+  sliceInfos = builtins.map sliceInfo (builtins.attrValues release);
 in runCommand "packet-broker-release-installer" {
-  inherit releaseInfos;
+  inherit sliceInfos;
 } ''
-  mkdir $out
-
   mkdir tmp
   cd tmp
   storePaths=
-  for info in $releaseInfos; do
-    IFS=:
-    set -- $info
-    kernelID=$1
-    release=$2
-    closureInfo=$3
-    IFS=" "
-    dest=$release/$kernelID
+  for info in $sliceInfos; do
+    read kernelID kernelRelease closureInfo rootPaths < <(echo $info | tr ':' ' ')
+    dest=$kernelRelease/$kernelID
     mkdir -p $dest
     cp $closureInfo/{registration,store-paths} $dest
     storePaths="$storePaths $closureInfo/store-paths"
-    shift 3
-    echo "$@" >$dest/rootPaths
+    echo "$rootPaths" >$dest/rootPaths
   done
 
   tar cf store-paths.tar $(cat $storePaths | sort | uniq | tr '\n' ' ')
-  cp ${versionFiles.version + "/version"} version
-  cp version $out
-  cp ${versionFiles.version-id + "/version.id"} version.id
+  echo "${version}:${gitTag}" >version
   echo ${nixProfile} >profile
   cp ${./install.sh} install.sh
   chmod a+x install.sh
@@ -48,7 +38,10 @@ in runCommand "packet-broker-release-installer" {
   tar cf ../archive.tar *
   cd ..
   xz -T0 archive.tar
+
+  mkdir $out
   cat ${./self-extractor.sh} archive.tar.xz >$out/installer.sh
   chmod a+x $out/installer.sh
   patchShebangs $out/installer.sh
+  echo ${version} >$out/version
 ''

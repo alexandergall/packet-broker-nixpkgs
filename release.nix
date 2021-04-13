@@ -6,7 +6,7 @@ with import ./. { inherit (src) gitTag; };
 ## closure. releasesClosure is used by the Hydra post-build hook
 ## to copy the closure to a separate binary cache.
 {
-  inherit releases releasesClosure;
+  inherit release releaseClosure;
 } //
 ## Build the installers for releases only
 (if ((builtins.match "release-[0-9]+" src.gitTag) != null) && buildInstallers then
