@@ -87,8 +87,8 @@ let
 
   mkOnieInstaller = pkgs.callPackage (pkgs.fetchgit {
     url = "https://github.com/alexandergall/onie-debian-nix-installer";
-    rev = "13ab11c";
-    sha256 = "0byp0jivwaz1365kbma644iyvzv4m0b8v3r7k9v9q6wa7c63gkxm";
+    rev = "2adc7d6";
+    sha256 = "0l95r97knig3pyk0zmbijpk5lih30hn3azmngk2rdjm7ag9vm12p";
   }) {};
   onieInstaller = mkOnieInstaller {
     inherit nixProfile version;
