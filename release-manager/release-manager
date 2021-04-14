@@ -175,6 +175,10 @@ deactivate () {
     for service in $PROFILE/$SYSTEMD_DIR/*.service; do
         systemctl disable $(basename $service)
     done
+    echo "Unloading kernel modules"
+    for module in $(lsmod | awk '{print $1}'); do
+        [[ $module =~ bf_ ]] && rmmod $module || true
+    done
 }
 
 list_installed () {
@@ -226,17 +230,6 @@ switch_to_generation () {
     fi
     echo "Deactivating current instance"
     deactivate
-    if [ "${slices[$switch_to_generation]}" != "${slices[$current_gen]}" ]; then
-        ## Kernel has changed, unload modules and let them
-        ## be reloaded by the wrapper during activation.
-        echo "New generation uses a different kernel (${slices[$switch_to_generation]})"
-        for module in $(lsmod | awk '{print $1}'); do
-            if [[ $module =~ bf_ ]]; then
-                echo "Unloading module $module"
-                rmmod $module
-            fi
-        done
-    fi
     nix-env -p $PROFILE --switch-generation $switch_to_generation
     ## The new release may have a different activation procedure.  Use
     ## its native release-manager to perform the activation.
