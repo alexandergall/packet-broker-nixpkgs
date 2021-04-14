@@ -101,7 +101,7 @@ _cleanup () {
 
 trap _cleanup EXIT TERM INT
 
-if [ $(tput colors) -gt 1 ]; then
+if [ -t 0 -a $(tput colors) -gt 1 ]; then
     red=$(tput setaf 1)
     green=$(tput setaf 2)
     normal=$(tput sgr0)
@@ -187,14 +187,14 @@ activate () {
         echo PATH=$PROFILE/bin:\$PATH >$SHELL_PROFILE
     fi
     INFO "Starting services"
-    systemctl start packet-broker
+    systemctl start packet-broker snmpd
 }
 
 ### Deactivate the current profile
 deactivate () {
     check_root
     INFO "Stopping services"
-    systemctl stop packet-broker
+    systemctl stop snmpd packet-broker
     INFO "Disabling services"
     for service in $PROFILE/$SYSTEMD_DIR/*.service; do
         systemctl disable $(basename $service)
