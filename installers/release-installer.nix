@@ -1,5 +1,5 @@
 { release, version, gitTag, nixProfile, lib, runCommand, closureInfo,
-  coreutils, gnutar, gnused, rsync }:
+  coreutils, gnutar, gnused, rsync, ncurses }:
 
 let
   sliceInfo = slice:
@@ -33,7 +33,7 @@ in runCommand "packet-broker-release-installer" {
   chmod a+x install.sh
   patchShebangs install.sh
   substituteInPlace install.sh --subst-var-by PATH \
-    "${lib.strings.makeBinPath [ coreutils gnutar gnused rsync ]}"
+    "${lib.strings.makeBinPath [ coreutils gnutar gnused rsync ncurses ]}"
 
   tar cf ../archive.tar *
   cd ..

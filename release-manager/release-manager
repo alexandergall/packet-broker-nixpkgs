@@ -92,6 +92,30 @@ while [ $# -gt 0 ]; do
 done
 [ $# -gt 1 ] && usage
 
+paths_to_rm=()
+_cleanup () {
+    for path in ${paths_to_rm[@]}; do
+	rm -rf $path
+    done
+}
+
+trap _cleanup EXIT TERM INT
+
+if [ $(tput colors) -gt 1 ]; then
+    red=$(tput setaf 1)
+    green=$(tput setaf 2)
+    normal=$(tput sgr0)
+fi
+
+INFO () {
+    echo "${green}INFO: $@${normal}"
+}
+
+ERROR () {
+    echo "${red}ERROR: $@${normal}"
+    exit 1
+}
+
 declare -A gens gens_by_id install_dates installed_releases available_releases
 declare -A slices
 
@@ -105,7 +129,7 @@ for path in $PROFILE-*-link; do
     id=$(cat $path/version):$slice
     gen=$(gen_from_path $path)
     if [ -n "${gens_by_id[$id]}" ]; then
-        echo "Generation $gen is a duplicate of ${gens_by_id[$id]}, ignoring"
+        INFO "Generation $gen is a duplicate of ${gens_by_id[$id]}, ignoring"
     else
         gens[$gen]=$id
         gens_by_id[$id]=$gen
@@ -123,7 +147,7 @@ kernel_release=$(uname -r)
 
 check_root () {
     [ $(id -u) == 0 ] && return
-    echo "Please run this command as root"
+    ERROR "Please run this command as root"
     exit 1
 }
 
@@ -140,7 +164,7 @@ INTERFACE_CONFIG=$SNMP_STATE_DIR/interface.conf
 SHELL_PROFILE=/etc/profile.d/packet-broker.sh
 activate () {
     check_root
-    echo "Enabling services"
+    INFO "Enabling services"
     for service in $PROFILE$SYSTEMD_DIR/*.service; do
         ln -fs $service $SYSTEMD_DIR
         systemctl enable $(basename $service)
@@ -162,20 +186,20 @@ activate () {
     if [ ! -e $SHELL_PROFILE ]; then
         echo PATH=$PROFILE/bin:\$PATH >$SHELL_PROFILE
     fi
-    echo "Starting services"
+    INFO "Starting services"
     systemctl start packet-broker
 }
 
 ### Deactivate the current profile
 deactivate () {
     check_root
-    echo "Stopping services"
+    INFO "Stopping services"
     systemctl stop packet-broker
-    echo "Disabling services"
+    INFO "Disabling services"
     for service in $PROFILE/$SYSTEMD_DIR/*.service; do
         systemctl disable $(basename $service)
     done
-    echo "Unloading kernel modules"
+    INFO "Unloading kernel modules"
     for module in $(lsmod | awk '{print $1}'); do
         [[ $module =~ bf_ ]] && rmmod $module || true
     done
@@ -193,7 +217,7 @@ list_installed () {
 }
 
 get_available_releases () {
-    echo "Checking for release tags of $REPO_GIT"
+    INFO "Checking for release tags of $REPO_GIT"
     for tag in $(curl $REPO_API/tags 2>/dev/null| jq '.[].name'); do
         gitTag=$(echo $tag | sed -e 's/"//g')
         [[ $gitTag =~ ^release-.*$ ]] || continue
@@ -221,19 +245,17 @@ list_available () {
 switch_to_generation () {
     check_root
     if [ -z "${gens[$switch_to_generation]}" ]; then
-        echo "Generation $switch_to_generation does not exist"
-        exit 1
+        ERROR "Generation $switch_to_generation does not exist"
     fi
     if [ $switch_to_generation -eq $current_gen ]; then
-        echo "Generation $switch_to_generation is already the current version"
-        exit 1
+        ERROR "Generation $switch_to_generation is already the current version"
     fi
-    echo "Deactivating current instance"
+    INFO "Deactivating current instance"
     deactivate
     nix-env -p $PROFILE --switch-generation $switch_to_generation
     ## The new release may have a different activation procedure.  Use
     ## its native release-manager to perform the activation.
-    echo "Activating new instance"
+    INFO "Activating new instance"
     $PROFILE/bin/release-manager --activate
 }
 
@@ -246,8 +268,7 @@ _check_installed () {
     id=$version:$gitTag:$kernel_id:$kernel_release
     gen=${gens_by_id[$id]}
     if [ -n "$gen" ]; then
-        echo "Release $version (Id: $id) is already installed as generation $gen"
-        exit 1
+        ERROR "Release $version (Id: $id) is already installed as generation $gen"
     fi
 }
 
@@ -259,26 +280,28 @@ _install () {
     ## generation, revert back
     nix-env -p $PROFILE --switch-generation $current_gen 2>/dev/null
 
-    echo -n "Use \"release-manager --switch-to-generation $new_gen\" to "
-    echo    "switch to the new release"
+    INFO "Use \"release-manager --switch-to-generation $new_gen\" to switch to the new release"
 }
 
 install_git () {
     check_root
     tmp=$(mktemp -d)
+    paths_to_rm+=$tmp
     pushd $tmp >/dev/null
-    echo "Fetching $install_git"
-    git init
+    INFO "Fetching $install_git"
+    git init -b master
     git remote add origin $REPO_GIT
     git fetch origin
     git reset --hard $install_git
 
     gitTag=$(git describe --always)
+    if ! [[ "$gitTag" =~ ^release-.*$ ]]; then
+        ERROR "Commits preceeding release-1 are not supported"
+    fi
     _check_installed $gitTag
     _install $gitTag
 
     popd >/dev/null
-    rm -rf $tmp
 }
 
 install_release () {
@@ -286,12 +309,12 @@ install_release () {
     get_available_releases
     gitTag=${available_releases[$install_release]}
     if [ -z "$gitTag" ]; then
-        echo "Release $install_release does not exist"
-        exit 1
+        ERROR "Release $install_release does not exist"
     fi
     tarball=$REPO_GIT/archive/$gitTag.tar.gz
-    echo "Fetching package release tarball $tarball"
+    INFO "Fetching package release tarball $tarball"
     tmp=$(mktemp -d)
+    paths_to_rm+=$tmp
     pushd $tmp >/dev/null
     curl -L -O $tarball 2>/dev/null
     tar xf release-* --strip-component 1
@@ -306,12 +329,10 @@ install_release () {
 uninstall_generation () {
     check_root
     if [ -z "${gens[$uninstall_generation]}" ]; then
-        echo "Generation $uninstall_generation does not exist"
-        exit 1
+        ERROR "Generation $uninstall_generation does not exist"
     fi
     if [ $uninstall_generation -eq $current_gen ]; then
-        echo "Can't uninstall current generation"
-        exit 1
+        ERROR "Can't uninstall current generation"
     fi
     nix-env -p $PROFILE --delete-generations $uninstall_generation
 }

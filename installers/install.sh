@@ -8,8 +8,18 @@ kernelRelease=${KERNEL_RELEASE:-$(uname -r)}
 PATH=/nix/var/nix/profiles/default/bin:@PATH@
 NIX_PATH=
 
-error () {
-    echo "ERROR: $1"
+if [ $(tput colors) -gt 1 ]; then
+    red=$(tput setaf 1)
+    green=$(tput setaf 2)
+    normal=$(tput sgr0)
+fi
+
+INFO () {
+    echo "${green}INFO: $@${normal}"
+}
+
+ERROR () {
+    echo "${red}ERROR: $@${normal}"
     exit 1
 }
 
@@ -25,7 +35,7 @@ for path in $PROFILE-*-link; do
     gen=$(gen_from_path $path)
     gens[$gen]=$id
     if [ -n "${gens_by_id[$id]}" ]; then
-        echo "Generation $gen is duplicate of ${gens_by_id[$id]}, ignoring"
+        INFO "Generation $gen is duplicate of ${gens_by_id[$id]}, ignoring"
     else
         gens_by_id[$id]=$gen
     fi
@@ -36,23 +46,23 @@ if [ -h $PROFILE ]; then
 fi
 
 read version gitTag < <(echo $partial_id | tr ':' ' ')
-echo "Installing packet broker release $version (Id: $partial_id)"\
+INFO "Installing packet broker release $version (Id: $partial_id)"\
      "for kernel $kernelRelease in $PROFILE"
-[ $(id -u) == 0 ] || error "Please run this command as root"
+[ $(id -u) == 0 ] || ERROR "Please run this command as root"
 
-[ -d $kernelRelease ] || error "Unsupported kernel"
+[ -d $kernelRelease ] || ERROR "Unsupported kernel"
 kernelIDs=$kernelRelease/*
 if [ $(echo $kernelIDs | wc -w) -gt 1 ]; then
-    echo "Modules for $kernelRelease are provided by multiple packages:"
+    INFO "Modules for $kernelRelease are provided by multiple packages:"
     for id in kernelIDs; do
         echo $(basename $id)
     done
     [ -n "$SDE_KERNEL_ID" ] || \
-        error "Please set SDE_KERNEL_ID to one of "\
+        ERROR "Please set SDE_KERNEL_ID to one of "\
               "the values above to select a particular package"
     closureInfo=$kernelRelease/$SDE_KERNEL_ID
     [ -d  $closureInfo ] || \
-        error "SDE_KERNEL_ID: invalid value $SDE_KERNEL_ID"
+        ERROR "SDE_KERNEL_ID: invalid value $SDE_KERNEL_ID"
     kernel_id=$SDE_KERNEL_ID
 else
     kernel_id=$(basename $kernelIDs)
@@ -61,32 +71,31 @@ fi
 
 id=${partial_id}:${kernel_id}:${kernelRelease}
 if [ -n "${gens_by_id[$id]}" ]; then
-    echo "This release is already installed as generation ${gens_by_id[$id]}:"
+    INFO "This release is already installed as generation ${gens_by_id[$id]}:"
     $PROFILE/bin/release-manager --list-installed
     exit 1
 fi
 
-echo "Copying store paths"
+INFO "Copying store paths"
 tar xf store-paths.tar
 for path in $(cat $closureInfo/store-paths); do
     path=$(echo $path | sed -e 's,^/,,')
     rsync -a $path /nix/store
 done
 
-echo "Registering paths in DB"
+INFO "Registering paths in DB"
 cat $closureInfo/registration | nix-store --load-db
 
-echo "Installing the service in $PROFILE"
+INFO "Installing the service in $PROFILE"
 nix-env -p $PROFILE -i -r $(cat $closureInfo/rootPaths)
-echo
-echo "Installation completed"
+INFO "Installation completed"
 new_gen=$(gen_from_path $(readlink $PROFILE))
 if [ $current_gen -gt 0 ]; then
     nix-env -p $PROFILE --switch-generation $current_gen 2>/dev/null
-    echo "Use \"release-manager --switch-to-generation $new_gen\" to switch to this release"
+    INFO "Use \"release-manager --switch-to-generation $new_gen\" to switch to this release"
 else
-    echo "This is the first installation of the service."
-    echo "Use \"$PROFILE/bin/release-manager --activate\" to start."
+    INFO "This is the first installation of the service."
+    INFO "Use \"$PROFILE/bin/release-manager --activate\" to start."
 fi
 
 echo "Currently installed releases:"
