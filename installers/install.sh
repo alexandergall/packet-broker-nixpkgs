@@ -3,7 +3,7 @@ set -e
 
 partial_id=$(cat ./version)
 PROFILE=$(cat ./profile)
-kernelRelease=$(uname -r)
+kernelRelease=${KERNEL_RELEASE:-$(uname -r)}
 
 PATH=/nix/var/nix/profiles/default/bin:@PATH@
 NIX_PATH=
