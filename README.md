@@ -4,7 +4,26 @@ Packaging of the [P4 Packet
 Broker](https://github.com/alexandergall/packet-broker) for the Nix
 package manager.
 
-## Overview
+Contents
+
+   * [Overview](#overview)
+   * [Supported Platforms](#supportedPlatforms)
+   * [Initial Setup using the Pre-Built ONIE Installer](#ONIE)
+   * [Configuration and Usage](#configurationUsage)
+      * [`systemd` services](#systemdServices)
+	  * [Packet Broker Configuration](#packetBrokerConfiguration)
+	  * [`bf_switchd` CLI](#bfSwitchdCLI)
+   * [Release Management](#releaseManagement)
+      * [Versioning](#versioning)
+	  * [Release Contents](#releaseContents)
+	  * [Kernel Support](#kernelSupport)
+	  * [Using the Release Manager](#usingReleaseManager)
+	  * [Standalone Release Installer](#standaloneInstaller)
+   * [Building](#building)
+      * [From Scratch](#buildingScratch)
+	  * [Installers from pre-Built Packages](#buildingPreBuilt)
+
+## <a name="overview"></a>Overview
 
 The set of packages produced by this Nix expression provides a
 complete deployment of the Packet Broker as an appliance on systems
@@ -60,7 +79,7 @@ Broker project, those packages are publicly available from a
 repository hosted at `p4.cache.nix.net.switch.ch`. The [ONIE
 installer](#ONIE) comes with this repository pre-configured.
 
-## Supported Platforms
+## <a name="supportedPlatforms"></a>Supported Platforms
 
 The packages only support Tofino ASICs of the first generation at this
 time.  Currently, the only verified platform is
@@ -97,7 +116,7 @@ loader of the Debian system includes an entry to chain-load the ONIE
 boot loader to make it easy to perform ONIE operations after an image
 has been installed.
 
-## Configuration and Usage
+## <a name="configurationUsage"></a>Configuration and Usage
 
 After the initial setup, the system has the following properties
 
@@ -115,7 +134,7 @@ The OS can be freely configured as a regular Debian system. Changes to
 the Debian packages will not impact the Packet Broker service in any
 way, except for a change of kernel.
 
-### `systemd` services
+### <a name="systemdServices"></a>`systemd` services
 
 The Packet Broker implements the following `systemd` services.
 
@@ -144,7 +163,7 @@ and `snabb-snmp-agent` must also be enabled (which is the default).
 This also requires the configuration of access rules (SNMP community
 strings and access-lists) in `/etc/snmp/snmpd.conf`.
 
-### Packet Broker Configuration
+### <a name="packetBrokerConfiguration"></a>Packet Broker Configuration
 
 To configure the Packet Broker, edit `/etc/packet-broker/config.json`
 and execute either
@@ -163,13 +182,13 @@ For a complete description of the available options for `config.json`
 and the `brokerctl` command please refer to the [Packet Broker
 documentation](https://github.com/alexandergall/packet-broker/blob/master/README.md)
 
-### `bf_switchd` CLI
+### <a name="bfSwitchdCLI"></a>`bf_switchd` CLI
 
 Use the `bfshell` command to enter the CLI provided by the
 `bf_switchd` daemon.  Please refer to the documentation provided by
 Intel on how to use the CLI.
 
-## Release Management
+## <a name="releaseManagement"></a>Release Management
 
 The maintenance of releases of the Packet Broker service is performed
 with a separate utility called `release-manager`, which is part of the
@@ -241,10 +260,10 @@ commits in the second class can be further distinguished:
 
    * `<v>` is equal to `version`. Such a commit is an update of a
      principal release on a release branch.
-   * `<v>` is equel to `version+1`. Such a commit is a pre-release of
-     release `version+1` on the `master` branch.
+   * `<v>` is equel to `version-1`. Such a commit is a pre-release of
+     release `version` on the `master` branch.
 
-### Release Contents
+### <a name="releaseContents"></a>Release Contents
 
 A release of the Packet Broker service is comprised of the following
 components
@@ -318,7 +337,7 @@ following one-to-one correspondence holds for the kernels with
    * `<kernelID>` = `Debian10_8` <=> `<kernelRelease>` = 4.19.0-14-amd64
    * `<kernelID>` = `Debian10_9` <=> `<kernelRelease>` = 4.19.0-16-amd64
 
-### Using the Release Manager
+### <a name="usingReleaseManager"></a>Using the Release Manager
 
 All manipulations of releases are performed with the `release-manager`
 CLI tool which is part of every release. It supports the following
@@ -350,7 +369,7 @@ This option lists the currently installed releases
 
 ```
 $ release-manager --list-installed
-Generation Current Release Git ID       KernelID       Kernel Release            Install date
+Generation Current Release Git Tag      KernelID       Kernel Release            Install date
 -------------------------------------------------------------------------------------------------------------------
          1 *       1       release-1    Debian11       5.10.0-5-amd64            2021-04-14 08:00:16.832902563 +0000
 ```
@@ -368,7 +387,7 @@ time as detailed in the description of the `--activate-current` and
 _current_ release and is marked by a `*` in the "Current" column of
 the list.
 
-The "Release" and "Git ID" columns display the [versioning
+The "Release" and "Git Tag" columns display the [versioning
 information](#versioning).
 
 As explained in the section on [kernel support](#kernelSupport), a
@@ -444,7 +463,7 @@ $ release-manager --install-git origin/1
 
 This is equivalent to using the option `--update-release 1`.
 
-### `--update-release <version>`
+#### `--update-release <version>`
 
 This option is a shortcut for
 
@@ -579,7 +598,7 @@ those that were installed with the native method.
 
 ## <a name="building"></a>Building
 
-### From Scratch
+### <a name="buildingScratch"></a>From Scratch
 
 To build everything from scratch you need access to the Tofino SDE
 from Intel (currently available only by signing an NDA). You also need
@@ -638,7 +657,7 @@ $ nix-build -A onieInstaller
 The installer itself is the file `onie-installer.bin` located in that
 directory.
 
-### From pre-built Packages
+### <a name="buildingPreBuilt"></a>Installers From Pre-Built Packages
 
 The [public
 repository](http://hydra.nix.net.switch.ch/packet-broker/releases/)
