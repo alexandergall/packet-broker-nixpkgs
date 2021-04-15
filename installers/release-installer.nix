@@ -11,6 +11,7 @@ let
        with modules; [ kernelID kernelRelease closure ]
        ++ rootPaths);
   sliceInfos = builtins.map sliceInfo (builtins.attrValues release);
+  ID = "${version}:${gitTag}";
 in runCommand "packet-broker-release-installer" {
   inherit sliceInfos;
 } ''
@@ -27,7 +28,7 @@ in runCommand "packet-broker-release-installer" {
   done
 
   tar cf store-paths.tar $(cat $storePaths | sort | uniq | tr '\n' ' ')
-  echo "${version}:${gitTag}" >version
+  echo "${ID}" >version
   echo ${nixProfile} >profile
   cp ${./install.sh} install.sh
   chmod a+x install.sh
@@ -43,5 +44,5 @@ in runCommand "packet-broker-release-installer" {
   cat ${./self-extractor.sh} archive.tar.xz >$out/installer.sh
   chmod a+x $out/installer.sh
   patchShebangs $out/installer.sh
-  echo ${version} >$out/version
+  echo ${ID} >$out/version
 ''

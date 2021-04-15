@@ -19,6 +19,7 @@ usage () {
          --switch-to-generation GENERATION
          --install-release RELEASE
          --install-git COMMIT
+         --update-release RELEASE
          --uninstall-generation GENERATION
          --activate-current
          --deactivate-current
@@ -32,6 +33,7 @@ opts=$(getopt -l list-installed \
               -l switch-to-generation: \
               -l install-release: \
               -l install-git: \
+              -l update-release: \
               -l uninstall-generation: \
               -l activate-current \
               -l deactivate-current \
@@ -70,6 +72,10 @@ while [ $# -gt 0 ]; do
             install_git=$2
             shift 2
             ;;
+        --update-release)
+            update_release=$2
+            shift 2
+            ;;
         --activate-current)
             activate=1
             shift
@@ -95,7 +101,7 @@ done
 paths_to_rm=()
 _cleanup () {
     for path in ${paths_to_rm[@]}; do
-	rm -rf $path
+        rm -rf $path
     done
 }
 
@@ -112,7 +118,7 @@ INFO () {
 }
 
 ERROR () {
-    echo "${red}ERROR: $@${normal}"
+    echo "${red}ERROR: $@${normal}" >&2
     exit 1
 }
 
@@ -304,13 +310,19 @@ install_git () {
     popd >/dev/null
 }
 
-install_release () {
+_check_release () {
+    local release
+    release=$1
     check_root
     get_available_releases
-    gitTag=${available_releases[$install_release]}
+    gitTag=${available_releases[$release]}
     if [ -z "$gitTag" ]; then
-        ERROR "Release $install_release does not exist"
+        ERROR "Release $release does not exist"
     fi
+}
+
+install_release () {
+    _check_release $install_release
     tarball=$REPO_GIT/archive/$gitTag.tar.gz
     INFO "Fetching package release tarball $tarball"
     tmp=$(mktemp -d)
@@ -318,12 +330,19 @@ install_release () {
     pushd $tmp >/dev/null
     curl -L -O $tarball 2>/dev/null
     tar xf release-* --strip-component 1
-
     _check_installed $gitTag
     _install $gitTag
-
     popd >/dev/null
-    rm -rf $tmp
+}
+
+update_release () {
+    _check_release $update_release
+    result=$(curl $REPO_API/git/ref/heads/$gitTag 2>/dev/null)
+    if [ "$(jq '.message' <<<$result)" == '"Not Found"' ]; then
+        ERROR "Branch $gitTag does not exist"
+    fi
+    install_git=$(jq '.object.sha' <<<$result | sed -e 's/"//g')
+    install_git
 }
 
 uninstall_generation () {
@@ -346,6 +365,7 @@ cleanup () {
 [ -n "$switch_to_generation" ] && switch_to_generation
 [ -n "$install_release" ] && install_release
 [ -n "$install_git" ] && install_git
+[ -n "$update_release" ] && update_release
 [ -n "$uninstall_generation" ] && uninstall_generation
 [ -n "$activate" ] && activate
 [ -n "$deactivate" ] && deactivate

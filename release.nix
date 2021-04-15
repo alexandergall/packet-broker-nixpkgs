@@ -1,4 +1,4 @@
-{ src ? { gitTag = "WIP"; }, buildInstallers ? false }:
+{ src ? { gitTag = "WIP"; }, buildInstaller ? false }:
 
 with import ./. { inherit (src) gitTag; };
 
@@ -6,10 +6,10 @@ with import ./. { inherit (src) gitTag; };
 ## closure. releasesClosure is used by the Hydra post-build hook
 ## to copy the closure to a separate binary cache.
 {
-  inherit release releaseClosure;
+  inherit release releaseClosure releaseInstaller;
 } //
-## Build the installers for releases only
-(if ((builtins.match "release-[0-9]+" src.gitTag) != null) && buildInstallers then
-  { inherit onieInstaller releaseInstaller; }
+## Build the ONIE installer for principal releases only
+(if ((builtins.match "release-[^-]+" src.gitTag) != null) && buildInstaller then
+  { inherit onieInstaller; }
 else
   {})
