@@ -1,5 +1,5 @@
 {
-    "packet-broker": {
+    "development": {
         "enabled": 1,
         "hidden": false,
         "description": "Data plane code and control plane interface",
@@ -12,7 +12,7 @@
         "keepnr": 3,
         "inputs": {
             "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git master deepClone ", "emailresponsible": false },
-	    "buildInstaller": { "type": "boolean", "value": "true" }
+	    "buildInstaller": { "type": "boolean", "value": "false" }
         }
     }
 }

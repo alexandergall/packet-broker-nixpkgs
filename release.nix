@@ -6,10 +6,14 @@ with import ./. { inherit (src) gitTag; };
 ## closure. releasesClosure is used by the Hydra post-build hook
 ## to copy the closure to a separate binary cache.
 {
-  inherit release releaseClosure releaseInstaller;
+  inherit release releaseClosure;
 } //
-## Build the ONIE installer for principal releases only
-(if ((builtins.match "release-[^-]+" src.gitTag) != null) && buildInstaller then
-  { inherit onieInstaller; }
+(if buildInstaller then
+  { inherit releaseInstaller; }
+  // (if builtins.match "release-[^-]+" src.gitTag != null then
+       ## Build the ONIE installer for principal releases only
+       { inherit onieInstaller; }
+      else
+        {})
 else
   {})
