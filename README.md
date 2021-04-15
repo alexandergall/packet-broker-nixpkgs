@@ -8,6 +8,7 @@ Contents
 
    * [Overview](#overview)
    * [Supported Platforms](#supportedPlatforms)
+   * [Downloads](#downloads)
    * [Initial Setup using the Pre-Built ONIE Installer](#ONIE)
    * [Configuration and Usage](#configurationUsage)
       * [`systemd` services](#systemdServices)
@@ -94,6 +95,14 @@ non-native port configurations are also expected to work, with the
 possible exception of the management Ethernet and CDC-Ethernet (used
 for communication between the host and the BMC) interfaces due to
 different configurations of the PCIe bus.
+
+## <a name="downloads"></a>Downloads
+
+Installers for the releases of the Packet Broker are [available for
+download](http://hydra.nix.net.switch.ch/packet-broker/releases/). For
+each release, there is a ONIE-based installer for the initial version
+of the release named `onie-installer.bin` and one [standalone
+installer](#standaloneInstaller) for every update.
 
 ## <a name="ONIE"></a>Initial Setup using the Pre-Built ONIE Installer
 
@@ -659,16 +668,12 @@ directory.
 
 ### <a name="buildingPreBuilt"></a>Installers From Pre-Built Packages
 
-The [public
-repository](http://hydra.nix.net.switch.ch/packet-broker/releases/)
-only provides installers for "principal" releases (i.e. for those
-commits that carry a `release-<v>` tag). Installers for non-principal
-releases can be be built from the pre-built packages from
-`p4.cache.nix.net.switch.ch` without access to the source SDE packages.
-
-For this, just make sure that the following lines are part of
-`/etc/nix/nix.conf` (execute `systemctl restart nix-daemon` after
-modifying this file):
+Installers based on pre-built releases can be reproduced locally.
+This is necessary if you need an installer for the current development
+version, because the CI system does not perform these builds on the
+`master` branch.  To build the installers yourself, make sure that
+your build host uses the proper binary caches by checking that
+`/etc/nix/nix.conf` contains the lines
 
 ```
 extra-substituters = https://cache.nixos.org http://p4.cache.nix.net.switch.ch
@@ -676,5 +681,6 @@ trusted-substituters = https://cache.nixos.org http://p4.cache.nix.net.switch.ch
 trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= p4.cache.nix.net.switch.ch:cR3VMGz/gdZIdBIaUuh42clnVi5OS1McaiJwFTn5X5g=
 ```
 
-You can then proceed to build the `onieInstaller` and
+Don't forget to run `systemctl restart nix-daemon` after changing this
+files.  You can then proceed to build the `onieInstaller` and
 `releaseInstaller` packages as described in the previous chapter.
