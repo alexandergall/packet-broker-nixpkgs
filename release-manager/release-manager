@@ -212,13 +212,13 @@ deactivate () {
 }
 
 list_installed () {
-    echo "Generation Current Release Git Tag      KernelID       Kernel Release            Install date"
-    echo "-------------------------------------------------------------------------------------------------------------------"
+    echo "Generation Current Release Git Tag                  KernelID       Kernel Release            Install date"
+    echo "-------------------------------------------------------------------------------------------------------------------------------"
     for gen in $(printf '%s\n' "${!gens[@]}" | sort -n); do
         read version gitTag kernelID kernelRelease < <(echo ${gens[$gen]} | tr ':' ' ')
         is_current=' '
         [ $gen -eq $current_gen ] && is_current='*'
-        printf "%10d $is_current       %-7s %-12s %-14s %-25s %s\n" $gen $version $gitTag $kernelID $kernelRelease "${install_dates[$gen]}"
+        printf "%10d $is_current       %-7s %-24s %-14s %-25s %s\n" $gen $version $gitTag $kernelID $kernelRelease "${install_dates[$gen]}"
     done
 }
 
@@ -266,12 +266,11 @@ switch_to_generation () {
 }
 
 _check_installed () {
-    gitTag=$1
-    version=$(echo $gitTag | cut -d- -f2)
-    kernel_id=$(nix eval --raw \
-                    '(with import ./. { gitTag = "'$gitTag'"; kernelRelease = "'$kernel_release'"; };
-                     install.moduleWrapper.modules.kernelID)')
-    id=$version:$gitTag:$kernel_id:$kernel_release
+    id=$(nix eval --raw \
+	     '(with import ./. { gitTag = "'$gitTag'"; kernelRelease = "'$kernel_release'"; };
+               with install; with builtins;
+               replaceStrings ["\n"] [""] (readFile (versionFile + "/version") + ":" +
+                                           readFile (sliceFile + "/slice")))')
     gen=${gens_by_id[$id]}
     if [ -n "$gen" ]; then
         ERROR "Release $version (Id: $id) is already installed as generation $gen"
@@ -304,7 +303,7 @@ install_git () {
     if ! [[ "$gitTag" =~ ^release-.*$ ]]; then
         ERROR "Commits preceeding release-1 are not supported"
     fi
-    _check_installed $gitTag
+    _check_installed
     _install $gitTag
 
     popd >/dev/null
@@ -313,7 +312,6 @@ install_git () {
 _check_release () {
     local release
     release=$1
-    check_root
     get_available_releases
     gitTag=${available_releases[$release]}
     if [ -z "$gitTag" ]; then
@@ -323,6 +321,7 @@ _check_release () {
 
 install_release () {
     _check_release $install_release
+    check_root
     tarball=$REPO_GIT/archive/$gitTag.tar.gz
     INFO "Fetching package release tarball $tarball"
     tmp=$(mktemp -d)
@@ -330,13 +329,14 @@ install_release () {
     pushd $tmp >/dev/null
     curl -L -O $tarball 2>/dev/null
     tar xf release-* --strip-component 1
-    _check_installed $gitTag
+    _check_installed
     _install $gitTag
     popd >/dev/null
 }
 
 update_release () {
     _check_release $update_release
+    check_root
     result=$(curl $REPO_API/git/ref/heads/$gitTag 2>/dev/null)
     if [ "$(jq '.message' <<<$result)" == '"Not Found"' ]; then
         ERROR "Branch $gitTag does not exist"
