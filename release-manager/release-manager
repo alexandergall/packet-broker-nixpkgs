@@ -122,7 +122,7 @@ ERROR () {
     exit 1
 }
 
-declare -A gens gens_by_id install_dates installed_releases available_releases
+declare -A gens gens_by_id gens_by_gitTag install_dates installed_releases available_releases
 declare -A slices
 
 gen_from_path () {
@@ -143,9 +143,8 @@ for path in $PROFILE-*-link; do
         slices[$gen]=$slice
 
         read version gitTag rest < <(echo $id | tr ':' ' ')
-        if [ "release-$version" == "$gitTag" ]; then
-            installed_releases[$version]="${installed_releases[$version]} $gen"
-        fi
+        installed_releases[$version]="${installed_releases[$version]} $gitTag"
+        gens_by_gitTag[$gitTag]=$gen
     fi
 done
 current_gen=$(gen_from_path $(readlink $PROFILE))
@@ -236,14 +235,31 @@ list_available () {
     get_available_releases
     echo
     echo "Version  Status"
-    echo "-----------------------------------------------"
+    echo "-------------------------------------------------------------------"
     for version in $(printf '%s\n' "${!available_releases[@]}" | sort); do
-        printf "%8s  " $version
+        printf "%8s " $version
         if [ -n "${installed_releases[$version]}" ]; then
-            printf 'Installed in generaton(s) %s\n'\
-                   $(echo "${installed_releases[$version]}" | sed -e 's/^ //;s/ /, /g')
+            printf 'Installed'
+            gitTag=${available_releases[$version]}
+            commit_head=$(curl $REPO_API/git/ref/heads/$gitTag 2>/dev/null | jq -r '.object.sha')
+            tag_sha=$(curl $REPO_API/git/ref/tags/$gitTag 2>/dev/null | jq -r '.object.sha')
+            commit_tag=$(curl $REPO_API/git/tags/$tag_sha 2>/dev/null | jq -r '.object.sha')
+            if [ $commit_tag != $commit_head ]; then
+               up_to_date=
+               for tag in ${installed_releases[$version]}; do
+                   commit=${tag#release-+([^-])-+([0-9])-g}
+                   [[ $commit_head =~ ^$commit ]] && up_to_date=$tag
+               done
+               if [ -n "$up_to_date" ]; then
+                   echo ", up-to-date version installed in generation ${gens_by_gitTag[$up_to_date]}"
+               else
+                   echo ", updates available, use \"release-manager --update-release $version\" to install"
+               fi
+            else
+                echo ", no updates available"
+            fi
         else
-            echo "Not installed"
+            printf "Not installed"
         fi
     done
 }
@@ -267,7 +283,7 @@ switch_to_generation () {
 
 _check_installed () {
     id=$(nix eval --raw \
-	     '(with import ./. { gitTag = "'$gitTag'"; kernelRelease = "'$kernel_release'"; };
+             '(with import ./. { gitTag = "'$gitTag'"; kernelRelease = "'$kernel_release'"; };
                with install; with builtins;
                replaceStrings ["\n"] [""] (readFile (versionFile + "/version") + ":" +
                                            readFile (sliceFile + "/slice")))')
@@ -341,7 +357,7 @@ update_release () {
     if [ "$(jq '.message' <<<$result)" == '"Not Found"' ]; then
         ERROR "Branch $gitTag does not exist"
     fi
-    install_git=$(jq '.object.sha' <<<$result | sed -e 's/"//g')
+    install_git=$(jq -r '.object.sha' <<<$result)
     install_git
 }
 
