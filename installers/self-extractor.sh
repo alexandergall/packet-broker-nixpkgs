@@ -1,4 +1,7 @@
 #!/bin/bash
+
+PATH=@PATH@
+
 cleanup () {
     chmod -R a+w $TMPDIR
     rm -rf $TMPDIR

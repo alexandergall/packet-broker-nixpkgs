@@ -1,5 +1,5 @@
 { release, version, gitTag, nixProfile, lib, runCommand, closureInfo,
-  coreutils, gnutar, gnused, rsync, ncurses }:
+  coreutils, gnutar, gnused, gawk, xz, rsync, ncurses }:
 
 let
   sliceInfo = slice:
@@ -41,7 +41,9 @@ in runCommand "packet-broker-release-installer" {
   xz -T0 archive.tar
 
   mkdir $out
-  cat ${./self-extractor.sh} archive.tar.xz >$out/installer.sh
+  substitute ${./self-extractor.sh} $out/installer.sh --subst-var-by PATH \
+    "${lib.strings.makeBinPath [ coreutils gnutar gawk xz ]}"
+  cat archive.tar.xz >>$out/installer.sh
   chmod a+x $out/installer.sh
   patchShebangs $out/installer.sh
   echo ${ID} >$out/version
