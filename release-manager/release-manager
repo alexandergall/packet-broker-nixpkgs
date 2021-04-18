@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 
-PROFILE_BASE=/nix/var/nix/profiles/per-user/root
-PROFILE=$PROFILE_BASE/packet-broker
+PROFILE=@PROFILE@
 REPO_GIT="https://github.com//alexandergall/packet-broker-nixpkgs"
 REPO_API="https://api.github.com/repos/alexandergall/packet-broker-nixpkgs"
 

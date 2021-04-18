@@ -17,7 +17,7 @@ let
   ##
   version = "1";
   versionFile = pkgs.writeTextDir "version" "${version}:${gitTag}\n";
-  nixProfile = "/nix/var/nix/profiles/per-user/root/packet-broker";
+  nixProfile = "/nix/var/nix/profiles/packet-broker";
 
   ## Build the main components with the latest SDE version
   bf-sde = pkgs.bf-sde.latest;
@@ -45,7 +45,7 @@ let
         inherit bf-sde src version;
       };
       release-manager = pkgs.callPackage ./release-manager {
-        inherit version;
+        inherit version nixProfile;
       };
       moduleWrapper = packet-broker.moduleWrapper' kernelModules;
       services = import ./services {

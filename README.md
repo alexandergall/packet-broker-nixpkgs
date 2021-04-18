@@ -388,7 +388,7 @@ Implementation note: the release-manager uses the
 feature of the Nix package manager to keep track of installed
 releases. The notion of generations is taken straight from the
 underlying Nix profile.  The profile used for the Package Manager is
-located in `/nix/var/nix/profiles/per-user/root/packet-broker`.
+located in `/nix/var/nix/profiles/packet-broker`.
 
 #### `--list-available`
 
@@ -559,10 +559,10 @@ e.g.
 ```
 # $ sudo packet-broker-release-1-install.sh
 Unpacking archive
-INFO: Installing packet broker release 1 (Id: 1:WIP) for kernel 5.10.0-5-amd64 in /nix/var/nix/profiles/per-user/root/packet-broker
+INFO: Installing packet broker release 1 (Id: 1:WIP) for kernel 5.10.0-5-amd64 in /nix/var/nix/profiles/packet-broker
 INFO: Copying store paths
 INFO: Registering paths in DB
-INFO: Installing the service in /nix/var/nix/profiles/per-user/root/packet-broker
+INFO: Installing the service in /nix/var/nix/profiles/packet-broker
 INFO: Installation completed
 INFO: Use "release-manager --switch-to-generation 3" to switch to this release
 Currently installed releases:

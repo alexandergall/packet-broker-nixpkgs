@@ -1,5 +1,5 @@
-{ stdenv, lib, version, makeWrapper, coreutils, utillinux, gnused,
-  gawk, jq, curl, systemd, gnutar, gzip, git, kmod, ncurses }:
+{ stdenv, lib, version, nixProfile, makeWrapper, coreutils, utillinux,
+  gnused, gawk, jq, curl, systemd, gnutar, gzip, git, kmod, ncurses }:
 
 stdenv.mkDerivation {
   pname = "release-manager";
@@ -8,12 +8,13 @@ stdenv.mkDerivation {
   phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out/bin
-    cp ${./release-manager} $out/bin/release-manager
+    substitute ${./release-manager} $out/bin/release-manager \
+      --subst-var-by PATH \
+        "${lib.strings.makeBinPath [ coreutils utillinux gnused gawk
+                                     jq curl systemd gnutar gzip git kmod ncurses ]}" \
+      --subst-var-by PROFILE ${nixProfile}
     chmod a+x $out/bin/*
     patchShebangs $out/bin
-    substituteInPlace $out/bin/release-manager --subst-var-by PATH \
-      "${lib.strings.makeBinPath [ coreutils utillinux gnused gawk
-                                   jq curl systemd gnutar gzip git kmod ncurses ]}"
 
     mkdir -p $out/etc/snmp $out/var/lib/snmp
     cp ${./snmpd.conf} $out/etc/snmp/snmpd.conf
