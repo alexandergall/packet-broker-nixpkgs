@@ -185,7 +185,10 @@ releases is defined for the Packet Broker project.
 
 The repository uses the `master` branch for development of the
 upcoming release. The actual version number is defined as the
-`version` attribute in `default.nix`.
+`version` attribute in `default.nix`. Currently, the version is chosen
+to be an integer without any additional structure.  However, the only
+assumption made by the `release-manager` is that it is unique for each
+release and doesn't contain any hyphens.
 
 At the time of release of version `<v>` (the current value of the
 `version` attribute), the maintainer performs the following tasks
@@ -193,23 +196,22 @@ At the time of release of version `<v>` (the current value of the
    * Tag the commit on the `master` branch
       ```
       git tag -a -m "Release <v>" release-<v>
-	  git push origin refs/tags/release-<v>
-	  ```
-   * Create a release branch
+      git push origin release-<v>
       ```
-      git checkout -b release-<v>
-	  git push origin refs/heads/release-<v>
-	  ```
+   * Create a release branch with the version `<v>` as name
+      ```
+      git checkout -b <v>
+      git push origin <v>
+      ```
    * On `master`
       * Add a Hydra CI job for `release-<v>` to `spec.json`
       * bump the version in `default.nix` to `<v+1>`
-	  * add `release-notes/release-<v+1>.md`
-	  * `git commit -m "Release <v+1> beta`
+      * add `release-notes/release-<v+1>.md`
+      * `git commit -m "Release <v+1> beta`
 
 Development of the next release with version `<v+1>` takes place on
 `master`. Updates to release `<v>` are maintained on the branch
-`release-<v>`. This is mainly intended for fixes of bugs and security
-issues.
+`<v>`. This is mainly intended for fixes of bugs and security issues.
 
 The branch-off points carrying the Git tags `release-<v>` are called
 _principal releases_.  All other commits are either updates of a
@@ -434,10 +436,10 @@ commit. It fetches the `packet-broker-nixpkgs` repository using a Git
 "remote" called `origin` and checks out the commit with `git reset
 --hard`. `<git-commit>` can be any identifier of a commit (i.e. a
 "commit-ish" in Git terminology).  For example, to install the current
-tip of the branch `release-1`, one woud use
+tip of the branch `1`, one woud use
 
 ```
-$ release-manager --install-git origin/release-1
+$ release-manager --install-git origin/1
 ```
 
 This is equivalent to using the option `--update-release 1`.
@@ -447,7 +449,7 @@ This is equivalent to using the option `--update-release 1`.
 This option is a shortcut for
 
 ```
-$ release-manager --install-git origin/release-1
+$ release-manager --install-git origin/1
 ```
 
 to update a release to the most recent commit on the release branch.
@@ -473,20 +475,20 @@ generation
    * Call `systemctl daemon-reload`
    * Create directories (if they don't exist already)
       * `/etc/packet-broker`
-	  * `/etc/snmp`
-	  * `/var/lib/snmp`
+      * `/etc/snmp`
+      * `/var/lib/snmp`
    * Install the files (overwriting existing ones)
       * `/etc/packet-broker/schema.json`
-	  * `/etc/snmp/ifindex`
-	  * `/var/lib/snmp/interface.conf`
+      * `/etc/snmp/ifindex`
+      * `/var/lib/snmp/interface.conf`
    * Install defaults (does not overwrite existing files)
       * `/etc/packet-broker/config.json`
-	  * `/etc/snmp/snmpd.conf`
+      * `/etc/snmp/snmpd.conf`
    * Create
       * `/etc/profile.d/packet-broker.sh`
    * Start the services
       * `systemctl start packet-broker`
-	  * `systemctl start snmpd`
+      * `systemctl start snmpd`
 
 #### `--deactivate-current`
 

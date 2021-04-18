@@ -122,6 +122,11 @@ ERROR () {
     exit 1
 }
 
+branch_from_tag () {
+    tag=$1
+    echo $tag | cut -d- -f2
+}
+
 declare -A gens gens_by_id gens_by_gitTag install_dates installed_releases available_releases
 declare -A slices
 
@@ -252,7 +257,7 @@ list_available () {
         if [ -n "${installed_releases[$version]}" ]; then
             printf 'Installed'
             gitTag=${available_releases[$version]}
-            commit_head=$(curl $REPO_API/git/ref/heads/$gitTag 2>/dev/null | jq -r '.object.sha')
+            commit_head=$(curl $REPO_API/git/ref/heads/$(branch_from_tag $gitTag) 2>/dev/null | jq -r '.object.sha')
             tag_sha=$(curl $REPO_API/git/ref/tags/$gitTag 2>/dev/null | jq -r '.object.sha')
             commit_tag=$(curl $REPO_API/git/tags/$tag_sha 2>/dev/null | jq -r '.object.sha')
             if [ $commit_tag != $commit_head ]; then
@@ -364,7 +369,7 @@ install_release () {
 update_release () {
     _check_release $update_release
     check_root
-    result=$(curl $REPO_API/git/ref/heads/$gitTag 2>/dev/null)
+    result=$(curl $REPO_API/git/ref/heads/$(branch_from_tag $gitTag) 2>/dev/null)
     if [ "$(jq '.message' <<<$result)" == '"Not Found"' ]; then
         ERROR "Branch $gitTag does not exist"
     fi
