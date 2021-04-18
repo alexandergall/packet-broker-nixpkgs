@@ -1,4 +1,4 @@
-# Generated from debootstrap --include=linux-image-amd64,initramfs-tools,sudo,zip,unzip,openssh-server,openssh-client,telnet,grub-efi-amd64,efibootmgr,acpi,ethtool,net-tools,wget,curl,rsync,locales,ca-certificates
+# Generated from debootstrap --include=linux-image-amd64,initramfs-tools,sudo,zip,unzip,openssh-server,openssh-client,telnet,grub-efi-amd64,efibootmgr,acpi,ethtool,net-tools,wget,curl,rsync,locales,ca-certificates,dbus
 [
   {
     url = http://deb.debian.org/debian/pool/main/a/acl/libacl1_2.2.53-4_amd64.deb;
@@ -156,6 +156,16 @@
     name = "libdb5.3_5.3.28+dfsg1-0.5_amd64.deb";
   }
   {
+    url = http://deb.debian.org/debian/pool/main/d/dbus/dbus_1.12.20-0+deb10u1_amd64.deb;
+    sha256 = "1mnwqrfy76cna3lqgz9nplwvclykppm1bc1wv3am39mrsngcfcnp";
+    name = "dbus_1.12.20-0+deb10u1_amd64.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/d/dbus/libdbus-1-3_1.12.20-0+deb10u1_amd64.deb;
+    sha256 = "01qhxlz29b2lpn1j9ghf7d0ycdinazk7cxqygr1wyg3fc8svv573";
+    name = "libdbus-1-3_1.12.20-0+deb10u1_amd64.deb";
+  }
+  {
     url = http://deb.debian.org/debian/pool/main/d/debconf/debconf_1.5.71_all.deb;
     sha256 = "1bhzyyl64sb19naajlc6af7lrn8khil45fadh45fik5q760i78r7";
     name = "debconf_1.5.71_all.deb";
@@ -234,6 +244,11 @@
     url = http://deb.debian.org/debian/pool/main/e/ethtool/ethtool_4.19-1_amd64.deb;
     sha256 = "1vmsibj8nyzjrb8gr3g9hinnlw65ngzbyhlxg56zmv7agkr54flc";
     name = "ethtool_1%3a4.19-1_amd64.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/e/expat/libexpat1_2.2.6-2+deb10u1_amd64.deb;
+    sha256 = "189dz9w9npg5dm3yhj30hqzfgvg9598q9xadsjkgpq1f80gyw3fn";
+    name = "libexpat1_2.2.6-2+deb10u1_amd64.deb";
   }
   {
     url = http://deb.debian.org/debian/pool/main/f/findutils/findutils_4.6.0+git+20190209-2_amd64.deb;

@@ -156,6 +156,11 @@ check_root () {
     exit 1
 }
 
+ischroot () {
+    check_root
+    [ "$(stat -c %d:%i /)" != "$(stat -c %d:%i /proc/1/root/.)" ]
+}
+
 ### Activate the current profile
 SYSTEMD_DIR=/etc/systemd/system
 CONFIG_DIR=/etc/packet-broker
@@ -174,7 +179,7 @@ activate () {
         ln -fs $service $SYSTEMD_DIR
         systemctl enable $(basename $service)
     done
-    systemctl daemon-reload
+    ! ischroot && systemctl daemon-reload
     for dir in $CONFIG_DIR $SNMP_CONFIG_DIR $SNMP_STATE_DIR; do
         [ -d $dir ] || mkdir -p $dir
     done
@@ -182,8 +187,12 @@ activate () {
         ## For some weird reason, the Snabb SNMP agent barfs
         ## when doing a stat() on the ifindex file in the Nix
         ## store. So, instead of linking to the file, we copy
-        ## it.  Need to figure what exactly the problem is.
-        cp $PROFILE$file $file
+        ## it.  Need to figure out what exactly the problem is.
+	if [ $file == $IFINDEX ]; then
+            cp $PROFILE$file $file
+	else
+	    ln -fs $PROFILE$file $file
+	fi
     done
     for config in $CONFIG $SNMPD_CONFIG; do
         [ -e $config ] || cp $PROFILE$config $config
@@ -191,8 +200,10 @@ activate () {
     if [ ! -e $SHELL_PROFILE ]; then
         echo PATH=$PROFILE/bin:\$PATH >$SHELL_PROFILE
     fi
-    INFO "Starting services"
-    systemctl start packet-broker snmpd
+    if ! ischroot; then
+	INFO "Starting services"
+	systemctl start packet-broker snmpd
+    fi
 }
 
 ### Deactivate the current profile
@@ -386,3 +397,4 @@ cleanup () {
 [ -n "$activate" ] && activate
 [ -n "$deactivate" ] && deactivate
 [ -n "$cleanup" ] && cleanup
+exit 0
