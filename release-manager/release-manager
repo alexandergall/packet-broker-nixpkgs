@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
+set -o pipefail
+shopt -s extglob
 
 PROFILE=@PROFILE@
 REPO_GIT="https://github.com//alexandergall/packet-broker-nixpkgs"
@@ -192,11 +194,11 @@ activate () {
         ## when doing a stat() on the ifindex file in the Nix
         ## store. So, instead of linking to the file, we copy
         ## it.  Need to figure out what exactly the problem is.
-	if [ $file == $IFINDEX ]; then
+        if [ $file == $IFINDEX ]; then
             cp $PROFILE$file $file
-	else
-	    ln -fs $PROFILE$file $file
-	fi
+        else
+            ln -fs $PROFILE$file $file
+        fi
     done
     for config in $CONFIG $SNMPD_CONFIG; do
         [ -e $config ] || cp $PROFILE$config $config
@@ -205,8 +207,8 @@ activate () {
         echo PATH=$PROFILE/bin:\$PATH >$SHELL_PROFILE
     fi
     if ! ischroot; then
-	INFO "Starting services"
-	systemctl start packet-broker snmpd
+        INFO "Starting services"
+        systemctl start packet-broker snmpd
     fi
 }
 
@@ -236,13 +238,38 @@ list_installed () {
     done
 }
 
+_api_call () {
+    local http_code
+    exec 17>&1
+    set -e
+    http_code=$(curl -s --write-out '\n%{http_code}\n' $REPO_API$1 | tee /dev/fd/17 | tail -n 1)
+    set +e
+    exec 17>&-
+    if [ $http_code -ge 400 ] && [ $http_code -lt 600 ]; then
+	echo -e "\nHTTP $http_code" >&2
+	return 1
+    fi
+}
+
+api_call () {
+    set +e
+    result=$(_api_call $1 | sed '$d')
+    rc=$?
+    set -e
+    if [ $rc == 0 ]; then
+	echo $result
+    else
+	ERROR "Github API call $1 failed: $result"
+    fi
+}
+
 get_available_releases () {
     INFO "Checking for release tags of $REPO_GIT"
-    for tag in $(curl $REPO_API/tags 2>/dev/null| jq '.[].name'); do
-        gitTag=$(echo $tag | sed -e 's/"//g')
-        [[ $gitTag =~ ^release-.*$ ]] || continue
-        version=$(echo $gitTag | cut -d- -f2)
-        available_releases[$version]=$gitTag
+    result=$(api_call /tags)
+    for tag in $(jq -r '.[].name' <<<$result); do
+        [[ $tag =~ ^release-.*$ ]] || continue
+        version=$(echo $tag | cut -d- -f2)
+        available_releases[$version]=$tag
     done
 }
 
@@ -256,25 +283,25 @@ list_available () {
         if [ -n "${installed_releases[$version]}" ]; then
             printf 'Installed'
             gitTag=${available_releases[$version]}
-            commit_head=$(curl $REPO_API/git/ref/heads/$(branch_from_tag $gitTag) 2>/dev/null | jq -r '.object.sha')
-            tag_sha=$(curl $REPO_API/git/ref/tags/$gitTag 2>/dev/null | jq -r '.object.sha')
-            commit_tag=$(curl $REPO_API/git/tags/$tag_sha 2>/dev/null | jq -r '.object.sha')
+            commit_head=$(api_call /git/ref/heads/$(branch_from_tag $gitTag) | jq -r '.object.sha')
+            tag_sha=$(api_call /git/ref/tags/$gitTag | jq -r '.object.sha')
+            commit_tag=$(api_call /git/tags/$tag_sha | jq -r '.object.sha')
             if [ $commit_tag != $commit_head ]; then
-               up_to_date=
-               for tag in ${installed_releases[$version]}; do
-                   commit=${tag#release-+([^-])-+([0-9])-g}
-                   [[ $commit_head =~ ^$commit ]] && up_to_date=$tag
-               done
-               if [ -n "$up_to_date" ]; then
-                   echo ", up-to-date version installed in generation ${gens_by_gitTag[$up_to_date]}"
-               else
-                   echo ", updates available, use \"release-manager --update-release $version\" to install"
-               fi
+                up_to_date=
+                for tag in ${installed_releases[$version]}; do
+                    commit=${tag#release-+([^-])-+([0-9])-g}
+                    [[ $commit_head =~ ^$commit ]] && up_to_date=$tag
+                done
+                if [ -n "$up_to_date" ]; then
+                    echo ", up-to-date version installed in generation ${gens_by_gitTag[$up_to_date]}"
+                else
+                    echo ", updates available, use \"release-manager --update-release $version\" to install"
+                fi
             else
                 echo ", no updates available"
             fi
         else
-            printf "Not installed"
+            echo "Not installed"
         fi
     done
 }
@@ -368,11 +395,7 @@ install_release () {
 update_release () {
     _check_release $update_release
     check_root
-    result=$(curl $REPO_API/git/ref/heads/$(branch_from_tag $gitTag) 2>/dev/null)
-    if [ "$(jq '.message' <<<$result)" == '"Not Found"' ]; then
-        ERROR "Branch $gitTag does not exist"
-    fi
-    install_git=$(jq -r '.object.sha' <<<$result)
+    install_git=$(api_call /git/ref/heads/$(branch_from_tag $gitTag) | jq -r '.object.sha')
     install_git
 }
 
