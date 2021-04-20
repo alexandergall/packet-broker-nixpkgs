@@ -216,10 +216,10 @@ activate () {
 deactivate () {
     check_root
     INFO "Stopping services"
-    systemctl stop snmpd packet-broker
+    systemctl stop snmpd packet-broker || true
     INFO "Disabling services"
     for service in $PROFILE/$SYSTEMD_DIR/*.service; do
-        systemctl disable $(basename $service)
+        systemctl disable $(basename $service) || true
     done
     INFO "Unloading kernel modules"
     for module in $(lsmod | awk '{print $1}'); do
