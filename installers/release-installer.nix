@@ -33,16 +33,18 @@ in runCommand "packet-broker-release-installer" {
   cp ${./install.sh} install.sh
   chmod a+x install.sh
   patchShebangs install.sh
-  substituteInPlace install.sh --subst-var-by PATH \
-    "${lib.strings.makeBinPath [ coreutils gnutar gnused rsync ncurses ]}"
 
   tar cf ../archive.tar *
   cd ..
   xz -T0 archive.tar
 
   mkdir $out
+  ## PATH includes the paths required by install.sh and is exported by
+  ## the self-extractor. This is necessary for Nix to find the paths
+  ## when scanning for runtime dependencies as install.sh is
+  ## compressed.
   substitute ${./self-extractor.sh} $out/installer.sh --subst-var-by PATH \
-    "${lib.strings.makeBinPath [ coreutils gnutar gawk xz ]}"
+    "${lib.strings.makeBinPath [ coreutils gnutar gawk xz gnused rsync ncurses ]}"
   cat archive.tar.xz >>$out/installer.sh
   chmod a+x $out/installer.sh
   patchShebangs $out/installer.sh

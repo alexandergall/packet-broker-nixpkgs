@@ -5,7 +5,10 @@ partial_id=$(cat ./version)
 PROFILE=$(cat ./profile)
 kernelRelease=${KERNEL_RELEASE:-$(uname -r)}
 
-PATH=/nix/var/nix/profiles/default/bin:@PATH@
+## Rely on the self-extractor to export PATH. If we set PATH here, Nix
+## won't find it during its scan for runtime dependencies because this
+## file is compressed.
+PATH=/nix/var/nix/profiles/default/bin:$PATH
 NIX_PATH=
 
 if [ $(tput colors) -gt 1 ]; then

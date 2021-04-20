@@ -1,6 +1,7 @@
 #!/bin/bash
 
-PATH=@PATH@
+## This also contains the PATH for ./install.sh
+export PATH=@PATH@
 
 cleanup () {
     chmod -R a+w $TMPDIR
