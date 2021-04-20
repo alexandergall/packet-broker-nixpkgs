@@ -26,20 +26,22 @@ Contents
 
 ## <a name="overview"></a>Overview
 
-The set of packages produced by this Nix expression provides a
-complete deployment of the Packet Broker as an appliance on systems
-based on the Tofino packet-processing ASIC.  It includes an ONIE
-installer for the initial setup and a tool for managing releases on a
-running system.
+The set of packages produced by this Nix expression (`default.nix`)
+provides a complete deployment of the Packet Broker as an appliance on
+systems based on the Tofino packet-processing ASIC.  It includes an
+ONIE installer for the initial setup and a tool for managing releases
+on a running system.
 
 Currently, the base OS provided by the ONIE installer is a basic
-version of Debian 10.9 combined with an installation of the [Nix
-package manager](https://nixos.org/manual/nixpkgs/stable/).  While
-Debian is used to manage the host itself, all components of the Packet
-Broker service are provided by Nix. This repository depends on the
-[Nix packaging of the Tofino
-SDE](https://github.com/alexandergall/bf-sde-nixpkgs).  The main
-advantages of using this framework are
+version of Debian 10 combined with an installation of the [Nix package
+manager](https://nixos.org/manual/nixpkgs/stable/).  While Debian is
+used to manage the host itself, all components of the Packet Broker
+service are provided by Nix. This repository depends on the [Nix
+packaging of the Tofino
+SDE](https://github.com/alexandergall/bf-sde-nixpkgs) and the [ONIE
+installer
+builder](https://github.com/alexandergall/onie-debian-nix-installer).
+The main advantages of using this framework are
 
    * Declarative style of package management: all properties and
      dependencies of software components are declared explicitly in a
@@ -48,7 +50,7 @@ advantages of using this framework are
      of the dependent package, not just its name and version
    * High level of reproducibility: given the declarative description
      of the system, anyone can reproduce the packages exactly
-     (e.g. without any random dependencies on the environment of the
+     (e.g. without any dependencies on the environment of the
      build host)
    * Isolation from the package manager of the base OS: [except for
      the kernel](#kernelSupport), the Nix packages are completely
@@ -68,9 +70,8 @@ learn about this great tool as the key to reliable service deployment
 In principle, it is very easy to [build any of the components
 yourself](#building). In fact, having everything defined in terms of
 Nix expressions makes it not only easy but also reproducible on any
-Linux-based system irrespective of the distribution being used,
-i.e. no more hunting for an ever changing list of dependencies before
-you can even try to build a project.
+Linux-based system irrespective of the distribution being used. The
+only prerequisite is the presence of the Nix package manager itself.
 
 However, building everything from scratch requires access to the
 Tofino SDE, which is currently only possible by entering an NDA with
@@ -102,7 +103,10 @@ Installers for the releases of the Packet Broker are [available for
 download](http://hydra.nix.net.switch.ch/packet-broker/releases/). For
 each release, there is a ONIE-based installer for the initial version
 of the release named `onie-installer.bin` and one [standalone
-installer](#standaloneInstaller) for every update.
+installer](#standaloneInstaller) for every update. No installers are
+provided for development versions. Those pre-releases can be installed
+with the [`release-manager`'s](#usingReleaseManager) `--install-git`
+option.
 
 ## <a name="ONIE"></a>Initial Setup using the Pre-Built ONIE Installer
 
@@ -121,9 +125,9 @@ ONIE# onie-nos-install http://hydra.nix.net.switch.ch/packet-broker/releases/1/o
 
 Note well: **This procedure destroys all partitions beyond partitions
 1 and 2**. The EFI and ONIE partitions are preserved and the GRUB boot
-loader of the Debian system includes an entry to chain-load the ONIE
-boot loader to make it easy to perform ONIE operations after an image
-has been installed.
+loader of the Debian system (installed in partition 3) includes an
+entry to chain-load the ONIE boot loader to make it easy to perform
+ONIE operations after an image has been installed.
 
 ## <a name="configurationUsage"></a>Configuration and Usage
 
@@ -170,7 +174,8 @@ broker.
 To make interface counters available via SNMP, the services `snmpd`
 and `snabb-snmp-agent` must also be enabled (which is the default).
 This also requires the configuration of access rules (SNMP community
-strings and access-lists) in `/etc/snmp/snmpd.conf`.
+strings and access-lists) in `/etc/snmp/snmpd.conf`. The service is
+automatically started and stopped with the `snmpd` service.
 
 ### <a name="packetBrokerConfiguration"></a>Packet Broker Configuration
 
@@ -236,6 +241,7 @@ At the time of release of version `<v>` (the current value of the
       * bump the version in `default.nix` to `<v+1>`
       * add `release-notes/release-<v+1>.md`
       * `git commit -m "Release <v+1> beta`
+	  * `git push origin master`
 
 Development of the next release with version `<v+1>` takes place on
 `master`. Updates to release `<v>` are maintained on the branch
@@ -300,7 +306,8 @@ components
 
 Each of these components is a package by itself in the sense of the
 Nix package manager.  In other words, the release is a collection of
-packages which is treated as a unit by the release manager.
+packages which is treated as a unit by the release manager (through a
+feature of Nix called a _profile_).
 
 The `version` file contains the version and gitTag as a string of the
 form `<version>:<gitTag>`.
@@ -356,7 +363,7 @@ options
    * `--list-available`
    * `--install-release <version>`
    * `--install-git <git-commit>`
-   * `--update-install <version>`
+   * `--update-release <version>`
    * `--untinstall-generation <gen>`
    * `--activate-current`
    * `--deactivate-current`
@@ -411,12 +418,12 @@ and multi-kernel setups.
 Finally, the "Install Date" Column gives the time and date at which
 the release slice was installed.
 
-Implementation note: the release-manager uses the
+**Implementation note**: the release-manager uses the
 [profiles](https://nixos.org/manual/nix/unstable/package-management/profiles.html)
 feature of the Nix package manager to keep track of installed
 releases. The notion of generations is taken straight from the
 underlying Nix profile.  The profile used for the Package Manager is
-located in `/nix/var/nix/profiles/packet-broker`.
+called `/nix/var/nix/profiles/packet-broker`.
 
 #### `--list-available`
 
@@ -425,7 +432,8 @@ query the set of tags of the `packet-broker-nixpkgs` repository and
 looks for tags of the form `release-<v>`.  For each such tag it prints
 a line to inform the user that release version `<v>` is available for
 installation.  It will also indicate whether there are any slices of
-that release already installed on the system
+that release already installed on the system and inform if any updates
+are available for the release
 
 ```
 $ release-manager --list-available
@@ -433,8 +441,13 @@ INFO: Checking for release tags of https://github.com//alexandergall/packet-brok
 
 Version  Status
 -----------------------------------------------
-       1  Installed in generaton(s) 2
+       1  Installed, up-to-date version installed in generation 1
 ```
+
+**Note**: this option uses the Github API. The repository has a
+rate-limit of 60 requests per hour per source address. Therefore, it
+is possible that the command fails temporarily if the rate-limit has
+been exceeded.
 
 #### `--install-release <version>`
 
@@ -445,6 +458,10 @@ of the release expressed as a Nix expression, fetches the pre-built
 packages required by it and installs the slice for the currently
 running kernel.
 
+Note that this will install the principal release. If there are any
+updates for the release available, they have to be installed
+separately with `--update-release`.
+
 This operation is completely safe, reversible and does not affect the
 running service.  It only installs the packages and makes them
 available for activation with the `--switch-to-generation` option.
@@ -453,7 +470,14 @@ Due to the nature of Nix, packages are never overwritten or changed in
 any way after installation.  This is what makes concurrent versions
 without any danger of conflicts possible.
 
-The command will fail if the release is already present on the system.
+The command will fail if the release is not available or already
+present on the system.
+
+By default, the slice corresponding to the running kernel (as reported
+by `uname -r`) is installed. To install the slice for a different
+kernel, set the `KERNEL_RELEASE` environment variable accordingly. The
+kernel must be one of the list of the kernels supported by the SDE
+package used in the current release.
 
 #### `--install-git <git-commit>`
 
@@ -477,10 +501,14 @@ This is equivalent to using the option `--update-release 1`.
 This option is a shortcut for
 
 ```
-$ release-manager --install-git origin/1
+$ release-manager --install-git origin/<version>
 ```
 
-to update a release to the most recent commit on the release branch.
+to update a release to the most recent commit on the release
+branch. This will installed an additional generation with the updates
+included. It will not change the existing installation of the
+principal release (or that of an update that is not the newest
+available).
 
 #### `--untinstall-generation <gen>`
 
@@ -493,8 +521,8 @@ activation.
 
 Mere installation of a release does not instantiate the Packet Broker
 service automatically. This only happens after _activation_.
-Activation performs the following operations for the currently active
-generation
+Activation performs the following operations for the generation marked
+as "current"
 
    * Create symbolic links to the `systemd` service units in
      `/etc/systemd/system`
@@ -505,14 +533,14 @@ generation
       * `/etc/packet-broker`
       * `/etc/snmp`
       * `/var/lib/snmp`
-   * Install the files (overwriting existing ones)
+   * Create symbolic links for the files (replacing existing ones)
       * `/etc/packet-broker/schema.json`
       * `/etc/snmp/ifindex`
       * `/var/lib/snmp/interface.conf`
    * Install defaults (does not overwrite existing files)
       * `/etc/packet-broker/config.json`
       * `/etc/snmp/snmpd.conf`
-   * Create
+   * Create (to add the profile to `PATH`)
       * `/etc/profile.d/packet-broker.sh`
    * Start the services
       * `systemctl start packet-broker`
@@ -556,7 +584,7 @@ to removal.
 The `--cleanup` option deletes all packages which are not live. This
 can be used to free up disk space if needed.
 
-Implementation note: this option essentially calls the
+**Implementation note**: this option essentially calls the
 `nix-collect-garbage` utility, which can also be called directly by
 the user.
 
@@ -574,12 +602,21 @@ through a self-contained installer, which doesn't need any network
 access once it is copied to the target device.  This installer consist
 of a single self-extracting archive.
 
-Installers for all releases can be downloaded from the [same
-site as the ONIE
+**Note**: The installer also uses Nix packages to avoid dependencies
+on packages of the OS as much as possible. However, it does require
+the presence of the following commands for bootstrapping: `/bin/bash`
+and `id`, `tail`, `xz` from `PATH`. It also assumes, of course, that
+Nix is present and the Nix commands are available in
+`/nix/var/nix/profiles/default/bin` (this should be the case after a
+regular installation of Nix in multi-user mode).
+
+Standalone iqnstallers for all releases can be downloaded from the
+[same site as the ONIE
 installer](http://hydra.nix.net.switch.ch/packet-broker/releases/). The
 files are named `packet-broker-<gitTag>-install.sh` and are
 accompanied by a file with the extension `.sha256` containing the
-SHA256 hash for verification.
+SHA256 hash for verification.  There is one standalone installer per
+commit on the respective release branch.
 
 Once the installer has been copied to the device, execute it as root,
 e.g.
@@ -649,12 +686,6 @@ $ nix-build -A onieInstaller
 This will build everything from the SDE source code and take between
 30 and 60 minutes, depending on your build host.
 
-To build the standalone installer:
-
-```
-$ nix-build -A releaseInstaller
-```
-
 The result is a Nix _derivation_, essentially a directory in
 `/nix/store` with a weird name. For example
 
@@ -665,6 +696,40 @@ $ nix-build -A onieInstaller
 
 The installer itself is the file `onie-installer.bin` located in that
 directory.
+
+To build the standalone installer (the `--argstr` argument has the
+effect to use the same gitTag that is used by the Hydra CI system when
+it builds the official release, it can be omitted but the gitTag will
+then be set to `WIP` to indicate that the release has been built from
+a Git working tree, which may have uncommited modifications):
+
+```
+$ nix-build -A releaseInstaller --argstr gitTag $(git describe)
+```
+
+**Note**: the result of this build is not exactly what can be
+[downloaded](http://hydra.nix.net.switch.ch/packet-broker/releases/).
+The downloadable installer has an additional wrapper added to it,
+which installs dependencies needed by the installer. To re-create that
+wrapper, build the installer with the following shell script (from the
+top-level directory of this repository)
+
+```bash
+#!/bin/bash
+path=$(nix-build -A releaseInstaller --argstr gitTag $(git describe))
+cat <<EOF >installer
+#!/bin/bash
+[ \$(id -u) == 0 ] || { echo "Please run as root"; exit 1; }
+echo "Installing installer closure"
+/nix/var/nix/profiles/default/bin/nix-store --import < <(tail -n+7 \$0 | xz -d)
+$path/installer.sh
+exit 0
+EOF
+nix-store --export $(nix-store -qR $path) | xz >>installer
+chmod a+x installer
+```
+
+Execute `sudo ./installer` to run.
 
 ### <a name="buildingPreBuilt"></a>Installers From Pre-Built Packages
 
