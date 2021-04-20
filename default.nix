@@ -5,8 +5,8 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v4.tar.gz;
-    sha256 = "0rq29pzr2brjxam78pcdrkcn856x5yf2p60vgf7ig0yf9k7z6gzm";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v5.tar.gz;
+    sha256 = "1qa5jfdh0yjl87bf39kn9gbc9zpix9wkrfw3mqyjhvm2bn5n3y2i";
   }) {
     overlays = import ./overlay;
   };
@@ -39,7 +39,8 @@ let
       sliceFile = pkgs.writeTextDir "slice"
         "${kernelModules.kernelID}:${kernelModules.kernelRelease}\n";
       packet-broker = pkgs.callPackage ./packet-broker.nix {
-        inherit bf-sde src version;};
+        inherit bf-sde src version;
+      };
       configd = pkgs.callPackage ./configd.nix {
         inherit bf-sde src version;
       };
@@ -86,8 +87,8 @@ let
 
   mkOnieInstaller = pkgs.callPackage (pkgs.fetchgit {
     url = "https://github.com/alexandergall/onie-debian-nix-installer";
-    rev = "bb0a56d";
-    sha256 = "10v2ld4r2amayha3a8qgi3rgiddcdzid0sr79rvn3av6r1pzr0m0";
+    rev = "b40837";
+    sha256 = "1r8aw17k05wzcan2sgvks0gmrz9289y3kqwr4m9qdlx97xi0b9xg";
   }) {};
   onieInstaller = mkOnieInstaller {
     inherit nixProfile version;

@@ -1,4 +1,4 @@
-# Generated from debootstrap --include=linux-image-amd64,initramfs-tools,sudo,zip,unzip,openssh-server,openssh-client,telnet,grub-efi-amd64,efibootmgr,acpi,ethtool,net-tools,wget,curl,rsync,locales,ca-certificates,dbus
+# Generated from debootstrap --include=linux-image-amd64,initramfs-tools,sudo,zip,unzip,openssh-server,openssh-client,telnet,grub-efi-amd64,efibootmgr,acpi,ethtool,net-tools,wget,curl,rsync,locales,ca-certificates,dbus,xz-utils,emacs-nox
 [
   {
     url = http://deb.debian.org/debian/pool/main/a/acl/libacl1_2.2.53-4_amd64.deb;
@@ -14,6 +14,16 @@
     url = http://deb.debian.org/debian/pool/main/a/adduser/adduser_3.118_all.deb;
     sha256 = "0axa1788apymvw27dyxgfww93w873ms273vhj19h1mnwp0ddswdx";
     name = "adduser_3.118_all.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/a/alsa-lib/libasound2_1.1.8-1_amd64.deb;
+    sha256 = "0qny1mdgh07g5w9gl1kqdppg06jw6rqyr0vdzkjgzynilss83hkc";
+    name = "libasound2_1.1.8-1_amd64.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/a/alsa-lib/libasound2-data_1.1.8-1_all.deb;
+    sha256 = "1vppqzdz5gx58k435zwxawxkx6n8ynh95j9sigwa8n2m5clxqrn9";
+    name = "libasound2-data_1.1.8-1_all.deb";
   }
   {
     url = http://deb.debian.org/debian/pool/main/a/apparmor/libapparmor1_2.13.2-10_amd64.deb;
@@ -241,6 +251,26 @@
     name = "libelf1_0.176-1.1_amd64.deb";
   }
   {
+    url = http://deb.debian.org/debian/pool/main/e/emacs/emacs-bin-common_26.1+1-3.2+deb10u2_amd64.deb;
+    sha256 = "1m8ayrbd3bl44bamypsxba4adkddnhhi6gdq08znlj39h3kgrhfj";
+    name = "emacs-bin-common_1%3a26.1+1-3.2+deb10u2_amd64.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/e/emacs/emacs-common_26.1+1-3.2+deb10u2_all.deb;
+    sha256 = "12cls1si852a8iywxadx5m56r261bd4d9axy5psz0gccbqxvvgcp";
+    name = "emacs-common_1%3a26.1+1-3.2+deb10u2_all.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/e/emacs/emacs-nox_26.1+1-3.2+deb10u2_amd64.deb;
+    sha256 = "0qf5xskz2cm4974pv8hmmbwhvinyn0wzskb47a8cb7b2ng3ji65j";
+    name = "emacs-nox_1%3a26.1+1-3.2+deb10u2_amd64.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/e/emacsen-common/emacsen-common_3.0.4_all.deb;
+    sha256 = "12mfnkrrlqrla56rc8w2ljwngnzwv1mmp0y7jdwif884gyr36xbv";
+    name = "emacsen-common_3.0.4_all.deb";
+  }
+  {
     url = http://deb.debian.org/debian/pool/main/e/ethtool/ethtool_4.19-1_amd64.deb;
     sha256 = "1vmsibj8nyzjrb8gr3g9hinnlw65ngzbyhlxg56zmv7agkr54flc";
     name = "ethtool_1%3a4.19-1_amd64.deb";
@@ -326,6 +356,11 @@
     name = "libgnutls30_3.6.7-4+deb10u6_amd64.deb";
   }
   {
+    url = http://deb.debian.org/debian/pool/main/g/gpm/libgpm2_1.20.7-5_amd64.deb;
+    sha256 = "0b13l0yhwlis703n18kic1z7dckfxn487kdl6nayvn4f0zlzpxrg";
+    name = "libgpm2_1.20.7-5_amd64.deb";
+  }
+  {
     url = http://deb.debian.org/debian/pool/main/g/grep/grep_3.3-1_amd64.deb;
     sha256 = "05wsp687w1wffrqryr12d8s7lx51p6ri7c40aa7njgrc4jvqb58l";
     name = "grep_3.3-1_amd64.deb";
@@ -359,6 +394,11 @@
     url = http://deb.debian.org/debian/pool/main/h/hostname/hostname_3.21_amd64.deb;
     sha256 = "0a8dx9j2a7jlxmf096mraczzn63i5vffj6jibh9916kyhfvq36l6";
     name = "hostname_3.21_amd64.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/i/icu/libicu63_63.1-6+deb10u1_amd64.deb;
+    sha256 = "1f7qgz53biqqcrwlmgnxwxyykg93ws9sx4pql7xahj753afr4gv0";
+    name = "libicu63_63.1-6+deb10u1_amd64.deb";
   }
   {
     url = http://deb.debian.org/debian/pool/main/i/ifupdown/ifupdown_0.8.35_amd64.deb;
@@ -481,6 +521,11 @@
     name = "libkrb5support0_1.17-3+deb10u1_amd64.deb";
   }
   {
+    url = http://deb.debian.org/debian/pool/main/l/lcms2/liblcms2-2_2.9-3_amd64.deb;
+    sha256 = "09dk9vhmjq1giyix0xbfa56nq99dvas89calkvnri6si4sihdn3d";
+    name = "liblcms2-2_2.9-3_amd64.deb";
+  }
+  {
     url = http://deb.debian.org/debian/pool/main/l/less/less_487-0.1+b1_amd64.deb;
     sha256 = "0nbiyhl3zi4px7wl7nalc887k3kxq4a2i461fabd58wga7pz36sm";
     name = "less_487-0.1+b1_amd64.deb";
@@ -544,6 +589,11 @@
     url = http://deb.debian.org/debian/pool/main/libi/libidn2/libidn2-0_2.0.5-1+deb10u1_amd64.deb;
     sha256 = "05mdkxjpm1439diif44d44bz4dn0d1qdmifval98pk9h96f15hqk";
     name = "libidn2-0_2.0.5-1+deb10u1_amd64.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/libj/libjpeg-turbo/libjpeg62-turbo_1.5.2-2+deb10u1_amd64.deb;
+    sha256 = "0mn5ck6fdkigvwd0d97v8zqhbylckwh8p6ydvg79gxnb4bbwgjxn";
+    name = "libjpeg62-turbo_1%3a1.5.2-2+deb10u1_amd64.deb";
   }
   {
     url = http://deb.debian.org/debian/pool/main/libl/liblocale-gettext-perl/liblocale-gettext-perl_1.07-3+b4_amd64.deb;
@@ -639,6 +689,11 @@
     url = http://deb.debian.org/debian/pool/main/libu/libunistring/libunistring2_0.9.10-1_amd64.deb;
     sha256 = "1y40cyviaqav8w62ngpw7pkwvwj721ybzhyyjgpyfy4z3hkn2fdw";
     name = "libunistring2_0.9.10-1_amd64.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/libx/libxml2/libxml2_2.9.4+dfsg1-7+deb10u1_amd64.deb;
+    sha256 = "0nswdjmh1wwyizhpmwkhwzlb5fdv1w40n9z3djl65s05izi21dw6";
+    name = "libxml2_2.9.4+dfsg1-7+deb10u1_amd64.deb";
   }
   {
     url = http://deb.debian.org/debian/pool/main/libz/libzstd/libzstd1_1.3.8+dfsg-3+deb10u2_amd64.deb;
@@ -951,6 +1006,11 @@
     name = "libwrap0_7.6.q-28_amd64.deb";
   }
   {
+    url = http://deb.debian.org/debian/pool/main/t/texinfo/install-info_6.5.0.dfsg.1-4+b1_amd64.deb;
+    sha256 = "05980msm9dgml6cm071adqw78a3qqki8wfyd9w439ksl896ica8v";
+    name = "install-info_6.5.0.dfsg.1-4+b1_amd64.deb";
+  }
+  {
     url = http://deb.debian.org/debian/pool/main/t/tzdata/tzdata_2021a-0+deb10u1_all.deb;
     sha256 = "1jzvflrzk8xgkdj3k8xbbxb87wcc75z80hk7fsyadbxr47r67nh0";
     name = "tzdata_2021a-0+deb10u1_all.deb";
@@ -1034,6 +1094,11 @@
     url = http://deb.debian.org/debian/pool/main/x/xz-utils/liblzma5_5.2.4-1_amd64.deb;
     sha256 = "0naqr2cn7adbcr50y5j5cg8k20hbx62vmgk2ra6a1lzsvs2zwb99";
     name = "liblzma5_5.2.4-1_amd64.deb";
+  }
+  {
+    url = http://deb.debian.org/debian/pool/main/x/xz-utils/xz-utils_5.2.4-1_amd64.deb;
+    sha256 = "0814bqyzm56zg0c1jkkc7qp81bnn5v9678ypdq48x7prj53m1gnz";
+    name = "xz-utils_5.2.4-1_amd64.deb";
   }
   {
     url = http://deb.debian.org/debian/pool/main/z/zip/zip_3.0-11+b1_amd64.deb;
