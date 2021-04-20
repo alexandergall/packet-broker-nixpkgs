@@ -12,9 +12,8 @@ let
   };
 
   ## Release version of the packet broker service.  The commit for the
-  ## release is tagged with "release-<version>". The version should be
-  ## bumped to the next planned release right after tagging.
-  ##
+  ## release is tagged with "release-<version>". See
+  ## README.md#versioning for the full Git workflow.
   version = "1";
   versionFile = pkgs.writeTextDir "version" "${version}:${gitTag}\n";
   nixProfile = "/nix/var/nix/profiles/packet-broker";
@@ -71,14 +70,14 @@ let
   ## A release is the union of the slices for all supported kernels
   release = builtins.mapAttrs (_: modules: slice modules) bf-sde.pkgs.kernel-modules;
 
-  ## The closure of the set of all releases.  This is the list of
-  ## paths that needs to be available on a binary cache for pure
-  ## binary deployments.  To satisfy restrictions imposed by Intel on
-  ## the distribution of parts of the SDE as a runtime system, we set
-  ## up a post-build hook on the Hydra CI system to copy these paths
-  ## to a separate binary cache which can be made available to third
-  ## parties.  The post-build hook is triggered by the name of the
-  ## derivation, hence the override.
+  ## The closure of the release is the list of paths that needs to be
+  ## available on a binary cache for pure binary deployments.  To
+  ## satisfy restrictions imposed by Intel on the distribution of
+  ## parts of the SDE as a runtime system, we set up a post-build hook
+  ## on the Hydra CI system to copy these paths to a separate binary
+  ## cache which can be made available to third parties. The hook uses
+  ## the releaseClosure to find all paths from a single derivation. It
+  ## is triggered by the name of that derivation, hence the override.
   releaseClosure = (pkgs.closureInfo {
     rootPaths = builtins.foldl'
                   (final: next: final ++ (builtins.attrValues next)) []
@@ -96,11 +95,11 @@ let
     ## The kernel selected here must match the kernel provided by the
     ## bootstrap profile.
     rootPaths = builtins.attrValues (slice bf-sde.pkgs.kernel-modules.Debian10_9);
+    bootstrapProfile = ./installers/onie/profile;
     binaryCaches = [ {
       url = "http://p4.cache.nix.net.switch.ch";
       key = "p4.cache.nix.net.switch.ch:cR3VMGz/gdZIdBIaUuh42clnVi5OS1McaiJwFTn5X5g=";
     } ];
-    bootstrapProfile = ./installers/onie/profile;
     fileTree = ./installers/onie/files;
     activationCmd = "${nixProfile}/bin/release-manager --activate-current";
   };
