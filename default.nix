@@ -19,7 +19,7 @@ let
   nixProfile = "/nix/var/nix/profiles/packet-broker";
 
   ## Build the main components with the latest SDE version
-  bf-sde = pkgs.bf-sde.v9_3_0;
+  bf-sde = pkgs.bf-sde.v9_2_0;
   src = pkgs.fetchFromGitHub {
     owner = "alexandergall";
     repo = "packet-broker";
