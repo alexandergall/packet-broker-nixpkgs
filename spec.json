@@ -62,5 +62,21 @@
             "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git 102 deepClone ", "emailresponsible": false },
 	    "buildInstaller": { "type": "boolean", "value": "true" }
         }
+    },
+    "release-103": {
+        "enabled": 1,
+        "hidden": false,
+        "description": "Data plane code and control plane interface",
+        "nixexprinput": "src",
+        "nixexprpath": "release.nix",
+        "checkinterval": 300,
+        "schedulingshares": 100,
+        "enableemail": false,
+        "emailoverride": "",
+        "keepnr": 3,
+        "inputs": {
+            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git 103 deepClone ", "emailresponsible": false },
+	    "buildInstaller": { "type": "boolean", "value": "true" }
+        }
     }
 }
