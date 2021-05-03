@@ -5,8 +5,8 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v6.tar.gz;
-    sha256 = "1d084qsmqxr8gns350733da0yapswgj24y45prd0qaimznahd375";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v7.tar.gz;
+    sha256 = "1g5jw4pi3sqi8lkdjjp4lix74sdc57v7a4ff5ymakyq4d1npsm13";
   }) {
     overlays = import ./overlay;
   };
