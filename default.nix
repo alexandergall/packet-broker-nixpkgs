@@ -97,5 +97,5 @@ in {
   ##   nix-env -f . -p <some-profile-name> -r -i -A install --argstr kernelRelease $(uname -r)
   install =
     assert kernelRelease != null;
-    slice bf-sde.modulesForKernel kernelRelease;
+    slice (bf-sde.modulesForKernel kernelRelease);
 }
