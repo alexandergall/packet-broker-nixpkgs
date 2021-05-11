@@ -85,26 +85,8 @@ let
                   (builtins.attrValues release);
   }).overrideAttrs (_: { name = "packet-broker-release-closure"; });
 
-  mkOnieInstaller = pkgs.callPackage (pkgs.fetchgit {
-    url = "https://github.com/alexandergall/onie-debian-nix-installer";
-    rev = "be4053";
-    sha256 = "1m74hl9f34i5blpb0l6vfq5mzaqjh1nv50nyj1m3x29wyzks2scc";
-  }) {};
-  onieInstaller = mkOnieInstaller {
-    inherit nixProfile version;
-    component = "packet-broker";
-    ## The kernel selected here must match the kernel provided by the
-    ## bootstrap profile.
-    rootPaths = builtins.attrValues (slice bf-sde.pkgs.kernel-modules.Debian10_9);
-    bootstrapProfile = ./installers/onie/profile;
-    binaryCaches = [ {
-      url = "http://p4.cache.nix.net.switch.ch";
-      key = "p4.cache.nix.net.switch.ch:cR3VMGz/gdZIdBIaUuh42clnVi5OS1McaiJwFTn5X5g=";
-    } ];
-    fileTree = ./installers/onie/files;
-    activationCmd = "${nixProfile}/bin/release-manager --activate-current";
-  };
-  releaseInstaller = pkgs.callPackage ./installers/release-installer.nix {
+  onieInstaller = import ./installers/onie { inherit pkgs version nixProfile bf-sde slice; };
+  releaseInstaller = pkgs.callPackage ./installers/standalone {
     inherit release version gitTag nixProfile;
   };
 
@@ -114,8 +96,6 @@ in {
   ## Final installation on the target system with
   ##   nix-env -f . -p <some-profile-name> -r -i -A install --argstr kernelRelease $(uname -r)
   install =
-    if kernelRelease != null then
-      slice (bf-sde.modulesForKernel kernelRelease)
-    else
-      throw "Missing required argument kernelRelease";
+    assert kernelRelease != null;
+    slice bf-sde.modulesForKernel kernelRelease;
 }
