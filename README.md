@@ -17,7 +17,7 @@ Contents
    * [Release Management](#releaseManagement)
       * [Versioning](#versioning)
 	  * [Release Contents](#releaseContents)
-	  * [Kernel Support](#kernelSupport)
+	  * [Kernel and Platform Support](#kernelPlatformSupport)
 	  * [Using the Release Manager](#usingReleaseManager)
 	  * [Standalone Release Installer](#standaloneInstaller)
    * [Building](#building)
@@ -53,7 +53,7 @@ The main advantages of using this framework are
      (e.g. without any dependencies on the environment of the
      build host)
    * Isolation from the package manager of the base OS: [except for
-     the kernel](#kernelSupport), the Nix packages are completely
+     the kernel](#kernelPlatformSupport), the Nix packages are completely
      self-contained and do not depend on any packages of the host's
      native package manager
 
@@ -84,18 +84,17 @@ installer](#ONIE) comes with this repository pre-configured.
 ## <a name="supportedPlatforms"></a>Supported Platforms
 
 The packages only support Tofino ASICs of the first generation at this
-time.  Currently, the only verified platform is
+time.  The Packet Broker packages support the following platforms
 
-   * `accton-wedge100bf-32x`
+   * `accton_wedge100bf_32x`
+   * `accton_wedge100bf_32qs`
+   * `accton_wedge100bf_65x`
+   * `inventec_d5264q28b`
 
-The system should also work on the 65x-variant
-(`accton-wedge100bf-65x`) but has not been verified.
-
-Other platforms that don't have external gearboxes to support
-non-native port configurations are also expected to work, with the
-possible exception of the management Ethernet and CDC-Ethernet (used
-for communication between the host and the BMC) interfaces due to
-different configurations of the PCIe bus.
+But note that only the `accton_wedge100bf_32x` has been verified to
+work.  The other `accton`-based platforms are expected to work as well
+while support of the Inventec device has to be considered to be
+experimental.
 
 ## <a name="downloads"></a>Downloads
 
@@ -110,7 +109,7 @@ option.
 
 ## <a name="ONIE"></a>Initial Setup using the Pre-Built ONIE Installer
 
-Devices like the `accton-wedge100bf-32x` usually come with a
+Devices like the `accton_wedge100bf_32x` usually come with a
 pre-installed ONIE.  ONIE-compatible installers for releases of the
 Packet Broker are [available for
 download](http://hydra.nix.net.switch.ch/packet-broker/releases/). To
@@ -128,6 +127,17 @@ Note well: **This procedure destroys all partitions beyond partitions
 loader of the Debian system (installed in partition 3) includes an
 entry to chain-load the ONIE boot loader to make it easy to perform
 ONIE operations after an image has been installed.
+
+If the device does not belong to the [list of supported
+platforms](#supportedPlatforms), the installer will emit a message of
+the form
+
+```
+Unsupported platform: <ONIE platform identifier>
+```
+
+The installation will still proceed but the packet broker application
+will not be available.
 
 ## <a name="configurationUsage"></a>Configuration and Usage
 
@@ -275,7 +285,7 @@ commits in the second class can be further distinguished:
 
    * `<v>` is equal to `version`. Such a commit is an update of a
      principal release on a release branch.
-   * `<v>` is equel to `version-1`. Such a commit is a pre-release of
+   * `<v>` is equal to `version-1`. Such a commit is a pre-release of
      release `version` on the `master` branch.
 
 ### <a name="releaseContents"></a>Release Contents
@@ -303,6 +313,8 @@ components
    * `release-manager`. A command to manage releases of the service.
    * `version`. A file containing the version information of the
      release.
+   * `slice`. A file containing information about which
+     [slice](#slice) of the release is installed on the system.
 
 Each of these components is a package by itself in the sense of the
 Nix package manager.  In other words, the release is a collection of
@@ -312,8 +324,28 @@ feature of Nix called a _profile_).
 The `version` file contains the version and gitTag as a string of the
 form `<version>:<gitTag>`.
 
-### <a name="kernelSupport"></a>Kernel Support
+The `slice` file contains the kernel ID, kernel release and platform
+identifiers as a string of the form
+`<kernelID>:<kernelRelease>:<platform>`.
 
+### <a name="kernelPlatformSupport"></a>Kernel and Platform Support
+
+The `bf_switchd` process has two dependencies on the environment in
+which it is running.  The first is the dependence on the
+_baseboard_. Every platform uses the Tofino ASIC in a specific
+hardware configuration. In general, these configurations differ in how
+they integrate the ASIC with external components like QSFP connectors
+or gear boxes.  These configurations are called baseboards.  The
+baseboard-specific code is hidden behind a generic API and confined to
+a small set of shared objects that provide implementations of the API
+for each baseboard.  The`bf_switchd` binary must be configured to load
+the shared object appropriate for the baseboard on which it runs.  The
+SDE contains support for a specific set of baseboards. A baseboard can
+support multiple platforms. For example, all platforms of the `accton`
+family use the same baseboard (i.e. the mapping of platforms to
+baseboards is unique but not the other way round).
+
+The second dependency is the kernel module required by `bf_switchd`.
 The SDE includes a set of kernel modules needed by the `bf_switchd`
 process.  Every kernel for which these modules should be built must be
 explicitly supported by the SDE package. The [list of supported
@@ -321,18 +353,19 @@ kernels](https://github.com/alexandergall/bf-sde-nixpkgs/blob/master/bf-sde/kern
 is part of the SDE package definition.
 
 A release of the Packet Broker includes the modules for all supported
-kernels.  At the time of installation on a specific target, only the
-modules that match the local kernel will be installed.  This implies
-that a release cannot be installed on an unsupported kernel.
+kernels on all supported platforms.  At the time of installation on a
+specific target, only the components that match the target's platform
+and kernel will be installed.  This implies that a release cannot be
+installed on an unsupported kernel or an unsupported platform.
 
-As a result, only a subset of the components contained in the release
-is installed on any given target. This subset is referred to as a
-_slice_ of the release. By definition, all slices have the same
-version information. Since it is possible to install multiple slices
-on a system to support kernel upgrades or multi-kernel configurations,
-it is necessary to distinguish them from each other. For this purpose,
-each slice includes a file called `slice`, containing the identifier
-of the kernel in the form `<kernelID>:<kernelRelease>`.
+<a name="slice"/>
+This subset of a release is referred to as a _slice_.  By definition,
+all slices have the same version information. Since it is possible to
+install multiple slices on a system to support kernel upgrades or
+multi-kernel configurations, it is necessary to distinguish them from
+each other. For this purpose, each slice includes a file called
+`slice`, containing the identifier of the kernel and platform in the
+form `<kernelID>:<kernelRelease>:<platform>`.
 
 The `<kernelID>` is already a unique identifier for the
 kernel. Technically, it is the name of the attribute in a set that
@@ -353,169 +386,19 @@ following one-to-one correspondence holds for the kernels with
    * `<kernelID>` = `Debian10_8` <=> `<kernelRelease>` = 4.19.0-14-amd64
    * `<kernelID>` = `Debian10_9` <=> `<kernelRelease>` = 4.19.0-16-amd64
 
+The `<platform>` identifier is one of the [list of supported
+platforms](#supportedPlatforms). It corresponds exactly to the value
+of the `onie_machine` identifier in the file `/etc/machine.conf`. This
+file is created automatically by the ONIE installer.
+
 ### <a name="usingReleaseManager"></a>Using the Release Manager
 
 All manipulations of releases are performed with the `release-manager`
-CLI tool which is part of every release. It supports the following
-options
-
-   * `--list-installed`
-   * `--list-available`
-   * `--install-release <version>`
-   * `--install-git <git-commit>`
-   * `--update-release <version>`
-   * `--untinstall-generation <gen>`
-   * `--activate-current`
-   * `--deactivate-current`
-   * `--switch-to-generation <gen>`
-   * `--cleanup`
-
-The `--install-*` options require network access to various sites
-(Github, the generic Nix package cache and the package repository for
-pre-built components of the Packet Broker).  In case generic network
-access by the device is prohibited by security policies or technical
-limitations, releases can also be deployed by a [standalone
-installer](#standaloneInstaller) which does not require any network
-access at all as detailed in the next chapter. All other options of
-`release-manager` do not requrie network access.
-
-#### `--list-installed`
-
-This option lists the currently installed releases
-
-```
-$ release-manager --list-installed
-Generation Current Release Git Tag      KernelID       Kernel Release            Install date
--------------------------------------------------------------------------------------------------------------------
-         1 *       1       release-1    Debian11       5.10.0-5-amd64            2021-04-14 08:00:16.832902563 +0000
-```
-
-The generation is a monotonically increasing integer that uniquely
-identifies the installed releases.  Every new release installed either
-by `release-manager` or a standalone installer is assigned a new
-generation number which is equal to the highest generation in the list
-plus one.
-
-There can be any number of releases installed at the same time, but
-only one of them can provide the Packet Broker service at any given
-time as detailed in the description of the `--activate-current` and
-`--deactivate-current` options. This release is said to be the
-_current_ release and is marked by a `*` in the "Current" column of
-the list.
-
-The "Release" and "Git Tag" columns display the [versioning
-information](#versioning).
-
-As explained in the section on [kernel support](#kernelSupport), a
-full relase contains the modules for all supported kernels, but only
-the modules for the local kernel are installed on any given system.
-That subset of the full release is called a _slice_.  The "Kernel ID"
-and "Kernel Release" colummns in the list of installed releases
-identify the installed slice. Note that it is possible to install
-multiple slices of the same release to support upgrades of the kernel
-and multi-kernel setups.
-
-Finally, the "Install Date" Column gives the time and date at which
-the release slice was installed.
-
-**Implementation note**: the release-manager uses the
-[profiles](https://nixos.org/manual/nix/unstable/package-management/profiles.html)
-feature of the Nix package manager to keep track of installed
-releases. The notion of generations is taken straight from the
-underlying Nix profile.  The profile used for the Package Manager is
-called `/nix/var/nix/profiles/packet-broker`.
-
-#### `--list-available`
-
-This option requires access to `github.com`. It uses the Github API to
-query the set of tags of the `packet-broker-nixpkgs` repository and
-looks for tags of the form `release-<v>`.  For each such tag it prints
-a line to inform the user that release version `<v>` is available for
-installation.  It will also indicate whether there are any slices of
-that release already installed on the system and inform if any updates
-are available for the release
-
-```
-$ release-manager --list-available
-INFO: Checking for release tags of https://github.com//alexandergall/packet-broker-nixpkgs
-
-Version  Status
------------------------------------------------
-       1  Installed, up-to-date version installed in generation 1
-```
-
-**Note**: this option uses the Github API. The repository has a
-rate-limit of 60 requests per hour per source address. Therefore, it
-is possible that the command fails temporarily if the rate-limit has
-been exceeded.
-
-#### `--install-release <version>`
-
-This option requires network access to `github.com`, `nixos.org` and
-`p4.cache.nix.net.switch.ch`. Given one of the version numbers
-reported by `--list-available`, this option downloads the definition
-of the release expressed as a Nix expression, fetches the pre-built
-packages required by it and installs the slice for the currently
-running kernel.
-
-Note that this will install the principal release. If there are any
-updates for the release available, they have to be installed
-separately with `--update-release`.
-
-This operation is completely safe, reversible and does not affect the
-running service.  It only installs the packages and makes them
-available for activation with the `--switch-to-generation` option.
-
-Due to the nature of Nix, packages are never overwritten or changed in
-any way after installation.  This is what makes concurrent versions
-without any danger of conflicts possible.
-
-The command will fail if the release is not available or already
-present on the system.
-
-By default, the slice corresponding to the running kernel (as reported
-by `uname -r`) is installed. To install the slice for a different
-kernel, set the `KERNEL_RELEASE` environment variable accordingly. The
-kernel must be one of the list of the kernels supported by the SDE
-package used in the current release.
-
-#### `--install-git <git-commit>`
-
-This option requires the same network access as `--install-release`.
-While `--install-release` is restricted to installing principal
-releases, `--install-git` allows the installation of an arbitrary
-commit. It fetches the `packet-broker-nixpkgs` repository using a Git
-"remote" called `origin` and checks out the commit with `git reset
---hard`. `<git-commit>` can be any identifier of a commit (i.e. a
-"commit-ish" in Git terminology).  For example, to install the current
-tip of the branch `1`, one woud use
-
-```
-$ release-manager --install-git origin/1
-```
-
-This is equivalent to using the option `--update-release 1`.
-
-#### `--update-release <version>`
-
-This option is a shortcut for
-
-```
-$ release-manager --install-git origin/<version>
-```
-
-to update a release to the most recent commit on the release
-branch. This will installed an additional generation with the updates
-included. It will not change the existing installation of the
-principal release (or that of an update that is not the newest
-available).
-
-#### `--untinstall-generation <gen>`
-
-This option removes the generation denoted by `<gen>` from the list of
-installed releases. It doesn't actually remove any packages unless you
-run `--cleanup` as well, but it makes the release unavailable for
-activation.
+CLI tool which is part of every release.  Please refer to the
+[documentation](https://github.com/alexandergall/bf-sde-nixpkgs/blob/master/bf-sde/support/README.md#releaseManager)
+for the list of supported options and their usage.  The service
+activation and deactivation options specific to the packet broker are
+as follows.
 
 #### `--activate-current`
 
@@ -557,33 +440,6 @@ This performs the reverse of `--activate-current`
         snabb-snmp-agent`
    * Unload SDE kernel modules
 
-#### `--switch-to-generation <gen>`
-
-This option is used to switch the service from the currently active
-release to another in the list of installed releases.  The argument to
-the option must be one of the generations displayed with
-`--list-installed`.  The switch is done by first performing a
-`--deactivate-current` with the `release-manager` of the current
-release (this stops the running instance). Then the current release is
-switched to the specified generation. The release is activated by
-calling the `release-manager` of the new release with the
-`--activate-current` option, which re-starts the service with the new
-release.  Note that this also causes the kernel modules of the old
-release to be unloaded and re-loaded from the new release.
-
-#### `--cleanup`
-
-The Nix package manager doesn't delete any packages automatically.
-Instead, it uses a garbage collector to keep track of packages which
-are "in use" (also called _live_).  All packages needed by one of the
-installed releases are automatically considered to be live and never
-removed.  However, if a release has been uninstalled with
-`--uninstall-generation`, it is no longer considered live and subject
-to removal.
-
-The `--cleanup` option deletes all packages which are not live. This
-can be used to free up disk space if needed.
-
 **Implementation note**: this option essentially calls the
 `nix-collect-garbage` utility, which can also be called directly by
 the user.
@@ -610,7 +466,7 @@ Nix is present and the Nix commands are available in
 `/nix/var/nix/profiles/default/bin` (this should be the case after a
 regular installation of Nix in multi-user mode).
 
-Standalone iqnstallers for all releases can be downloaded from the
+Standalone installers for all releases can be downloaded from the
 [same site as the ONIE
 installer](http://hydra.nix.net.switch.ch/packet-broker/releases/). The
 files are named `packet-broker-<gitTag>-install.sh` and are
@@ -622,19 +478,21 @@ Once the installer has been copied to the device, execute it as root,
 e.g.
 
 ```
-# $ sudo packet-broker-release-1-install.sh
+$ sudo packet-broker-release-1-install.sh
 Unpacking archive
-INFO: Installing packet broker release 1 (Id: 1:WIP) for kernel 5.10.0-5-amd64 in /nix/var/nix/profiles/packet-broker
+INFO: Installing packet broker release 2 (Id: 2:release-1-5-g5ab2454) for kernel 4.19.0-16-amd64 on platform accton_wedge100bf_32x in /nix/var/nix/profiles/packet-broker
 INFO: Copying store paths
 INFO: Registering paths in DB
 INFO: Installing the service in /nix/var/nix/profiles/packet-broker
+building '/nix/store/wnlw92sz2jh4rhd1mwrq687rhrq40kjv-user-environment.drv'...
+created 39 symlinks in user environment
 INFO: Installation completed
-INFO: Use "release-manager --switch-to-generation 3" to switch to this release
+INFO: Use "release-manager --switch-to-generation 2" to switch to this release
 Currently installed releases:
-Generation Current Release Git Tag      KernelID       Kernel Release      Install date
--------------------------------------------------------------------------------------------------------------------
-         2 *       1       release-1    Debian11       5.10.0-5-amd64      2021-04-14 08:00:16.832902563 +0000
-         3         1       WIP          Debian11       5.10.0-5-amd64      2021-04-14 15:50:44.125809762 +0000
+Generation Current Release Git Tag                    KernelID       Kernel Release            Platform                   Install date
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+         1 *       2       WIP                        Debian10_9     4.19.0-16-amd64           accton_wedge100bf_32x      2021-06-30 12:12:02.578064597 +0200
+         2         2       release-1-5-g5ab2454       Debian10_9     4.19.0-16-amd64           accton_wedge100bf_32x      2021-07-01 11:27:19.801208594 +0200
 ```
 
 The result is exactly the same as with the `--install-{release,git}`
@@ -660,7 +518,7 @@ need to perform the steps
      mode](https://github.com/alexandergall/bf-sde-nixpkgs#install-the-nix-package-manager-in-multi-user-mode)
    * [Fetch and verify source
      archives](https://github.com/alexandergall/bf-sde-nixpkgs#fetch-and-verify-source-archives)
-     for version 9.4.0 of the SDE
+     for version 9.5.0 of the SDE
    * [Add archives to the Nix
      store](https://github.com/alexandergall/bf-sde-nixpkgs#add-archives-to-the-nix-store)
 
@@ -670,7 +528,7 @@ Then clone this repository
 $ git clone https://github.com/alexandergall/packet-broker-nixpkgs.git
 ```
 
-Check out the desried release, e.g.
+Check out the desired release, e.g.
 
 ```
 $ cd packet-broker-nixpkgs
@@ -695,16 +553,39 @@ $ nix-build -A onieInstaller
 ```
 
 The installer itself is the file `onie-installer.bin` located in that
-directory.
+directory.  The root file system that will be installed by it will
+only have a `root` account and logins are only possible from the
+serial console. To add user accounts to the image, the installer has
+to be built with an additional argument
+
+```
+$ nix-build -A onieInstaller --arg onieUsers '{ foo = { ... } ; bar = { ... }; }'
+```
+
+This will create accounts named `foo` and `bar` according to the
+specifications in the attribute set abbreviated as `{ ... }`
+above. See the documentation of the [`users` argument to
+`mkOnieInstaller`](https://github.com/alexandergall/onie-debian-nix-installer/blob/master/README.md)
+for a full description of the available options. For example,
+
+```
+foo = {
+  useraddArgs = "-s /bin/bash";
+  sshPublicKey = "<public-key>";
+}
+```
+
+creates the user `foo` with `/bin/bash` as login shell and
+`/home/foo/.ssh/authorized_keys` containing `<public-key>`.
 
 To build the standalone installer (the `--argstr` argument has the
 effect to use the same gitTag that is used by the Hydra CI system when
 it builds the official release, it can be omitted but the gitTag will
 then be set to `WIP` to indicate that the release has been built from
-a Git working tree, which may have uncommited modifications):
+a Git working tree, which may have uncommitted modifications):
 
 ```
-$ nix-build -A releaseInstaller --argstr gitTag $(git describe)
+$ nix-build -A standaloneInstaller --argstr gitTag $(git describe)
 ```
 
 **Note**: the result of this build is not exactly what can be
@@ -716,7 +597,7 @@ top-level directory of this repository)
 
 ```bash
 #!/bin/bash
-path=$(nix-build -A releaseInstaller --argstr gitTag $(git describe))
+path=$(nix-build -A standaloneInstaller --argstr gitTag $(git describe))
 cat <<EOF >installer
 #!/bin/bash
 [ \$(id -u) == 0 ] || { echo "Please run as root"; exit 1; }
@@ -748,4 +629,4 @@ trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDS
 
 Don't forget to run `systemctl restart nix-daemon` after changing this
 files.  You can then proceed to build the `onieInstaller` and
-`releaseInstaller` packages as described in the previous chapter.
+`standaloneInstaller` packages as described in the previous chapter.
