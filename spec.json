@@ -2,7 +2,7 @@
     "development": {
         "enabled": 1,
         "hidden": false,
-        "description": "Data plane code and control plane interface",
+        "description": "Development of upcoming release",
         "nixexprinput": "src",
         "nixexprpath": "release.nix",
         "checkinterval": 300,
@@ -11,14 +11,14 @@
         "emailoverride": "",
         "keepnr": 3,
         "inputs": {
-            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git master deepClone ", "emailresponsible": false },
+            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git master", "emailresponsible": false },
 	    "buildInstaller": { "type": "boolean", "value": "false" }
         }
     },
     "release-1": {
         "enabled": 1,
         "hidden": false,
-        "description": "Data plane code and control plane interface",
+        "description": "Release 1",
         "nixexprinput": "src",
         "nixexprpath": "release.nix",
         "checkinterval": 300,
@@ -27,7 +27,23 @@
         "emailoverride": "",
         "keepnr": 3,
         "inputs": {
-            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git 1 deepClone ", "emailresponsible": false },
+            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git 1", "emailresponsible": false },
+	    "buildInstaller": { "type": "boolean", "value": "true" }
+        }
+    },
+    "release-2": {
+        "enabled": 1,
+        "hidden": false,
+        "description": "Release 2",
+        "nixexprinput": "src",
+        "nixexprpath": "release.nix",
+        "checkinterval": 300,
+        "schedulingshares": 100,
+        "enableemail": false,
+        "emailoverride": "",
+        "keepnr": 3,
+        "inputs": {
+            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git 2", "emailresponsible": false },
 	    "buildInstaller": { "type": "boolean", "value": "true" }
         }
     }
