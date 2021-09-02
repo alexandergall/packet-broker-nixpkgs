@@ -30,5 +30,21 @@
             "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git 200", "emailresponsible": false },
 	    "buildInstaller": { "type": "boolean", "value": "true" }
         }
+    },
+    "release-201": {
+        "enabled": 1,
+        "hidden": false,
+        "description": "Test Release 201",
+        "nixexprinput": "src",
+        "nixexprpath": "release.nix",
+        "checkinterval": 300,
+        "schedulingshares": 100,
+        "enableemail": false,
+        "emailoverride": "",
+        "keepnr": 3,
+        "inputs": {
+            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git 201", "emailresponsible": false },
+	    "buildInstaller": { "type": "boolean", "value": "true" }
+        }
     }
 }
