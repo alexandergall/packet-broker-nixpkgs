@@ -6,8 +6,8 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v11.tar.gz;
-    sha256 = "01i37jz7ds4mb9xw0xlwc20riby6ys4f03xgn6sh8a5mb2416rn5";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v13.tar.gz;
+    sha256 = "0r2syp9zrpwlg9wf36655m29i39p9qylqyr2xk3q8xkcchysj6qf";
   }) {
     overlays = import ./overlay;
   };
@@ -25,8 +25,8 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "alexandergall";
     repo = "packet-broker";
-    rev = "v1";
-    sha256 = "1rfm286mxkws8ra92xy4jwplmqq825xf3fhwary3lgvbb59zayr9";
+    rev = "v2";
+    sha256 = "100pqlr2w49wvvcmnb43i8qjlnkjnp2y5bysa1dzf69sg49qd1xq";
   };
   sliceCommon = {
     inherit versionFile;
@@ -84,12 +84,12 @@ let
     "accton_wedge100bf_32x"
     "accton_wedge100bf_32qs"
     "accton_wedge100bf_65x"
-    "inventec_d5264q28b"
+    #"inventec_d5264q28b"
   ];
   release = support.mkRelease slice bf-sde.pkgs.kernel-modules platforms;
   releaseClosure = support.mkReleaseClosure release "packet-broker";
   component = "packet-broker" + componentSuffix;
-  onieInstaller = support.mkOnieInstaller {
+  onieInstaller = (support.mkOnieInstaller {
     inherit version nixProfile platforms component;
     ## The kernel used here must match that from the profile
     partialSlice = slice bf-sde.pkgs.kernel-modules.Debian10_9;
@@ -101,7 +101,7 @@ let
       key = "p4.cache.nix.net.switch.ch:cR3VMGz/gdZIdBIaUuh42clnVi5OS1McaiJwFTn5X5g=";
     } ];
     users = onieUsers;
-  };
+  }).override { memSize = 5*1024; };
   standaloneInstaller = support.mkStandaloneInstaller {
     inherit release version gitTag nixProfile component;
   };
@@ -113,5 +113,6 @@ in {
   ##   nix-env -f . -p <some-profile-name> -r -i -A install --argstr kernelRelease $(uname -r) --argstr platform <platform>
   install =
     assert kernelRelease != null && platform != null;
+    assert pkgs.lib.assertMsg (builtins.elem platform platforms) "Unsupported platform: ${platform}";
     slice (bf-sde.modulesForKernel kernelRelease) platform;
 }
