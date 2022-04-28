@@ -6,8 +6,8 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/v13.tar.gz;
-    sha256 = "0r2syp9zrpwlg9wf36655m29i39p9qylqyr2xk3q8xkcchysj6qf";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/3434a2.tar.gz;
+    sha256 = "044d79bxv5dfy9n2631fx4g81pqi52cw0flh6chh4ia8dz72qpnx";
   }) {
     overlays = import ./overlay;
   };
@@ -25,8 +25,8 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "alexandergall";
     repo = "packet-broker";
-    rev = "v2";
-    sha256 = "100pqlr2w49wvvcmnb43i8qjlnkjnp2y5bysa1dzf69sg49qd1xq";
+    rev = "v3";
+    sha256 = "0w67xwjn6lafacn7b8w3bks5pj9qniwgh8hzzk50hsxk2l7gxs73";
   };
   sliceCommon = {
     inherit versionFile;
@@ -108,6 +108,8 @@ let
 
 in {
   inherit release releaseClosure onieInstaller standaloneInstaller;
+  ## For the "install" make target
+  inherit (sliceCommon) release-manager;
 
   ## Final installation on the target system with
   ##   nix-env -f . -p <some-profile-name> -r -i -A install --argstr kernelRelease $(uname -r) --argstr platform <platform>
