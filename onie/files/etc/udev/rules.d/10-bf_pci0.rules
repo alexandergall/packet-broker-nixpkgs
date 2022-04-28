@@ -1,0 +1,1 @@
+SUBSYSTEMS=="pci", DRIVERS=="bf", NAME="bf_pci0"

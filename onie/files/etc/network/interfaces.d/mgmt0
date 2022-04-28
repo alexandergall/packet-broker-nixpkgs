@@ -1,0 +1,2 @@
+auto mgmt0
+iface mgmt0 inet dhcp
