@@ -92,7 +92,7 @@ let
   onieInstaller = (support.mkOnieInstaller {
     inherit version nixProfile platforms component;
     ## The kernel used here must match that from the profile
-    partialSlice = slice bf-sde.pkgs.kernel-modules.Debian11_0;
+    partialSlice = slice bf-sde.pkgs.kernel-modules.Debian11_3;
     bootstrapProfile = ./onie/profile;
     fileTree = ./onie/files;
     NOS = "NOS";
