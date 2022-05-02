@@ -6,8 +6,8 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/3434a2.tar.gz;
-    sha256 = "044d79bxv5dfy9n2631fx4g81pqi52cw0flh6chh4ia8dz72qpnx";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/e7b0ed.tar.gz;
+    sha256 = "08a0ggmvj27adjl9aacf9djr92pch3z457n48yzvjg7bn0lpsn7s";
   }) {
     overlays = import ./overlay;
   };
@@ -84,6 +84,7 @@ let
     "accton_wedge100bf_32x"
     "accton_wedge100bf_32qs"
     "accton_wedge100bf_65x"
+    "model"
     #"inventec_d5264q28b"
   ];
   release = support.mkRelease slice bf-sde.pkgs.kernel-modules platforms;
