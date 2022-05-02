@@ -91,7 +91,8 @@ let
   releaseClosure = support.mkReleaseClosure release "packet-broker";
   component = "packet-broker" + componentSuffix;
   onieInstaller = (support.mkOnieInstaller {
-    inherit version nixProfile platforms component;
+    inherit version nixProfile component;
+    platforms = builtins.filter (e: e != "model") platforms;
     ## The kernel used here must match that from the profile
     partialSlice = slice bf-sde.pkgs.kernel-modules.Debian11_3;
     bootstrapProfile = ./onie/profile;
