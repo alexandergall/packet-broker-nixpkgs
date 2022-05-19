@@ -6,8 +6,8 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/e7b0ed.tar.gz;
-    sha256 = "08a0ggmvj27adjl9aacf9djr92pch3z457n48yzvjg7bn0lpsn7s";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/84f27c.tar.gz;
+    sha256 = "0q9z0qi0mnhji8halxgfkr5lh5ihzzfm5bwfc98r59m57af6ynf7";
   }) {
     overlays = import ./overlay;
   };
@@ -25,8 +25,8 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "alexandergall";
     repo = "packet-broker";
-    rev = "a2921f";
-    sha256 = "1qnljv3ldrs98iq8yk581hcj68i3n6kxx588jqa3wcbvpc6qqdl1";
+    rev = "07198e";
+    sha256 = "1xqmq3h18v05g6zqgwxqfv1imhhgj1d1mkizzbrm28c7nlmr89h5";
   };
   sliceCommon = {
     inherit versionFile;
@@ -84,6 +84,7 @@ let
     "accton_wedge100bf_32x"
     "accton_wedge100bf_32qs"
     "accton_wedge100bf_65x"
+    "accton_as9516_32d"
     "model"
     #"inventec_d5264q28b"
   ];
