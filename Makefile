@@ -33,4 +33,7 @@ standaloneInstaller:
 install:
 	@echo "Building release manager"
 	@NIX_PATH= nix-build -j auto -A release-manager
-	@sudo ./result/bin/release-manager --install-local .
+	@set -e; \
+	path=$$(readlink result); \
+	rm result; \
+	sudo $$path/bin/release-manager --install-local .
