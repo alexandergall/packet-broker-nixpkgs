@@ -93,7 +93,7 @@ let
   component = "packet-broker" + componentSuffix;
   onieInstaller = (support.mkOnieInstaller {
     inherit version nixProfile component;
-    platforms = builtins.filter (e: e != "model") platforms;
+    platforms = builtins.filter (p: builtins.match "^model.*" p == null) platforms;
     ## The kernel used here must match that from the profile
     partialSlice = slice bf-sde.pkgs.kernel-modules.Debian11_3;
     bootstrapProfile = ./onie/profile;
