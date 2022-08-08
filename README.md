@@ -89,12 +89,15 @@ time.  The Packet Broker packages support the following platforms
    * `accton_wedge100bf_32x`
    * `accton_wedge100bf_32qs`
    * `accton_wedge100bf_65x`
-   * `inventec_d5264q28b`
+   * `accton_as9516_32d`
+   * `model`
+   * `modelT2`
 
-But note that only the `accton_wedge100bf_32x` has been verified to
-work.  The other `accton`-based platforms are expected to work as well
-while support of the Inventec device has to be considered to be
-experimental.
+The `wedge100bf` models are based on Tofino1 while the `as9516` is
+based on Tofino2. The `model` and `modelT2` are pseudo platforms that
+use the software emulation of the Tofino1 and Tofino2,
+respectively. They can be instantiated on systems that don't have an
+actual ASIC for testing purposes.
 
 ## <a name="downloads"></a>Downloads
 
@@ -518,7 +521,7 @@ need to perform the steps
      mode](https://github.com/alexandergall/bf-sde-nixpkgs#install-the-nix-package-manager-in-multi-user-mode)
    * [Fetch and verify source
      archives](https://github.com/alexandergall/bf-sde-nixpkgs#fetch-and-verify-source-archives)
-     for version 9.5.0 of the SDE
+     for version 9.9.0 of the SDE
    * [Add archives to the Nix
      store](https://github.com/alexandergall/bf-sde-nixpkgs#add-archives-to-the-nix-store)
 
@@ -532,13 +535,13 @@ Check out the desired release, e.g.
 
 ```
 $ cd packet-broker-nixpkgs
-$ git checkout release-1
+$ git checkout release-5
 ```
 
 To build the ONIE installer, execute
 
 ```
-$ nix-build -A onieInstaller
+$ make onieInstaller
 ```
 
 This will build everything from the SDE source code and take between
@@ -548,69 +551,39 @@ The result is a Nix _derivation_, essentially a directory in
 `/nix/store` with a weird name. For example
 
 ```
-$ nix-build -A onieInstaller
+$ make onieInstaller
+[ lots of build output ]
 /nix/store/a6l2af11hipk8v0h002hcz3c1q9lzyyj-onie-installer-debian-buster
 ```
 
 The installer itself is the file `onie-installer.bin` located in that
 directory.  The root file system that will be installed by it will
-only have a `root` account and logins are only possible from the
-serial console. To add user accounts to the image, the installer has
-to be built with an additional argument
+only have a `root` account with an empty password and logins are only
+possible from the serial console. To add user accounts to the image,
+the installer has to be built with an additional argument. An example
+of this is given by the make target `onieInstaller-SWITCH`:
 
 ```
-$ nix-build -A onieInstaller --arg onieUsers '{ foo = { ... } ; bar = { ... }; }'
+onieInstaller-SWITCH:
+	NIX_PATH= nix-build -j auto -A onieInstaller --argstr gitTag $(gitTag) \
+	  --arg onieUsers '{ansible = {useraddArgs = "-s /bin/bash"; sshPublicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS/xdgmacIpg2bpsdqFETevQKPqyi3Pmn9lDaHQ/QYsz7eqsZAX/Tn+0NBL6sVb4C5g2Qk9EzKPs1v1F3p5bwaDq08aC+cRgKndWwjpZxj/MV0HQhzC5NpfBcE0TS5nzLJFjEs2qxQorZ07PglsYLCTxhe0vI36ddvfM1VIhc0Wa+h97CPjfIWNWUSAKKhjznpyJKONwWcHeM15MCzow6riDrHo14DsnoW9T68h3Qcd1RUUPx5xG6vd9cZ/7bAqru44RdDq4FUpkmPK+W6VN7bRqOxXC1TbKbptpeITcQdiBWblNgao9bvOtpxjXd1uEU0h9oqCsMn0tjIIsFYT2Wz ansible";};}'
 ```
 
-This will create accounts named `foo` and `bar` according to the
-specifications in the attribute set abbreviated as `{ ... }`
-above. See the documentation of the [`users` argument to
-`mkOnieInstaller`](https://github.com/alexandergall/onie-debian-nix-installer/blob/master/README.md)
-for a full description of the available options. For example,
+It adds the user `ansible` with a specific SSH public key. This key is
+only used inside SWITCH where the corresponding private key is stored
+as part of an Ansible playbook. For the generic structure of this
+parameter, see the documentation of the [`users` argument to
+`mkOnieInstaller`](https://github.com/alexandergall/onie-debian-nix-installer/blob/master/README.md).
+
+The standalone Installer can be built by
 
 ```
-foo = {
-  useraddArgs = "-s /bin/bash";
-  sshPublicKey = "<public-key>";
-}
+$ make standaloneInstaller
 ```
 
-creates the user `foo` with `/bin/bash` as login shell and
-`/home/foo/.ssh/authorized_keys` containing `<public-key>`.
-
-To build the standalone installer (the `--argstr` argument has the
-effect to use the same gitTag that is used by the Hydra CI system when
-it builds the official release, it can be omitted but the gitTag will
-then be set to `WIP` to indicate that the release has been built from
-a Git working tree, which may have uncommitted modifications):
-
-```
-$ nix-build -A standaloneInstaller --argstr gitTag $(git describe)
-```
-
-**Note**: the result of this build is not exactly what can be
-[downloaded](http://hydra.nix.net.switch.ch/packet-broker/releases/).
-The downloadable installer has an additional wrapper added to it,
-which installs dependencies needed by the installer. To re-create that
-wrapper, build the installer with the following shell script (from the
-top-level directory of this repository)
-
-```bash
-#!/bin/bash
-path=$(nix-build -A standaloneInstaller --argstr gitTag $(git describe))
-cat <<EOF >installer
-#!/bin/bash
-[ \$(id -u) == 0 ] || { echo "Please run as root"; exit 1; }
-echo "Installing installer closure"
-/nix/var/nix/profiles/default/bin/nix-store --import < <(tail -n+7 \$0 | xz -d)
-$path/installer.sh
-exit 0
-EOF
-nix-store --export $(nix-store -qR $path) | xz >>installer
-chmod a+x installer
-```
-
-Execute `sudo ./installer` to run.
+This will write the installer to `/tmp/standaloneInstaller`. It is a
+self-extracting `bash` script that can be copied to the destination
+system and executed there.
 
 ### <a name="buildingPreBuilt"></a>Installers From Pre-Built Packages
 
