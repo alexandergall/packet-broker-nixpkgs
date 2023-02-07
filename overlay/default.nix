@@ -1,7 +1,7 @@
 let
   overlay = self: super:
     {
-      net_snmp = super.net_snmp.overrideAttrs (oldAttrs: rec {
+      net_snmp = (super.net_snmp.overrideAttrs (oldAttrs: rec {
         configureFlags = oldAttrs.configureFlags ++
           [ "--with-perl-modules"
             "--with-persistent-directory=/var/lib/snmp"
@@ -10,8 +10,6 @@ let
           perlversion=$(perl -e 'use Config; print $Config{version};')
           perlarchname=$(perl -e 'use Config; print $Config{archname};')
           installFlags="INSTALLSITEARCH=$out/lib/perl5/site_perl/$perlversion/$perlarchname INSTALLARCHLIB=$out/lib/perl5/site_perl/$perlversion/$perlarchname INSTALLSITEMAN3DIR=$out/share/man/man3"
-          # http://comments.gmane.org/gmane.network.net-snmp.user/32434
-          substituteInPlace "man/Makefile.in" --replace 'grep -vE' '@EGREP@ -v'
         '';
 
         ## The standard package uses multiple outputs, but this fails
@@ -24,7 +22,7 @@ let
 
         ## Skip multi-output logic
         postInstall = "true";
-      });
+      })).override { withPerlTools = true; };
 
       SNMPAgent = super.callPackage ./snmp {};
     };

@@ -1,8 +1,8 @@
-{ buildPerlPackage, fetchFromGitHub, perlPackages, net_snmp }:
+{ fetchFromGitHub, perlPackages, net_snmp }:
 
 ## nix-prefetch-url --unpack --name Snabb-SNMP-0.01 \
 ##   https://github.com/alexandergall/snabb-snmp-subagent/archive/${rev}.tar.gz
-buildPerlPackage  rec {
+perlPackages.buildPerlPackage  rec {
   pname = "Snabb-SNMP";
   version = "0.01";
   src = fetchFromGitHub {
