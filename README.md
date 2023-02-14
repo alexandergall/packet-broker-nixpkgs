@@ -33,7 +33,7 @@ ONIE installer for the initial setup and a tool for managing releases
 on a running system.
 
 Currently, the base OS provided by the ONIE installer is a basic
-version of Debian 10 combined with an installation of the [Nix package
+version of Debian 11 combined with an installation of the [Nix package
 manager](https://nixos.org/manual/nixpkgs/stable/).  While Debian is
 used to manage the host itself, all components of the Packet Broker
 service are provided by Nix. This repository depends on the [Nix
