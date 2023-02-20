@@ -25,8 +25,8 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "alexandergall";
     repo = "packet-broker";
-    rev = "94bec3";
-    sha256 = "0s33yc65xpk6sblqiaznahinv3diid3m5ff9nyrybhmwcd8y4c52";
+    rev = "2928cc6";
+    sha256 = "0z3zwdb62ryyhv5vrf62082g5cjabxkigsgq4kdx07crrk0n994b";
   };
   sliceCommon = {
     inherit versionFile;
