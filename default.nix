@@ -6,8 +6,8 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/b58e27d.tar.gz;
-    sha256 = "00jk1s07slrr3imkr811mjd3dm090yj99wwwk7s62xy2wpsqh82d";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/da1126c.tar.gz;
+    sha256 = "1f8mp3yns69v29m40pwbk7073rda7ngiprk2rsbxs25mggbx5dlv";
   }) {
     overlays = import ./overlay;
   };
@@ -95,7 +95,7 @@ let
     inherit version nixProfile component;
     platforms = builtins.filter (p: builtins.match "^model.*" p == null) platforms;
     ## The kernel used here must match that from the profile
-    partialSlice = slice bf-sde.pkgs.kernel-modules.Debian11_3;
+    partialSlice = slice bf-sde.pkgs.kernel-modules.Debian11_6;
     bootstrapProfile = ./onie/profile;
     fileTree = ./onie/files;
     NOS = "NOS";
