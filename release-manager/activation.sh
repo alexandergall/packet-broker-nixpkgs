@@ -12,6 +12,13 @@ IFINDEX=$SNMP_CONFIG_DIR/ifindex
 SNMP_STATE_DIR=/var/lib/snmp
 INTERFACE_CONFIG=$SNMP_STATE_DIR/interface.conf
 SHELL_PROFILE=/etc/profile.d/packet-broker.sh
+
+## Use the native systemctl command if possible to avoid issues with
+## diverging versions of systemd from the native packages and
+## systemctl from nixpkgs
+shopt -s expand_aliases
+[ -x /bin/systemctl ] && alias systemctl=/bin/systemctl
+
 activate () {
     check_root
     INFO "Enabling services"

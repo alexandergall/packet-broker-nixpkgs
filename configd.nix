@@ -9,7 +9,7 @@ in python.pkgs.buildPythonApplication {
 
   propagatedBuildInputs = [
     bf-drivers-runtime
-  ] ++ (with python.pkgs; [ jsonschema ipaddress ]);
+  ] ++ (with python.pkgs; [ jsonschema ]);
 
   preConfigure = ''cd control-plane'';
 

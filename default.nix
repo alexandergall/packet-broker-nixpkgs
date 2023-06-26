@@ -6,8 +6,8 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/da1126c.tar.gz;
-    sha256 = "1f8mp3yns69v29m40pwbk7073rda7ngiprk2rsbxs25mggbx5dlv";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/5f195d.tar.gz;
+    sha256 = "0qkrlp9h106aaqr6k28jd4bjnjqy6k0p7z1iaja9zp4bsyxqa49f";
   }) {
     overlays = import ./overlay;
   };
@@ -20,7 +20,7 @@ let
   nixProfile = "/nix/var/nix/profiles/packet-broker";
 
   ## Build the main components with the latest SDE version
-  bf-sde = pkgs.bf-sde.v9_12_0;
+  bf-sde = pkgs.bf-sde.v9_13_0;
   support = bf-sde.support;
   src = pkgs.fetchFromGitHub {
     owner = "alexandergall";

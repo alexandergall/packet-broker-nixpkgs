@@ -12,6 +12,8 @@ let
           installFlags="INSTALLSITEARCH=$out/lib/perl5/site_perl/$perlversion/$perlarchname INSTALLARCHLIB=$out/lib/perl5/site_perl/$perlversion/$perlarchname INSTALLSITEMAN3DIR=$out/share/man/man3"
         '';
 
+        buildInputs = oldAttrs.buildInputs ++ [ self.libxcrypt ];
+
         ## The standard package uses multiple outputs, but this fails
         ## when Perl modules are enabled.  This override should be fixed
         ## to support this.
