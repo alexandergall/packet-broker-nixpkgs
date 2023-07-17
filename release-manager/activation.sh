@@ -22,7 +22,7 @@ shopt -s expand_aliases
 activate () {
     check_root
     INFO "Enabling services"
-    for service in $PROFILE$SYSTEMD_DIR/*.service; do
+    for service in $PROFILE$SYSTEMD_DIR/{packet-broker,packet-broker-configd,snmpd,snabb-snmp-agent}.service; do
         ln -fs $service $SYSTEMD_DIR
         systemctl enable $(basename $service)
     done
