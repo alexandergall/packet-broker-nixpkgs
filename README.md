@@ -33,7 +33,7 @@ ONIE installer for the initial setup and a tool for managing releases
 on a running system.
 
 Currently, the base OS provided by the ONIE installer is a basic
-version of Debian 11 combined with an installation of the [Nix package
+version of Debian 12 combined with an installation of the [Nix package
 manager](https://nixos.org/manual/nixpkgs/stable/).  While Debian is
 used to manage the host itself, all components of the Packet Broker
 service are provided by Nix. This repository depends on the [Nix
@@ -90,14 +90,28 @@ time.  The Packet Broker packages support the following platforms
    * `accton_wedge100bf_32qs`
    * `accton_wedge100bf_65x`
    * `accton_as9516_32d`
+   * `netberg_aurora_710`
+   * `stordis_bf6064x_t`
+   * `stordis_bf2556x_1t` (BSP-less mode)
+   * `inventec_d10064` (BSP-less mode)
+   * `asterfusion_x308p`
+   * `asterfusion_x312p`
+   * `asterfusion_x532p`
+   * `asterfusion_x564p`
    * `model`
    * `modelT2`
 
-The `wedge100bf` models are based on Tofino1 while the `as9516` is
-based on Tofino2. The `model` and `modelT2` are pseudo platforms that
-use the software emulation of the Tofino1 and Tofino2,
-respectively. They can be instantiated on systems that don't have an
-actual ASIC for testing purposes.
+The `as9516` is based on Tofino2, all other platforms are based on
+Tofino1. The `model` and `modelT2` are pseudo platforms that use the
+software emulation of the Tofino1 and Tofino2, respectively. They can
+be instantiated on systems that don't have an actual ASIC for testing
+purposes.
+
+The platforms marked with "BSP-less mode" don't provide a "baseboard
+support package" for the current SDE version. This means that the
+system cannot interact with the QSFP ports, e.g. to query various
+properties of inserted plugins like the plugin type or optical power
+levels.
 
 ## <a name="downloads"></a>Downloads
 
@@ -374,8 +388,8 @@ The `<kernelID>` is already a unique identifier for the
 kernel. Technically, it is the name of the attribute in a set that
 defines the [properties of every supported
 kernel](https://github.com/alexandergall/bf-sde-nixpkgs/blob/master/bf-sde/kernels/default.nix)
-in the `bf-sde-nixpkgs` Nix expression, e.g. `Debian10_8` or
-`ONL9`. Each such definition includes the exact kernel release
+in the `bf-sde-nixpkgs` Nix expression, e.g. `Debian11_7` or
+`Debian12_1`. Each such definition includes the exact kernel release
 identifier of that kernel, which is the result of running `uname -r`
 on a running instance of the kernel.
 
@@ -386,8 +400,8 @@ built when looking at an installed instance. For example, the
 following one-to-one correspondence holds for the kernels with
 `kernelID` `Debian10_8` and `Debian10_9`
 
-   * `<kernelID>` = `Debian10_8` <=> `<kernelRelease>` = 4.19.0-14-amd64
-   * `<kernelID>` = `Debian10_9` <=> `<kernelRelease>` = 4.19.0-16-amd64
+   * `<kernelID>` = `Debian11_7` <=> `<kernelRelease>` = 5.10.0-22-amd64
+   * `<kernelID>` = `Debian12_1` <=> `<kernelRelease>` = 6.1.0-10-amd64
 
 The `<platform>` identifier is one of the [list of supported
 platforms](#supportedPlatforms). It corresponds exactly to the value
@@ -521,7 +535,6 @@ need to perform the steps
      mode](https://github.com/alexandergall/bf-sde-nixpkgs#install-the-nix-package-manager-in-multi-user-mode)
    * [Fetch and verify source
      archives](https://github.com/alexandergall/bf-sde-nixpkgs#fetch-and-verify-source-archives)
-     for version 9.9.0 of the SDE
    * [Add archives to the Nix
      store](https://github.com/alexandergall/bf-sde-nixpkgs#add-archives-to-the-nix-store)
 
