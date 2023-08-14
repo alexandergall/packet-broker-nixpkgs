@@ -210,5 +210,41 @@
 	    "onieUsers": { "type": "nix", "value":
 			   "{ansible = {useraddArgs = \"-s /bin/bash\"; sshPublicKey = \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS/xdgmacIpg2bpsdqFETevQKPqyi3Pmn9lDaHQ/QYsz7eqsZAX/Tn+0NBL6sVb4C5g2Qk9EzKPs1v1F3p5bwaDq08aC+cRgKndWwjpZxj/MV0HQhzC5NpfBcE0TS5nzLJFjEs2qxQorZ07PglsYLCTxhe0vI36ddvfM1VIhc0Wa+h97CPjfIWNWUSAKKhjznpyJKONwWcHeM15MCzow6riDrHo14DsnoW9T68h3Qcd1RUUPx5xG6vd9cZ/7bAqru44RdDq4FUpkmPK+W6VN7bRqOxXC1TbKbptpeITcQdiBWblNgao9bvOtpxjXd1uEU0h9oqCsMn0tjIIsFYT2Wz ansible\";};}" }
         }
+    },
+    "release-7": {
+        "enabled": 1,
+        "hidden": false,
+        "description": "Release 7",
+        "nixexprinput": "src",
+        "nixexprpath": "release.nix",
+        "checkinterval": 300,
+        "schedulingshares": 100,
+        "enableemail": false,
+        "emailoverride": "",
+        "keepnr": 3,
+        "inputs": {
+            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git 7", "emailresponsible": false },
+	    "buildInstaller": { "type": "boolean", "value": "true" }
+        }
+    },
+    "release-7-SWITCH": {
+        "enabled": 1,
+        "hidden": false,
+        "description": "Release 7, customized for use @SWITCH",
+        "nixexprinput": "src",
+        "nixexprpath": "release.nix",
+        "checkinterval": 300,
+        "schedulingshares": 100,
+        "enableemail": false,
+        "emailoverride": "",
+        "keepnr": 3,
+        "inputs": {
+            "src": { "type": "git", "value": "https://github.com/alexandergall/packet-broker-nixpkgs.git 7", "emailresponsible": false },
+	    "buildInstaller": { "type": "boolean", "value": "true" },
+	    "componentSuffix": { "type": "string", "value": "-SWITCH" },
+	    "buildRelease": { "type": "boolean", "value": "false" },
+	    "onieUsers": { "type": "nix", "value":
+			   "{ansible = {useraddArgs = \"-s /bin/bash\"; sshPublicKey = \"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS/xdgmacIpg2bpsdqFETevQKPqyi3Pmn9lDaHQ/QYsz7eqsZAX/Tn+0NBL6sVb4C5g2Qk9EzKPs1v1F3p5bwaDq08aC+cRgKndWwjpZxj/MV0HQhzC5NpfBcE0TS5nzLJFjEs2qxQorZ07PglsYLCTxhe0vI36ddvfM1VIhc0Wa+h97CPjfIWNWUSAKKhjznpyJKONwWcHeM15MCzow6riDrHo14DsnoW9T68h3Qcd1RUUPx5xG6vd9cZ/7bAqru44RdDq4FUpkmPK+W6VN7bRqOxXC1TbKbptpeITcQdiBWblNgao9bvOtpxjXd1uEU0h9oqCsMn0tjIIsFYT2Wz ansible\";};}" }
+        }
     }
 }
