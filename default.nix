@@ -95,7 +95,7 @@ let
     inherit version nixProfile component;
     platforms = builtins.filter (p: builtins.match "^model.*" p == null) platforms;
     ## The kernel used here must match that from the profile
-    partialSlice = slice bf-sde.pkgs.kernel-modules.Debian11_6;
+    partialSlice = slice bf-sde.pkgs.kernel-modules.Debian12_1;
     bootstrapProfile = ./onie/profile;
     fileTree = ./onie/files;
     NOS = "NOS";
