@@ -3,6 +3,10 @@
 { config, pkgs, ... }:
 
 {
+  ## Get rid of the warning about missing stateVersion during
+  ## evaluation of the NixOS configuration. This can be kept in sync
+  ## with the nixpkgs version.
+  system.stateVersion = "23.11";
   systemd.services = {
     packet-broker = {
       description = "Packet Broker Daemon (bf_switchd)";
