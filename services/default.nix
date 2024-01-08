@@ -1,9 +1,9 @@
-{ pkgs }:
+{ pkgs, moduleWrapper, configd }:
 
 let
   eval = import (pkgs.path + "/nixos/lib/eval-config.nix") {
     inherit pkgs;
-    modules = [ ./configuration.nix ];
+    modules = [ (import ./configuration.nix { inherit moduleWrapper configd; }) ];
   };
   units = eval.config.systemd.units;
 

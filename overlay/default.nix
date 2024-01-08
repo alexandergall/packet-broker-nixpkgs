@@ -1,7 +1,7 @@
 let
   overlay = self: super:
     {
-      net_snmp = (super.net_snmp.overrideAttrs (oldAttrs: rec {
+      net-snmp = (super.net-snmp.overrideAttrs (oldAttrs: rec {
         configureFlags = oldAttrs.configureFlags ++
           [ "--with-perl-modules"
             "--with-persistent-directory=/var/lib/snmp"

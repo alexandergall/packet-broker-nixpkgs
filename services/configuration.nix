@@ -1,3 +1,5 @@
+{moduleWrapper, configd }:
+
 { config, pkgs, ... }:
 
 {
@@ -7,7 +9,7 @@
       after = [ "networking.service" ];
       requires = [ "networking.service" ];
       serviceConfig = {
-        ExecStart = "${pkgs.moduleWrapper}/bin/packet_broker-module-wrapper /var/run/packet-broker";
+        ExecStart = "${moduleWrapper}/bin/packet_broker-module-wrapper /var/run/packet-broker";
         ExecStartPre = "+/bin/mkdir -p /var/run/packet-broker";
         Restart = "on-failure";
         Type = "simple";
@@ -18,9 +20,9 @@
       after = [ "packet-broker.service" ];
       requires = [ "packet-broker.service" ];
       serviceConfig = {
-        ExecStart = "${pkgs.configd}/bin/configd.py --config-dir /etc/packet-broker --ifmibs-dir /var/run/packet-broker-snmp";
+        ExecStart = "${configd}/bin/configd.py --config-dir /etc/packet-broker --ifmibs-dir /var/run/packet-broker-snmp";
         ExecStartPre = "+/bin/mkdir -p /var/run/packet-broker-snmp";
-        ExecReload = "${pkgs.configd}/bin/brokerctl reload";
+        ExecReload = "${configd}/bin/brokerctl reload";
         Restart = "on-failure";
         Type = "simple";
       };

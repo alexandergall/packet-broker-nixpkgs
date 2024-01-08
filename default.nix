@@ -6,8 +6,8 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/cbd903a.tar.gz;
-    sha256 = "16nhhyq0vy54gp6705hp9hjb2r757k3d72g80zv1fsr4hsv27f8w";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/433837.tar.gz;
+    sha256 = "1c4pa3hr352spfk5cn05ama5kaii177dmc908fvri4lj85bvnkzn";
   }) {
     overlays = import ./overlay;
   };
@@ -20,7 +20,7 @@ let
   nixProfile = "/nix/var/nix/profiles/packet-broker";
 
   ## Build the main components with the latest SDE version
-  bf-sde = pkgs.bf-sde.v9_13_0;
+  bf-sde = pkgs.bf-sde.v9_13_1;
   support = bf-sde.support;
   src = pkgs.fetchFromGitHub {
     owner = "alexandergall";
@@ -68,12 +68,8 @@ let
       };
       moduleWrapper = packet-broker.moduleWrapper' kernelModules;
       services = import ./services {
-        ## Make moduleWrapper and configd accessible from
-        ## services/configuration.nix
-        pkgs = pkgs // {
-          inherit moduleWrapper;
-          inherit (sliceCommon) configd;
-        };
+        inherit pkgs moduleWrapper;
+        inherit (sliceCommon) configd;
       };
     in sliceCommon // services // {
       inherit sliceFile packet-broker moduleWrapper;

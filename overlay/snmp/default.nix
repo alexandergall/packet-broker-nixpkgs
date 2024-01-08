@@ -1,4 +1,4 @@
-{ fetchFromGitHub, perlPackages, net_snmp }:
+{ fetchFromGitHub, perlPackages, net-snmp }:
 
 ## nix-prefetch-url --unpack --name Snabb-SNMP-0.01 \
 ##   https://github.com/alexandergall/snabb-snmp-subagent/archive/${rev}.tar.gz
@@ -12,6 +12,6 @@ perlPackages.buildPerlPackage  rec {
     sha256 = "17jcnhgi8nxvszgkkwsblrpqjccq6n0ibszh1wdwv78i3hgsirzn";
   };
   preConfigure = ''cd subagent'';
-  propagatedBuildInputs = [ net_snmp ] ++
+  propagatedBuildInputs = [ net-snmp ] ++
     (with perlPackages; [ NetSNMP SysMmap ]);
 }
