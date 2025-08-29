@@ -6,10 +6,12 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/91268e.tar.gz;
-    sha256 = "178pqpzzza8bxawv3drwyr77pbq442p5k4xrpsg4m9q53vkrmn25";
+    ## Branch open-p4studio
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/27f0a69.tar.gz;
+    sha256 = "0i56v6h9ma8kbzvs96b32lxibgvsfrq2hvh6qgrpqpygx0mpkc6j";
   }) {
     overlays = import ./overlay;
+    withAsic = true;
   };
 
   ## Release version of the packet broker service.  The commit for the
@@ -89,6 +91,7 @@ let
     "asterfusion_x312p"
     "asterfusion_x532p"
     "asterfusion_x564p"
+    "asterfusion_x732q"
     "model"
     "modelT2"
   ];
