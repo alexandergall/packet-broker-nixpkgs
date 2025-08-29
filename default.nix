@@ -6,8 +6,8 @@
 
 let
   pkgs = import (fetchTarball {
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/65bd71.tar.gz;
-    sha256 = "16mincqmbwmh878qz4pfvdvphvv2apjnfsm96l4a78bx0y6n6jhl";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/91268e.tar.gz;
+    sha256 = "178pqpzzza8bxawv3drwyr77pbq442p5k4xrpsg4m9q53vkrmn25";
   }) {
     overlays = import ./overlay;
   };
@@ -20,7 +20,7 @@ let
   nixProfile = "/nix/var/nix/profiles/packet-broker";
 
   ## Build the main components with the latest SDE version
-  bf-sde = pkgs.bf-sde.v9_13_3;
+  bf-sde = pkgs.bf-sde.v9_13_4;
   support = bf-sde.support;
   src = pkgs.fetchFromGitHub {
     owner = "alexandergall";
@@ -96,10 +96,8 @@ let
   releaseClosure = support.mkReleaseClosure release "packet-broker";
   component = "packet-broker" + componentSuffix;
   onieInstaller = (support.mkOnieInstaller {
-    inherit version nixProfile component;
+    inherit version nixProfile slice component;
     platforms = builtins.filter (p: builtins.match "^model.*" p == null) platforms;
-    ## The kernel used here must match that from the profile
-    partialSlice = slice bf-sde.pkgs.kernel-modules.Debian12_1;
     bootstrapProfile = ./onie/profile;
     fileTree = ./onie/files;
     NOS = "NOS";
@@ -108,7 +106,7 @@ let
       key = "p4.cache.nix.net.switch.ch:cR3VMGz/gdZIdBIaUuh42clnVi5OS1McaiJwFTn5X5g=";
     } ];
     users = onieUsers;
-  }).override { memSize = 5*1024; };
+  }).override { memSize = 6*1024; };
   standaloneInstaller = support.mkStandaloneInstaller {
     inherit release version gitTag nixProfile component;
   };
