@@ -7,8 +7,8 @@
 let
   pkgs = import (fetchTarball {
     ## Branch open-p4studio
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/27f0a69.tar.gz;
-    sha256 = "0i56v6h9ma8kbzvs96b32lxibgvsfrq2hvh6qgrpqpygx0mpkc6j";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/ead7350.tar.gz;
+    sha256 = "1fkkpc5ygmr2n8higjs948yihnaldvxm8wrf4hd2nkkgjxf3wqpg";
   }) {
     overlays = import ./overlay;
     withAsic = true;
@@ -53,7 +53,7 @@ let
     ## environment.
     auxEnv = pkgs.buildEnv {
       name = "aux-env";
-      paths = [ bf-sde.pkgs.bf-utils ];
+      paths = [ bf-sde.pkgs.target-utils ];
     };
   };
 
@@ -91,7 +91,7 @@ let
     "asterfusion_x312p"
     "asterfusion_x532p"
     "asterfusion_x564p"
-    "asterfusion_x732q"
+    "asterfusion_x732q_t"
     "model"
     "modelT2"
   ];
