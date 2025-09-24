@@ -7,8 +7,8 @@
 let
   pkgs = import (fetchTarball {
     ## Branch open-p4studio
-    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/3a160df.tar.gz;
-    sha256 = "03nv125qdkniil12mxis8vrzv565n81addhlg538l4327dblngm0";
+    url = https://github.com/alexandergall/bf-sde-nixpkgs/archive/d3ff68e.tar.gz;
+    sha256 = "1zyi8dlfbqn1ggyvlcr3bkqlcgv1zqg8kj6lhd7s73fd3paz0f4w";
   }) {
     overlays = import ./overlay;
     withAsic = true;
