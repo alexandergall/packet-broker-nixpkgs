@@ -1,1338 +1,1383 @@
-# Generated from debootstrap --include=linux-image-amd64,initramfs-tools,sudo,zip,unzip,openssh-server,openssh-client,telnet,grub-efi-amd64,efibootmgr,acpi,ethtool,net-tools,wget,curl,rsync,locales,ca-certificates,dbus,xz-utils,emacs-nox,python3,python3-apt
+# Generated from debootstrap --include=linux-image-amd64,initramfs-tools,sudo,zip,unzip,openssh-server,openssh-client,telnet,grub-efi-amd64,efibootmgr,acpi,ethtool,net-tools,wget,curl,rsync,locales,ca-certificates,dbus,xz-utils,emacs-nox,python3,python3-apt,git,make
 [
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/acl/libacl1_2.3.1-3_amd64.deb;
-    sha256 = "1qp58ka8cx2rg8w0vqmkqwzxspksyj720gdywa8gwjqijmbxzscb";
-    name = "libacl1_2.3.1-3_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/acpi/acpi_1.8-1_amd64.deb;
+    sha256 = "1n663z8bwkm1dppf2qlh6nl86y23i82rlbg4w4sf5bbi66pkndm1";
+    name = "acpi_1.8-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/acpi/acpi_1.7-1.2_amd64.deb;
-    sha256 = "004d6s17rkdmkjka3jgz92iar9syrlskzp83sjirfjq9rly7c7ch";
-    name = "acpi_1.7-1.2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/adduser/adduser_3.152_all.deb;
+    sha256 = "14y4c46g2gcjy7gwmd8cn5vs1291hhwkhc2izpih0qzgw79882g5";
+    name = "adduser_3.152_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/adduser/adduser_3.134_all.deb;
-    sha256 = "1q0rnm3nqjvnpb47v2bwhh0g5kwjgk74q47df8nn7n30ivmy8ky2";
-    name = "adduser_3.134_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/apt/apt_3.0.3_amd64.deb;
+    sha256 = "1x5fb2v6bs836qbz570ivd20gslkacikq6xgiz4h4x9dx7xl3qsm";
+    name = "apt_3.0.3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/alsa-lib/libasound2_1.2.8-1+b1_amd64.deb;
-    sha256 = "0k5gdxkvn86kxdjaapa39jcv2i92h8nh4f94f6csw4bvd83ppis4";
-    name = "libasound2_1.2.8-1+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/apt/apt-utils_3.0.3_amd64.deb;
+    sha256 = "0sgfp0cb3fnqmjpdp74rniz75z95c5xgnvny2x752fjgkblam7b7";
+    name = "apt-utils_3.0.3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/alsa-lib/libasound2-data_1.2.8-1_all.deb;
-    sha256 = "0back0wyhmbzagfbfr15cjhjpmwa8j5x9c5cw1vjjjv7sg9801zy";
-    name = "libasound2-data_1.2.8-1_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/base-files/base-files_13.8+deb13u1_amd64.deb;
+    sha256 = "1yr7iv02h65hc558phr841wwfhq9v5ng35d3f1hix9i03rlsl8iv";
+    name = "base-files_13.8+deb13u1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/apparmor/libapparmor1_3.0.8-3_amd64.deb;
-    sha256 = "1lz94llfg6awi71pi80y5gfylcsl96shdhlyv9s760f2mygg8yab";
-    name = "libapparmor1_3.0.8-3_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/base-passwd/base-passwd_3.6.7_amd64.deb;
+    sha256 = "1rw3xrn7b928h9jij4f3jclcv3ppqhaidsnrv4amixmmdaawccfg";
+    name = "base-passwd_3.6.7_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/apt/apt_2.6.1_amd64.deb;
-    sha256 = "0szsl30djyl60qgmcl2kvqp55z96w3a0iyy907kcxgx7qyxkr83f";
-    name = "apt_2.6.1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/bash/bash_5.2.37-2+b5_amd64.deb;
+    sha256 = "1dl8fvcz1jc10bhj307w49xbb9fw0cscqpw7sbisa27vyirznw19";
+    name = "bash_5.2.37-2+b5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/apt/apt-utils_2.6.1_amd64.deb;
-    sha256 = "13kfpf15xhs96l082vg8p4cxwaqkfa92a753bhq1fksyrk45mz5l";
-    name = "apt-utils_2.6.1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/binutils/binutils_2.44-3_amd64.deb;
+    sha256 = "1syx989dni8m8dbbpaaz1frgk6f48iqkjhl1fig3p9cvac18rh3b";
+    name = "binutils_2.44-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/apt/libapt-pkg6.0_2.6.1_amd64.deb;
-    sha256 = "1h7x1d3ns9hnkbikbry1d76jdxys1rii064ysrxwrd44cwzp9ayc";
-    name = "libapt-pkg6.0_2.6.1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/binutils/binutils-common_2.44-3_amd64.deb;
+    sha256 = "1yci6r6qs1p75vp8hi09v91mmn6lw7h402icgblxwmw77z9aab80";
+    name = "binutils-common_2.44-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/argon2/libargon2-1_0~20171227-0.3+deb12u1_amd64.deb;
-    sha256 = "1pmi8aprkcgq65zzsjqwkr4qa2ycikyaqcni6knqxf3hcaq5b0aa";
-    name = "libargon2-1_0~20171227-0.3+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/binutils/binutils-x86-64-linux-gnu_2.44-3_amd64.deb;
+    sha256 = "0lrc8vbhwd41vabjmimvg0q4bg6bii9a7ynrr0qs3xzhbzliqx76";
+    name = "binutils-x86-64-linux-gnu_2.44-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/attr/libattr1_2.5.1-4_amd64.deb;
-    sha256 = "0d0sbni4syn3kixjfvccjww0hvf7mf2hbz728ax061bdsqim3564";
-    name = "libattr1_1%3a2.5.1-4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/bsdutils_2.41-5_amd64.deb;
+    sha256 = "0acnm3y6blnya4720bp5g1bfzji7c2qwmrqdps3285fl5y672j25";
+    name = "bsdutils_1%3a2.41-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/audit/libaudit-common_3.0.9-1_all.deb;
-    sha256 = "14b5bq12r55gd43ca8wqfqd1891a5jn80rr9kkjlqq6flqf39l0p";
-    name = "libaudit-common_1%3a3.0.9-1_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/ca-certificates/ca-certificates_20250419_all.deb;
+    sha256 = "11610pgnlw4l4rwg73cys60v3h8gx8f9vm30h9nb991sas4hyngg";
+    name = "ca-certificates_20250419_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/a/audit/libaudit1_3.0.9-1_amd64.deb;
-    sha256 = "01pkbzmndc9vg00b97w913j0an2gm5p5xbm83dk0bid7nps4v59h";
-    name = "libaudit1_1%3a3.0.9-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/coreutils/coreutils_9.7-3_amd64.deb;
+    sha256 = "18mdrpmhqd5x9kpbdv6mlawpgivcq8id4gaz5zmqi8l9jdpsp68j";
+    name = "coreutils_9.7-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/base-files/base-files_12.4+deb12u12_amd64.deb;
-    sha256 = "1d5272l6ici0fxm51y1h2gnfdcx6jwswwnsqr8437k9j9aw15zc7";
-    name = "base-files_12.4+deb12u12_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/cpio/cpio_2.15+dfsg-2_amd64.deb;
+    sha256 = "1p3cpizr7vp7aziblj4zikqkl5xyk3qzx98mmj8jxxxwa3ifrynq";
+    name = "cpio_2.15+dfsg-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/base-passwd/base-passwd_3.6.1_amd64.deb;
-    sha256 = "067m22kb6fyq206ri3asr370zkhipir5m52nmqjr3x15a6rs334h";
-    name = "base-passwd_3.6.1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/cron/cron_3.0pl1-197_amd64.deb;
+    sha256 = "0nscj6pm8ix07627w9jf3dr6h056qhqsr0hnqq0l8l6w00zgrmrj";
+    name = "cron_3.0pl1-197_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/bash/bash_5.2.15-2+b9_amd64.deb;
-    sha256 = "1df5c329ssd7x872ar9v15cnd3dlwibcwnxvcaldwvlacqli3m97";
-    name = "bash_5.2.15-2+b9_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/cron/cron-daemon-common_3.0pl1-197_all.deb;
+    sha256 = "19nrbssfl1izq7fjr75j3bx8n2ys50im3y9z170rgb95lh1zdxs7";
+    name = "cron-daemon-common_3.0pl1-197_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/binutils/binutils_2.40-2_amd64.deb;
-    sha256 = "093lv16r75h128vzpmz538v6wdx04rys4fscfr6xiyz1ac5y5hw3";
-    name = "binutils_2.40-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/curl/curl_8.14.1-2_amd64.deb;
+    sha256 = "0bc618kf4lmb259r34aanqvk0sji3p8ggjx3dkf5q1mq2a828wjj";
+    name = "curl_8.14.1-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/binutils/binutils-common_2.40-2_amd64.deb;
-    sha256 = "187i4sq93i55nzmjpfp0ln7p9ni5v0rvrab9iyj9221syhs42cdb";
-    name = "binutils-common_2.40-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dash/dash_0.5.12-12_amd64.deb;
+    sha256 = "015v6xn8311fls01dkhyyy78b7aqr2p81yr599v380b5v2v2r458";
+    name = "dash_0.5.12-12_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/binutils/binutils-x86-64-linux-gnu_2.40-2_amd64.deb;
-    sha256 = "0895977kxm40dkssf7sshra22g9pdyzan914gx6j4s6pf2jshzid";
-    name = "binutils-x86-64-linux-gnu_2.40-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dbus/dbus_1.16.2-2_amd64.deb;
+    sha256 = "0x7ja1p2w79bjmh6116x2pw9ixkn2q4gbfn0lk4xl923c4wpdi7m";
+    name = "dbus_1.16.2-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/binutils/libbinutils_2.40-2_amd64.deb;
-    sha256 = "043pai1px988sc0b35n1437r9wr421zrbdp9ihy8z9zqwncmpxgw";
-    name = "libbinutils_2.40-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dbus/dbus-bin_1.16.2-2_amd64.deb;
+    sha256 = "1dbgsj48wh6nn4wpqj3gw08cdld76mqj64i97sw3nxnki5gpih57";
+    name = "dbus-bin_1.16.2-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/binutils/libctf-nobfd0_2.40-2_amd64.deb;
-    sha256 = "1aj7ng1iv63x3mx7gal5dglrknfcri3m8l1xpl7aj7p45prgq7gg";
-    name = "libctf-nobfd0_2.40-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dbus/dbus-daemon_1.16.2-2_amd64.deb;
+    sha256 = "1m4ikc93mzj8zz8rw2pgyivikxnmfr4hiq7xx71mxg8rs35mh5f9";
+    name = "dbus-daemon_1.16.2-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/binutils/libctf0_2.40-2_amd64.deb;
-    sha256 = "0zs2nzinfl16gxrvs93a6kjc21mxd693plx3hx5awgxy4vrvddrz";
-    name = "libctf0_2.40-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dbus/dbus-session-bus-common_1.16.2-2_all.deb;
+    sha256 = "0pszzam9gx7sqc73ybnlsddibmwympd00jy8v6g86w3idj1jggcq";
+    name = "dbus-session-bus-common_1.16.2-2_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/binutils/libgprofng0_2.40-2_amd64.deb;
-    sha256 = "0gd5bzbixms4951lflis1sgq3f1xqpp9cg0gz75177gihhnhki53";
-    name = "libgprofng0_2.40-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dbus/dbus-system-bus-common_1.16.2-2_all.deb;
+    sha256 = "02hj3mvj8sm3cp1f20c68n0hla19id4zjj0n6kx8pqz4mb49wbi6";
+    name = "dbus-system-bus-common_1.16.2-2_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/brotli/libbrotli1_1.0.9-2+b6_amd64.deb;
-    sha256 = "1mz4hsvjvllb3s6v94x2ynx8854flgkkcnrmsdmqfpmaq6p4qfsn";
-    name = "libbrotli1_1.0.9-2+b6_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/debconf/debconf_1.5.91_all.deb;
+    sha256 = "0j8y07k2q9i2w73zn8dvb30ii7q4ivci3a3wzgp4ixr5b5n7xp0x";
+    name = "debconf_1.5.91_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/b/bzip2/libbz2-1.0_1.0.8-5+b1_amd64.deb;
-    sha256 = "1sssra1wqsga0vbgw8jirhidh0s5p0rj0sbbn8ixa8jbyjirs52l";
-    name = "libbz2-1.0_1.0.8-5+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/debconf/debconf-i18n_1.5.91_all.deb;
+    sha256 = "1yznpjxmz3pa440b54kqgzydfih904gswabq3c6grs54qf4wa62k";
+    name = "debconf-i18n_1.5.91_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/ca-certificates/ca-certificates_20230311+deb12u1_all.deb;
-    sha256 = "1v9bh0m0ycy24m02g88ni5jlrch9i9igrn21dbhw2j2fb57l8pqd";
-    name = "ca-certificates_20230311+deb12u1_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/debian-archive-keyring/debian-archive-keyring_2025.1_all.deb;
+    sha256 = "1b3z7kmsnmf05vi0bs4rpd4fglrdna57lwv80r4wli1i8j77g9wy";
+    name = "debian-archive-keyring_2025.1_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/cdebconf/libdebconfclient0_0.270_amd64.deb;
-    sha256 = "0iyrl5y3nhxcw0g3vr6ywxn3znlqdaxanpv52dxac2xf1dq2navx";
-    name = "libdebconfclient0_0.270_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/debianutils/debianutils_5.23.2_amd64.deb;
+    sha256 = "0zg97vh8s10i21h7rk30zvm9s10q6fnj8hlb95v60rqnlgyl63kj";
+    name = "debianutils_5.23.2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/coreutils/coreutils_9.1-1_amd64.deb;
-    sha256 = "149h3bas4lxifv40qmsi7cx4v7w54052lfpmml08avilgs2qy0v1";
-    name = "coreutils_9.1-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dhcpcd/dhcpcd-base_10.1.0-11_amd64.deb;
+    sha256 = "0svs7ng03vv3nj3x6nfn13ys3864jwqf53v7d7xy7vgh8xvlxsms";
+    name = "dhcpcd-base_1%3a10.1.0-11_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/cpio/cpio_2.13+dfsg-7.1_amd64.deb;
-    sha256 = "1627c6qdhkg4ygh0mhlwagyhql7b0fqq8s0d90gbxdkyvlms5m3k";
-    name = "cpio_2.13+dfsg-7.1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/diffutils/diffutils_3.10-4_amd64.deb;
+    sha256 = "0yd4h79wwhjl472h98ps6qdfr53lx8h9cl1sbj4vllxfyxljchfk";
+    name = "diffutils_1%3a3.10-4_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/cron/cron_3.0pl1-162_amd64.deb;
-    sha256 = "0gxy9125hjc0qfk3mdgbxhyn7y3rpakqlrh7c4wycq1lk6f2vqf1";
-    name = "cron_3.0pl1-162_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/distro-info-data/distro-info-data_0.66_all.deb;
+    sha256 = "1xd89q2nlma0bh054bzmgx6r6b482v8pj7f6fz89ib59xgflvlhl";
+    name = "distro-info-data_0.66_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/cron/cron-daemon-common_3.0pl1-162_all.deb;
-    sha256 = "0zrc4xi6m6jjv1r7bhiilbyxafnrhmsjvh3arji05s2c6ld7cxh9";
-    name = "cron-daemon-common_3.0pl1-162_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dmidecode/dmidecode_3.6-2_amd64.deb;
+    sha256 = "1lwry50xc5m35s9xha6a5ji9vkjqryfdqyp74pj0bsjj6x4abmba";
+    name = "dmidecode_3.6-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/cryptsetup/libcryptsetup12_2.6.1-4~deb12u2_amd64.deb;
-    sha256 = "1k5ns688yd5zv6pb4fwdvw3vm8fra8vyrypwq15z0pmy3710g9mr";
-    name = "libcryptsetup12_2%3a2.6.1-4~deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/lvm2/dmsetup_1.02.205-2_amd64.deb;
+    sha256 = "180mnr0y30m85yhasswh4j8v8z5f2vq8ydd609fqwylh1amzfwa7";
+    name = "dmsetup_2%3a1.02.205-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/curl/curl_7.88.1-10+deb12u14_amd64.deb;
-    sha256 = "05gib8d9awkwh09bdskw9cffj7anm69fgfkxhgqiam88fjmfvdz1";
-    name = "curl_7.88.1-10+deb12u14_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dpkg/dpkg_1.22.21_amd64.deb;
+    sha256 = "03iqdwnpfpiw2q8izjyxqh06gdgmxzi67sli4jbjpbslxsf6acly";
+    name = "dpkg_1.22.21_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/curl/libcurl4_7.88.1-10+deb12u14_amd64.deb;
-    sha256 = "1pzhi34y7dcrbzizbhg1ifjmxxn8k0bmn6vgfym11r93jp2kn83s";
-    name = "libcurl4_7.88.1-10+deb12u14_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dracut/dracut-install_106-6_amd64.deb;
+    sha256 = "0xmwmjjrmbvb7dylr3i4zkmv0dml2a0bh5vnxka37f8da4apry2y";
+    name = "dracut-install_106-6_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/cyrus-sasl2/libsasl2-2_2.1.28+dfsg-10_amd64.deb;
-    sha256 = "1yif2p25li3jnfs6gk1sqws98i5ri1rk9j6j87s7m3czsc51kvhi";
-    name = "libsasl2-2_2.1.28+dfsg-10_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/e2fsprogs/e2fsprogs_1.47.2-3+b3_amd64.deb;
+    sha256 = "0rkllwzpwyccngrycqvwqjdhhf0xjcqhly47z2p17pwdvkxcnh9s";
+    name = "e2fsprogs_1.47.2-3+b3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/c/cyrus-sasl2/libsasl2-modules-db_2.1.28+dfsg-10_amd64.deb;
-    sha256 = "1rhfr94fj42ks9za612ny515nf5r7szk3f94ipk0cfrvprngvi1s";
-    name = "libsasl2-modules-db_2.1.28+dfsg-10_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/efibootmgr/efibootmgr_18-2_amd64.deb;
+    sha256 = "028b1g3vhfb901dvhz28ir0brmc97xhfynmvpixlbm7pnz52fwv1";
+    name = "efibootmgr_18-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/dash/dash_0.5.12-2_amd64.deb;
-    sha256 = "13r5jjwqryz2ph53y6lv0im7gw1ld8mjn8a6xihsiwd23l341sik";
-    name = "dash_0.5.12-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/emacs/emacs-bin-common_30.1+1-6_amd64.deb;
+    sha256 = "1lc5s7ny11wvyzf13w6xpklfcsr39bklqm9sx0kmjpgb6h3swapc";
+    name = "emacs-bin-common_1%3a30.1+1-6_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/db5.3/libdb5.3_5.3.28+dfsg2-1_amd64.deb;
-    sha256 = "112w4fsjk08dbnv4x8irv1cl7bh5q1a4jndsjblq1nnhimxi5ibx";
-    name = "libdb5.3_5.3.28+dfsg2-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/emacs/emacs-common_30.1+1-6_all.deb;
+    sha256 = "14mr4ksirj5b8dqs26xnfdlxl6b8ppj17fr44jpy2ynp69pyd131";
+    name = "emacs-common_1%3a30.1+1-6_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/dbus/dbus_1.14.10-1~deb12u1_amd64.deb;
-    sha256 = "1y8y4w5crab3xx0iavs7l6ifijk29r83q9n1jf73905fq7yjz4rm";
-    name = "dbus_1.14.10-1~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/emacs/emacs-el_30.1+1-6_all.deb;
+    sha256 = "1kc3sw0d7f52zn1y52pa5pgzyh0c0p2481rspc28lmiy5vnxhrpz";
+    name = "emacs-el_1%3a30.1+1-6_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/dbus/dbus-bin_1.14.10-1~deb12u1_amd64.deb;
-    sha256 = "0mysapkskjq5rd71sk21qj91llcv1vv9g69i3v46pynavpsxcwvj";
-    name = "dbus-bin_1.14.10-1~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/emacs/emacs-nox_30.1+1-6_amd64.deb;
+    sha256 = "0a8qm0acg9dxcvv5yiam81r1j9knhgv8r1sacy2r3z08sps0hic8";
+    name = "emacs-nox_1%3a30.1+1-6_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/dbus/dbus-daemon_1.14.10-1~deb12u1_amd64.deb;
-    sha256 = "0bihj0h1jyp461mmig03wmyc886kaq5ad4njjq0qgpzphgg46pnk";
-    name = "dbus-daemon_1.14.10-1~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/emacsen-common/emacsen-common_3.0.8_all.deb;
+    sha256 = "15al9lmq81c6nh6cz37chm4sdpfmfmfzca05dgifldqrq58lj5lb";
+    name = "emacsen-common_3.0.8_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/dbus/dbus-session-bus-common_1.14.10-1~deb12u1_all.deb;
-    sha256 = "0hrf0sc5b25ds74ndii868si2f41w8yy5zj67zzhjsqxb3ivi75i";
-    name = "dbus-session-bus-common_1.14.10-1~deb12u1_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/ethtool/ethtool_6.14.2-1_amd64.deb;
+    sha256 = "1vs67aamq761b769ra1sh0wmz8qkz60876wwpb2n6f2wwv32lnaw";
+    name = "ethtool_1%3a6.14.2-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/dbus/dbus-system-bus-common_1.14.10-1~deb12u1_all.deb;
-    sha256 = "1qhr7a1wbz7mjnqln7gckwsiravggr25hh17fglqxilar78d6491";
-    name = "dbus-system-bus-common_1.14.10-1~deb12u1_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/fdisk_2.41-5_amd64.deb;
+    sha256 = "0ca0n86j8y5myvnqqpghn04r1dj4idg52c79r2yrhb9ndmcb9xnr";
+    name = "fdisk_2.41-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/dbus/libdbus-1-3_1.14.10-1~deb12u1_amd64.deb;
-    sha256 = "1xim3nxf0dc6vd5z40il9bh3c3k633xfk8bxx1qvdxxrzbjhrvhq";
-    name = "libdbus-1-3_1.14.10-1~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/f/findutils/findutils_4.10.0-3_amd64.deb;
+    sha256 = "1iygmqhs5pmsf3lzyfpnhsvjky76bjfbkfpxrsc6lss52sq05pry";
+    name = "findutils_4.10.0-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/debconf/debconf_1.5.82_all.deb;
-    sha256 = "1j3wrm8wak9lcfh9b4n5wfcana99lkyxq5vrf7yb4qip98ci9avl";
-    name = "debconf_1.5.82_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/gcc-14-base_14.2.0-19_amd64.deb;
+    sha256 = "1xkwhqg51ddrr0fyhqxbqa4lwfsg85v687y5qiw4p0k38bg2as2v";
+    name = "gcc-14-base_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/debconf/debconf-i18n_1.5.82_all.deb;
-    sha256 = "1l1xaj5rhq1ch8f4x99z40g2f7rmav8l0vjjakbqgk1ws7r86b1g";
-    name = "debconf-i18n_1.5.82_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gettext/gettext-base_0.23.1-2_amd64.deb;
+    sha256 = "1jk27pp388biy44hcjaxfxd2m5s91p6qkzbrsc0zy80mcvfzlg8s";
+    name = "gettext-base_0.23.1-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/debian-archive-keyring/debian-archive-keyring_2023.3+deb12u2_all.deb;
-    sha256 = "1f5lp0g2k8q508fzpfnzjdlwp4r9bx3mhas558pj21faipwf56gn";
-    name = "debian-archive-keyring_2023.3+deb12u2_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/git/git_2.47.3-0+deb13u1_amd64.deb;
+    sha256 = "08p77fqj44d5y24pd4hib3s9vbfql4ql1r832xbdssn4slpncd9y";
+    name = "git_1%3a2.47.3-0+deb13u1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/debianutils/debianutils_5.7-0.5~deb12u1_amd64.deb;
-    sha256 = "1ja8xq5a7rw92pray8js9xrxpcycr7xdbk72r4v35svhjqsm3yam";
-    name = "debianutils_5.7-0.5~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/git/git-man_2.47.3-0+deb13u1_all.deb;
+    sha256 = "1jgpkfb6bcaphvcv62hrhi8zfblz94g7xg0q3q795zqx1sv0d0xm";
+    name = "git-man_1%3a2.47.3-0+deb13u1_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/dh-runit/runit-helper_2.15.2_all.deb;
-    sha256 = "0sy32n7792hy4ipgw78mmi99ah9m21cj7dg10w6k9sm18wci427x";
-    name = "runit-helper_2.15.2_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/grep/grep_3.11-4_amd64.deb;
+    sha256 = "0nn5i1zcqqr5zhrbr5l5j2pqsz7k2ljcn1cgafzhwlvav03ysy1d";
+    name = "grep_3.11-4_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/diffutils/diffutils_3.8-4_amd64.deb;
-    sha256 = "1p87ykp3g4jfdi3ccvcybp8bbngcq74ml1cz1rsy6d8h9k0yvpwb";
-    name = "diffutils_1%3a3.8-4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/grub2/grub-common_2.12-9_amd64.deb;
+    sha256 = "1s38f86za882dfjgm7xfjzgkxlbjmxxwm0dhizqw0s9ll7nh5mlf";
+    name = "grub-common_2.12-9_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/distro-info-data/distro-info-data_0.58+deb12u5_all.deb;
-    sha256 = "1yimllydj62a5n74fh1a9i80n5nrglxaqnshmqmizbryk9qkrnxn";
-    name = "distro-info-data_0.58+deb12u5_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/grub2/grub-efi-amd64_2.12-9_amd64.deb;
+    sha256 = "192fav4nmg7xfrs5x39vqyk0x9gz9lx3l97qfdj38p88lihkfky6";
+    name = "grub-efi-amd64_2.12-9_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/dmidecode/dmidecode_3.4-1_amd64.deb;
-    sha256 = "0vmr1ldya490bmwrfp3s2nqki330pazg16x6y9nhsafxhxn6d4yr";
-    name = "dmidecode_3.4-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/grub2/grub-efi-amd64-bin_2.12-9_amd64.deb;
+    sha256 = "1m3qwy7kbhi2p0hvwfyi9xskwlf011am0qri54bsbk2m2dj31w1r";
+    name = "grub-efi-amd64-bin_2.12-9_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/d/dpkg/dpkg_1.21.22_amd64.deb;
-    sha256 = "1i74kxnjm63aasj0kpypvwff20na6w9jkq78014ds1lai9yz55wx";
-    name = "dpkg_1.21.22_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/grub2/grub-efi-amd64-unsigned_2.12-9_amd64.deb;
+    sha256 = "1qh6x1gzpp9ka1qimfb7z5b44jni63rn4wvh29ahdgb23nfihi1z";
+    name = "grub-efi-amd64-unsigned_2.12-9_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/e2fsprogs/e2fsprogs_1.47.0-2+b2_amd64.deb;
-    sha256 = "1hkg9rwndv67ncqy1y3v6cv85gp7k3i6n0i9jxrz13n0j5345pgy";
-    name = "e2fsprogs_1.47.0-2+b2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/grub2/grub2-common_2.12-9_amd64.deb;
+    sha256 = "06drsbm4l1h5ikyhifrddi0jl8xr3zg7flckfdhk8frn951g6zvk";
+    name = "grub2-common_2.12-9_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/e2fsprogs/libcom-err2_1.47.0-2+b2_amd64.deb;
-    sha256 = "1wi21rlz6mq0fvdcrybp5lfjya9278gl8gnz0k2w1yvqbq0wgfm2";
-    name = "libcom-err2_1.47.0-2+b2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gzip/gzip_1.13-1_amd64.deb;
+    sha256 = "0y6hsb74gbvan1f10dzs3b70ihyghjz5cb4p68wsrxlfy0q132y9";
+    name = "gzip_1.13-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/e2fsprogs/libext2fs2_1.47.0-2+b2_amd64.deb;
-    sha256 = "161ay8w0mfpdnbkjkb4vc16bk5az847k6pxzp2j9vycd67r33xyz";
-    name = "libext2fs2_1.47.0-2+b2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/h/hostname/hostname_3.25_amd64.deb;
+    sha256 = "058h5sh5nj740iir5bkaqwp8ks1fbfq32rp43whkfwfqskjjfalw";
+    name = "hostname_3.25_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/e2fsprogs/libss2_1.47.0-2+b2_amd64.deb;
-    sha256 = "0ya5narrqwi0v04qnqxx4brqyx6irkx9kxziryd2aklvq14mf494";
-    name = "libss2_1.47.0-2+b2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/ifupdown/ifupdown_0.8.44_amd64.deb;
+    sha256 = "0i7wki4mi1kx99n1pdqg2nn29yh02fr66lplgns4kx215maik9j6";
+    name = "ifupdown_0.8.44_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/e2fsprogs/logsave_1.47.0-2+b2_amd64.deb;
-    sha256 = "1l53xxrrx7wdagh3arr8iyh43aipp63kxaab8q6m274k1pxm3q0j";
-    name = "logsave_1.47.0-2+b2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/inetutils/inetutils-telnet_2.6-3_amd64.deb;
+    sha256 = "1y3jnk3kbi8ki63kjkancjym9y0ajm299lkqdsscvdbp2dd6vbdr";
+    name = "inetutils-telnet_2%3a2.6-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/efibootmgr/efibootmgr_17-2_amd64.deb;
-    sha256 = "0pr6b3gyqvjvawvpfzl632j14668d82mm48p51dz4kgx3g69pclf";
-    name = "efibootmgr_17-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/init-system-helpers/init_1.69~deb13u1_amd64.deb;
+    sha256 = "1rnclqrr06zxnlpvbs22jybdqh4hwbb95kr3ghrz4mbhnsgx37hm";
+    name = "init_1.69~deb13u1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/efivar/libefiboot1_37-6_amd64.deb;
-    sha256 = "0j4sxx1pvsnb178y2aghgi54c5zpvz0ygnggxb12xbjxlr4yhyfa";
-    name = "libefiboot1_37-6_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/init-system-helpers/init-system-helpers_1.69~deb13u1_all.deb;
+    sha256 = "13rp95b7frianpxfh3p06ncf4m8haz912zlk11ammg0w7q3pipxd";
+    name = "init-system-helpers_1.69~deb13u1_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/efivar/libefivar1_37-6_amd64.deb;
-    sha256 = "1hn2imc89w35gmycwrikqzk3m4k8kppk9757xji9s147sb5mrfra";
-    name = "libefivar1_37-6_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/initramfs-tools/initramfs-tools_0.148.3_all.deb;
+    sha256 = "0b4yrsxr00ypm9p3ajc48vz9va7k6szyhl68imzi2vpmrk02cpia";
+    name = "initramfs-tools_0.148.3_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/elfutils/libelf1_0.188-2.1_amd64.deb;
-    sha256 = "131w1g8m1zdxyfnypn43i9ckjscfj4xqaxd1q733lsv0khvxv6k1";
-    name = "libelf1_0.188-2.1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/initramfs-tools/initramfs-tools-bin_0.148.3_amd64.deb;
+    sha256 = "0awj6nkpfwxpf77m7s4byispa5kph7n26pw9zwbkll26k50yjwp5";
+    name = "initramfs-tools-bin_0.148.3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/emacs/emacs-bin-common_28.2+1-15+deb12u4_amd64.deb;
-    sha256 = "06wm0z7h60yva2ywzvjmkn0vx1lqccfgb04cgi7khadjaah93fcb";
-    name = "emacs-bin-common_1%3a28.2+1-15+deb12u4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/initramfs-tools/initramfs-tools-core_0.148.3_all.deb;
+    sha256 = "0k8niwb5s645fgi14ls6z0x1039vnwpmva8dgzwpmja6j8hyk59f";
+    name = "initramfs-tools-core_0.148.3_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/emacs/emacs-common_28.2+1-15+deb12u4_all.deb;
-    sha256 = "1kz93vanmizrg3gw5xddzv7pa82yw9x9sa2h3j264ffqhm80ga9m";
-    name = "emacs-common_1%3a28.2+1-15+deb12u4_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/t/texinfo/install-info_7.1.1-1+b1_amd64.deb;
+    sha256 = "02cfhhj0rwfrx987sql0zf07vclsw9lljkfra6zb6xd4xqv4flwn";
+    name = "install-info_7.1.1-1+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/emacs/emacs-el_28.2+1-15+deb12u4_all.deb;
-    sha256 = "0ng5mlxjxl9pc95fgh8y1xqs64pq6zxqbksv3whm1wdrwp03jyfh";
-    name = "emacs-el_1%3a28.2+1-15+deb12u4_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/iproute2/iproute2_6.15.0-1_amd64.deb;
+    sha256 = "12ml7wdlh7ls10d6dqf5r5997wj77jjwa8dbzhixgpl39bgclbbv";
+    name = "iproute2_6.15.0-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/emacs/emacs-nox_28.2+1-15+deb12u4_amd64.deb;
-    sha256 = "19i9g6iqiyvk5swn5qs297ibrh27lkw8zspi43j4prcvq2k1p6q4";
-    name = "emacs-nox_1%3a28.2+1-15+deb12u4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/iputils/iputils-ping_20240905-3_amd64.deb;
+    sha256 = "0vzgb1q9vm9chl5hl26ywbjg8msl3vd0shadqglbv5kpa8c633x7";
+    name = "iputils-ping_3%3a20240905-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/emacsen-common/emacsen-common_3.0.5_all.deb;
-    sha256 = "1pv03bhm996dyn37q72jxyllfxb82v7hvcdkn2zzp1fzd9ap5nbl";
-    name = "emacsen-common_3.0.5_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/k/klibc/klibc-utils_2.0.14-1_amd64.deb;
+    sha256 = "1z5rhb09yvw03yyg0z20ayyxjf2cm3yc4yp414bpfiri9wannkbd";
+    name = "klibc-utils_2.0.14-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/ethtool/ethtool_6.1-1_amd64.deb;
-    sha256 = "0iwg011ba9cqlc6q2fpm5rppky06nq3zdwhr4pza0k8r0xsh9w4p";
-    name = "ethtool_1%3a6.1-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/k/kmod/kmod_34.2-2_amd64.deb;
+    sha256 = "0lrfqx07p00vdf0fh6a6gnj26kg99pyr27fi8xad2z5ipq8r6vym";
+    name = "kmod_34.2-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/e/expat/libexpat1_2.5.0-1+deb12u2_amd64.deb;
-    sha256 = "1j6v61mgdrscmci2fx6m78w1kvlsv8bgb8xq8k2x51iaq8pycm92";
-    name = "libexpat1_2.5.0-1+deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/less/less_668-1_amd64.deb;
+    sha256 = "0kqx0vggi0i5n414bdyx4c7my92yjfm6nf2fblvjv2i9d1p22g5s";
+    name = "less_668-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/f/findutils/findutils_4.9.0-4_amd64.deb;
-    sha256 = "012ypi7ns86i57dpkajn83c2v3w6vlwq6szxgl33z9samz86pn2x";
-    name = "findutils_4.9.0-4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/acl/libacl1_2.3.2-2+b1_amd64.deb;
+    sha256 = "17d3r5b7cqbr3h80h62xywfgf8v59b7mi6npqb00gg44wc0ly1q8";
+    name = "libacl1_2.3.2-2+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/f/freetype/libfreetype6_2.12.1+dfsg-5+deb12u4_amd64.deb;
-    sha256 = "0i5ci3qzkicy6zz0lcx6gq67iy8pigz9sgrfclnrja9zyxwy8hw0";
-    name = "libfreetype6_2.12.1+dfsg-5+deb12u4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/apparmor/libapparmor1_4.1.0-1_amd64.deb;
+    sha256 = "06a4mza7x7ir693l8gsy9y6g2pahrjs2bx37341972q3fxn9fn21";
+    name = "libapparmor1_4.1.0-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/f/fuse/libfuse2_2.9.9-6+b1_amd64.deb;
-    sha256 = "1k9gdv3b8hripchb2ywp43jvccnnd86qk5k81578b7w1bpvbhcnz";
-    name = "libfuse2_2.9.9-6+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/apt/libapt-pkg7.0_3.0.3_amd64.deb;
+    sha256 = "02mbhh4q2b2s32iq29zyz7467jvk5hj6x3h3y33ndr3x1iw9zk7x";
+    name = "libapt-pkg7.0_3.0.3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/gcc-12-base_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "06d6dq8ixg4pa7gbdr69p74xkmd41idlmhmcbvzq3mjaryma55hq";
-    name = "gcc-12-base_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libasan8_14.2.0-19_amd64.deb;
+    sha256 = "0i96qj6rh4z5q5glx2s09sz2pmik9hshk99qlldf63riwynrj63p";
+    name = "libasan8_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libasan8_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "1iwyhkvs5skm9l2wl6grxh1al1hgadiy9a3l0q9qlhvxgmwmvb77";
-    name = "libasan8_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/alsa-lib/libasound2-data_1.2.14-1_all.deb;
+    sha256 = "0iy959kxjl16nczws9x8bmfb8kpapypdajq0mlz5bz56cxj3z5zy";
+    name = "libasound2-data_1.2.14-1_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libatomic1_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "0baynp9a6f8js9gjw409vh59q84ry2fj1k02l2g24i5llraf3m7v";
-    name = "libatomic1_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/alsa-lib/libasound2t64_1.2.14-1_amd64.deb;
+    sha256 = "18bhml2j7blgvnx5992vdwnrbl7gdgb20rf3hg9fdx1lsbcjnfph";
+    name = "libasound2t64_1.2.14-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libgcc-12-dev_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "10ja82rs8yvl91bnm3cf2c2s1j79rgsyy5p5dzy2ykx8h29ja86p";
-    name = "libgcc-12-dev_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libatomic1_14.2.0-19_amd64.deb;
+    sha256 = "01bc6rh3jjpr0lcrgsm5m5jrbq3jjgj5f6i67lh9jwigmsd3jar1";
+    name = "libatomic1_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libgcc-s1_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "1xw8i9ywfb328pvx0x17jkzbwcfibqgn0w18h8w81kdpnhnfc5ih";
-    name = "libgcc-s1_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/attr/libattr1_2.5.2-3_amd64.deb;
+    sha256 = "1yyif4dnr34gvxdncrpzx9ncfrayzg0l0zx10zk6ny525vhmwsv0";
+    name = "libattr1_1%3a2.5.2-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libgccjit0_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "0jsaii269a6y0722diw0yrw90i9n876j3s6120z4b9i251ghlby4";
-    name = "libgccjit0_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/audit/libaudit-common_4.0.2-2_all.deb;
+    sha256 = "1qvmay3v05glrcrwpxf8d7dyp7m9d5nrclicpld5lakaldxcvvdn";
+    name = "libaudit-common_1%3a4.0.2-2_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libgomp1_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "1ms3h6s7ws2jn45i4ba0glj92162zfdqhng9p4w1cnvzv9mw9zj8";
-    name = "libgomp1_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/a/audit/libaudit1_4.0.2-2+b2_amd64.deb;
+    sha256 = "1wj2kgjhpnvcjsx5yhv8k1jcfikgd1mddjn5crbhw3fvz7301hp5";
+    name = "libaudit1_1%3a4.0.2-2+b2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libitm1_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "0y99cc4yl7a16d2yhsm1s30l8v6vi73qwh35y35wqihkzmfv7m8f";
-    name = "libitm1_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/binutils/libbinutils_2.44-3_amd64.deb;
+    sha256 = "0y9696qbr785kzas2dj4dz66rn6qwc1ap7y36630rbghm3468ijg";
+    name = "libbinutils_2.44-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/liblsan0_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "0apjvj97z1xavzx797ig5izvh5cdbb7k88sfni7im8qbkhrsnd6j";
-    name = "liblsan0_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/libblkid1_2.41-5_amd64.deb;
+    sha256 = "05virvvf0nfjnz64a1xz6l3795v16z76ri3lh0rya915jh8kzndy";
+    name = "libblkid1_2.41-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libquadmath0_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "07q1r76w3d7fiy49vlln57yri1a34mk5kbhw02mzv8hdfd69l31z";
-    name = "libquadmath0_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libb/libbpf/libbpf1_1.5.0-3_amd64.deb;
+    sha256 = "1hn1mnszz1wza5lwqyk22i39yn7lik60i3ccs208v21462nnxj84";
+    name = "libbpf1_1%3a1.5.0-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libstdc++6_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "0kd2a4ap15j2d9zkpi31fzsdhbdz15aw7sfg274hzayl2q91glsw";
-    name = "libstdc++6_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/brotli/libbrotli1_1.1.0-2+b7_amd64.deb;
+    sha256 = "1nypp1894dbb3bd39jjhd7n97wr5wm4rdaw2jbbgn2i1vf49zdqg";
+    name = "libbrotli1_1.1.0-2+b7_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libtsan2_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "0n69yq4mich8wif960kgq0li2ik11gcfr0k3hcd5m9s4srind406";
-    name = "libtsan2_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libb/libbsd/libbsd0_0.12.2-2_amd64.deb;
+    sha256 = "0fmlxj7gigd7fmvf2idwh8c372s7ddrn1j0vmc3k7v3bza35ka75";
+    name = "libbsd0_0.12.2-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gcc-12/libubsan1_12.2.0-14+deb12u1_amd64.deb;
-    sha256 = "0c55z9by7z98f52wi6ww8xzd4sx30blcgc8693a4bz8gy2nm4kvl";
-    name = "libubsan1_12.2.0-14+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/bzip2/libbz2-1.0_1.0.8-6_amd64.deb;
+    sha256 = "042knvya41hp72dkn09hyfvd39w3r71lnlhmpf0y9da48ahcv96b";
+    name = "libbz2-1.0_1.0.8-6_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gettext/gettext-base_0.21-12_amd64.deb;
-    sha256 = "1dssvpv1298v8alz4jgpcbh0rbvxk1m45l4qxivyc9birix9rcsw";
-    name = "gettext-base_0.21-12_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/glibc/libc-bin_2.41-12_amd64.deb;
+    sha256 = "0lz127rywx8xgrza6dy8pwpnnhpj6rvgcwrr4najhpml9nmrc308";
+    name = "libc-bin_2.41-12_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/glibc/libc-bin_2.36-9+deb12u13_amd64.deb;
-    sha256 = "0xs2pkbi9s8r5p0fddxhf663735d6221d3ghfsq5z1rlkappqyiz";
-    name = "libc-bin_2.36-9+deb12u13_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/glibc/libc-dev-bin_2.41-12_amd64.deb;
+    sha256 = "1xwjf8p82i53ncf18dvbsbhm64ixk6hni17xj928cwdbi6b56w0n";
+    name = "libc-dev-bin_2.41-12_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/glibc/libc-dev-bin_2.36-9+deb12u13_amd64.deb;
-    sha256 = "17vw42arf3c7b3ijgc21dngsprb3mhp91jk5dc07vi7djgvkizvy";
-    name = "libc-dev-bin_2.36-9+deb12u13_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/glibc/libc-l10n_2.41-12_all.deb;
+    sha256 = "12xyzs8ghgnrzd3qzw0glv7hxvak8yfi6m132w5fkvang6iab98z";
+    name = "libc-l10n_2.41-12_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/glibc/libc-l10n_2.36-9+deb12u13_all.deb;
-    sha256 = "176j53k05kb9imig3mbv5h4lkv84x2gx7wqhcmn0hr9pmp2p0p4n";
-    name = "libc-l10n_2.36-9+deb12u13_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/glibc/libc6_2.41-12_amd64.deb;
+    sha256 = "02sxg46g0xr8wvx2ppxcxxb89izxgbrk7rb0dc9b43ndjw881zvc";
+    name = "libc6_2.41-12_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/glibc/libc6_2.36-9+deb12u13_amd64.deb;
-    sha256 = "0b1aydc98sxsrcg4zmv136cqm2470s3xpds4pxxr0zh17g3p501x";
-    name = "libc6_2.36-9+deb12u13_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/glibc/libc6-dev_2.41-12_amd64.deb;
+    sha256 = "1zfd29y5givqkaamymcaiyr795ygxn5r78dca99jd1xba743r1nj";
+    name = "libc6-dev_2.41-12_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/glibc/libc6-dev_2.36-9+deb12u13_amd64.deb;
-    sha256 = "0cxawjc5pnsh3k62d28d3vakb0fcbhp6xwagq4c8s77biamyl1qw";
-    name = "libc6-dev_2.36-9+deb12u13_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libc/libcap-ng/libcap-ng0_0.8.5-4+b1_amd64.deb;
+    sha256 = "1b6wml34bf90bzfqybxa3rh5mpjx2gnkn8iqcdbb4glsc6qf9a90";
+    name = "libcap-ng0_0.8.5-4+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/glibc/locales_2.36-9+deb12u13_all.deb;
-    sha256 = "16wz5pxxjrpr3a876k4cfhqz5bv7f0bp392i2d0fg0aiyrmpka9b";
-    name = "locales_2.36-9+deb12u13_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libc/libcap2/libcap2_2.75-10+b1_amd64.deb;
+    sha256 = "1qkw42w9kvkd7v07mqqiwhnqjc7zwaz5qpbmsfkqsskfkgvpa3cg";
+    name = "libcap2_1%3a2.75-10+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gmp/libgmp10_6.2.1+dfsg1-1.1_amd64.deb;
-    sha256 = "1gc26j4rr7kk0426dppfqwrpcrqrjwxpa8z5q4jz8qyp5vpysyhq";
-    name = "libgmp10_2%3a6.2.1+dfsg1-1.1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libc/libcap2/libcap2-bin_2.75-10+b1_amd64.deb;
+    sha256 = "0sxw3gb9z85qwffkg5g9117h59sl18gpzvnlff88acyb284b7rmj";
+    name = "libcap2-bin_1%3a2.75-10+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gnupg2/gpgv_2.2.40-1.1+deb12u1_amd64.deb;
-    sha256 = "07x9c8panbld605pi0qyjk0disxwbx8fkls1qhh2ak61ddrl8w4n";
-    name = "gpgv_2.2.40-1.1+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libc/libcbor/libcbor0.10_0.10.2-2_amd64.deb;
+    sha256 = "1qjj3yxi3pa4vrjls22xf9ajl7kil0w6dnh1p9kpbjsx6xp6hmr4";
+    name = "libcbor0.10_0.10.2-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gnutls28/libgnutls30_3.7.9-2+deb12u5_amd64.deb;
-    sha256 = "0fxicj235alj95manyv797cn54x0lndsahjiwhd8cf0a5v94x87w";
-    name = "libgnutls30_3.7.9-2+deb12u5_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/e2fsprogs/libcom-err2_1.47.2-3+b3_amd64.deb;
+    sha256 = "0xqa9506bkkvvdafw4z4yhhpms3fm0pf42pjggkjv2q4rmf3g1dg";
+    name = "libcom-err2_1.47.2-3+b3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gpm/libgpm2_1.20.7-10+b1_amd64.deb;
-    sha256 = "0w9mqhnipb2jqqz3knnlbcbnbnv48nhi3balw7lq80in8xjj7h9a";
-    name = "libgpm2_1.20.7-10+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libx/libxcrypt/libcrypt-dev_4.4.38-1_amd64.deb;
+    sha256 = "02as9ygg3invdalxprprv0plj19sdljicp5pz5lclr4dx8x37qlq";
+    name = "libcrypt-dev_1%3a4.4.38-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/grep/grep_3.8-5_amd64.deb;
-    sha256 = "1pwnf7d4jw34fsnas04xdcq0w4v5p68r43pjaj5c9wwdfbmaqr1j";
-    name = "grep_3.8-5_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libx/libxcrypt/libcrypt1_4.4.38-1_amd64.deb;
+    sha256 = "0p2qcxy0s7wb6bh1v0b89kjlba2wnfwagwqv5nc9fc9fcr6i9g0f";
+    name = "libcrypt1_1%3a4.4.38-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/grub2/grub-common_2.06-13+deb12u1_amd64.deb;
-    sha256 = "1wqria473dcm7nmakvhs4wm4rmdxyps52rj06ap9hlylkhrya10f";
-    name = "grub-common_2.06-13+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/binutils/libctf-nobfd0_2.44-3_amd64.deb;
+    sha256 = "0my6iw294jg44hjwnz6qcxkk8p5r0lb2ap461r889rdn7nzb5072";
+    name = "libctf-nobfd0_2.44-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/grub2/grub-efi-amd64_2.06-13+deb12u1_amd64.deb;
-    sha256 = "10b1nr0yp8dkm7y1gl1ym1r7pbaxdhvqijzy3awapiprbb3scish";
-    name = "grub-efi-amd64_2.06-13+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/binutils/libctf0_2.44-3_amd64.deb;
+    sha256 = "1iasm4fdff06b3sz8j73lgji8gdj777v93ram5pjfahkjg6sy30j";
+    name = "libctf0_2.44-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/grub2/grub-efi-amd64-bin_2.06-13+deb12u1_amd64.deb;
-    sha256 = "1xcfbqdn96a32m9vdlnqlpwhqwh2lkfy7c82k0iz74nwhjafv84z";
-    name = "grub-efi-amd64-bin_2.06-13+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/curl/libcurl3t64-gnutls_8.14.1-2_amd64.deb;
+    sha256 = "0bv5yvgwhiw5inr0mz92czhl2sfqkp5dkdjgyzav45yvms506nc3";
+    name = "libcurl3t64-gnutls_8.14.1-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/grub2/grub2-common_2.06-13+deb12u1_amd64.deb;
-    sha256 = "1cbrrgs3xrady5jb1x97q1yyfs9fik62vi7bd6aqi1gl6xl16ijj";
-    name = "grub2-common_2.06-13+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/curl/libcurl4t64_8.14.1-2_amd64.deb;
+    sha256 = "1snj7r9l2ri0sy2717mkjifq1xl8imxcayrs6qgvaqkwd7nz81hg";
+    name = "libcurl4t64_8.14.1-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/g/gzip/gzip_1.12-1_amd64.deb;
-    sha256 = "18z6w2029cfdymhkvn863ihm4pv2y9fzr4vv1ma74kw3wbfw3gpa";
-    name = "gzip_1.12-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/db5.3/libdb5.3t64_5.3.28+dfsg2-9_amd64.deb;
+    sha256 = "1z7kgfnn1aw2h0qwv9ql8br0y83sg5v021ds0i2pxdkqxq82bl0q";
+    name = "libdb5.3t64_5.3.28+dfsg2-9_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/h/hostname/hostname_3.23+nmu1_amd64.deb;
-    sha256 = "1ryhs7s4l0lsdkchjpxn696gh5np1x2d5071h2flj12hq3rs5n8p";
-    name = "hostname_3.23+nmu1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dbus/libdbus-1-3_1.16.2-2_amd64.deb;
+    sha256 = "1xd3d08ak5kfllv8llb5zr5nfhk1bd3hb6qgz2sh9qgpmwfp3jxv";
+    name = "libdbus-1-3_1.16.2-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/icu/libicu72_72.1-3+deb12u1_amd64.deb;
-    sha256 = "127gviyrw7396rpqppcb1i6c88hxw69zqir4vwa5j0kvdnfgkxpp";
-    name = "libicu72_72.1-3+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/cdebconf/libdebconfclient0_0.280_amd64.deb;
+    sha256 = "1aj1yz7gvjn149g6v3bxka1qygsjbsbp0vpibp88dg4lng4avb15";
+    name = "libdebconfclient0_0.280_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/ifupdown/ifupdown_0.8.41_amd64.deb;
-    sha256 = "0nf0yyksd395ahkzxfjlsq9c8861233xvwrhkm0zxqriiz3q6hrh";
-    name = "ifupdown_0.8.41_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/lvm2/libdevmapper1.02.1_1.02.205-2_amd64.deb;
+    sha256 = "1w0avdg8hg04fc19vw36vdvcvbgqq9fkffkx3ckpz613i3gy0979";
+    name = "libdevmapper1.02.1_2%3a1.02.205-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/inetutils/inetutils-telnet_2.4-2+deb12u1_amd64.deb;
-    sha256 = "0ndy9ljihfcqi7iybyqsfmpdsvv86hajlyc7xdvi3agzlgp9iwqj";
-    name = "inetutils-telnet_2%3a2.4-2+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libe/libedit/libedit2_3.1-20250104-1_amd64.deb;
+    sha256 = "1ziv3lghm6c3n0y1362f18zlrdvvqqiwb5y4gfk387lw5cbyl0mh";
+    name = "libedit2_3.1-20250104-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/inetutils/telnet_0.17+2.4-2+deb12u1_all.deb;
-    sha256 = "0hcza5gvih9hhgkfwsv64pbxksih5n3kf6apvlazsw83paw0gdx6";
-    name = "telnet_0.17+2.4-2+deb12u1_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/efivar/libefiboot1t64_38-3.1+b1_amd64.deb;
+    sha256 = "0vlj2fi7qh7bkvfir3hy1x03j58cix8ibmng8kqg6aly0scmfbck";
+    name = "libefiboot1t64_38-3.1+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/init-system-helpers/init_1.65.2+deb12u1_amd64.deb;
-    sha256 = "0ysld39n5xbd1hdl5rwa8w9vidmx7al3gm6q2a0www74hhfdf72n";
-    name = "init_1.65.2+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/efivar/libefivar1t64_38-3.1+b1_amd64.deb;
+    sha256 = "192cmpsdyddw51bx4pnwk80v84i1d0w0905cms9z4aj2m5nbkgrl";
+    name = "libefivar1t64_38-3.1+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/init-system-helpers/init-system-helpers_1.65.2+deb12u1_all.deb;
-    sha256 = "1vqgzbjkvv55y4clznbnqhz4kp4n38yb9jmmdqjlwkn64hjliaxg";
-    name = "init-system-helpers_1.65.2+deb12u1_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/elfutils/libelf1t64_0.192-4_amd64.deb;
+    sha256 = "1qak039pkxk348m0rdv3khdg1lr09r2hsf2vc2h79xdn2xz7njcl";
+    name = "libelf1t64_0.192-4_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/initramfs-tools/initramfs-tools_0.142+deb12u3_all.deb;
-    sha256 = "0myf3qg9skcwdwsrlhpr27x147h1fj2syl9m7s1dv2nl731cabvd";
-    name = "initramfs-tools_0.142+deb12u3_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libe/liberror-perl/liberror-perl_0.17030-1_all.deb;
+    sha256 = "07w73ylfmhh787pqbiin1qfwcdpqjyzdspb1sv3gclnw5fbhl486";
+    name = "liberror-perl_0.17030-1_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/initramfs-tools/initramfs-tools-core_0.142+deb12u3_all.deb;
-    sha256 = "1w59dw371ccky156wrn9a18kjic0b7azgw7v6v3bx241n07ghw8i";
-    name = "initramfs-tools-core_0.142+deb12u3_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/expat/libexpat1_2.7.1-2_amd64.deb;
+    sha256 = "0i1khkabhhr9dv9m36b79vmw4zfl14xskybpm16hfnxyfmkgaxgq";
+    name = "libexpat1_2.7.1-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/iproute2/iproute2_6.1.0-3_amd64.deb;
-    sha256 = "0w4hdlwb824haf0x5q5x3s12yx86h5vrs2vd15kn50vfj6gb410j";
-    name = "iproute2_6.1.0-3_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/e2fsprogs/libext2fs2t64_1.47.2-3+b3_amd64.deb;
+    sha256 = "1ivw7m6csvd0p1vj9b7wgi9k9z9ilcmwzfcapifv8a0qbfg6m97i";
+    name = "libext2fs2t64_1.47.2-3+b3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/iptables/libip4tc2_1.8.9-2_amd64.deb;
-    sha256 = "1i6gnw5ix7x9gafxzp92zvaya71p3gwcrrvplnd3zhcygwv8pi7j";
-    name = "libip4tc2_1.8.9-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/libfdisk1_2.41-5_amd64.deb;
+    sha256 = "1x9h31f6mx8nc979za10dgdyhx24sbnx6a0xh2v8gjwp876n9bz0";
+    name = "libfdisk1_2.41-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/iptables/libxtables12_1.8.9-2_amd64.deb;
-    sha256 = "0h3hhnak8b3cvqw8awy9k590da9x5wyk29c6755ayhqajmk1v16b";
-    name = "libxtables12_1.8.9-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libf/libffi/libffi8_3.4.8-2_amd64.deb;
+    sha256 = "0s2gky8z9ypfnx9k1vx1vy1jxb0m9g6p8f66qcwkccrkvr0c7g8f";
+    name = "libffi8_3.4.8-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/iputils/iputils-ping_20221126-1+deb12u1_amd64.deb;
-    sha256 = "16sqh4ifs5lflh4s64q55qi1g6p5am39ml49igh90y8lw9s6s82s";
-    name = "iputils-ping_3%3a20221126-1+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libf/libfido2/libfido2-1_1.15.0-1+b1_amd64.deb;
+    sha256 = "1h760hh3amjk2hrd5ss0f4rc8fxh7rwv7a5jia2bwln643zc0kq9";
+    name = "libfido2-1_1.15.0-1+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/isc-dhcp/isc-dhcp-client_4.4.3-P1-2_amd64.deb;
-    sha256 = "1qxnpsnmzyd0m4175jyfciwn6f7h76w2b2amg7nfvls3hhldfg94";
-    name = "isc-dhcp-client_4.4.3-P1-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/f/freetype/libfreetype6_2.13.3+dfsg-1_amd64.deb;
+    sha256 = "0vxpanpjbjvddnv7r3gvbxq1hm0ygs4qm45dhyrxkw3g6l00dkqz";
+    name = "libfreetype6_2.13.3+dfsg-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/isc-dhcp/isc-dhcp-common_4.4.3-P1-2_amd64.deb;
-    sha256 = "0siykqzwz8jm4ykap2d9g5pyh99g4mr2kr7mbzpi1xiysrylms7s";
-    name = "isc-dhcp-common_4.4.3-P1-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/f/fuse3/libfuse3-4_3.17.2-3_amd64.deb;
+    sha256 = "1nkhymjkbkc6ka671apmy307snh24ixvm7d67ahma9w7zwhxbqlj";
+    name = "libfuse3-4_3.17.2-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/i/isl/libisl23_0.25-1.1_amd64.deb;
-    sha256 = "03nswha531p492ybwr6lf13yx5vf6qck0llp84i78312icphpzzb";
-    name = "libisl23_0.25-1.1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libgcc-14-dev_14.2.0-19_amd64.deb;
+    sha256 = "0a0617mqrig528jll8021cw8k32d2f00nns0f7mv66bbv4v2svya";
+    name = "libgcc-14-dev_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/j/jansson/libjansson4_2.14-2_amd64.deb;
-    sha256 = "0r3qq9gyf8vkyi4m7b9jz2g430ql9m5hgxhxjfwvqdqskwpp9j9z";
-    name = "libjansson4_2.14-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libgcc-s1_14.2.0-19_amd64.deb;
+    sha256 = "0l5ic70fsjx72q1b5k960l3cyvi5g9wa55iisjp1f6hd95xr2w9w";
+    name = "libgcc-s1_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/j/json-c/libjson-c5_0.16-2_amd64.deb;
-    sha256 = "0w0dq21jfqyib7j569fclnxpi0ziamips1gn42bnphni6y3fvqfh";
-    name = "libjson-c5_0.16-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libgccjit0_14.2.0-19_amd64.deb;
+    sha256 = "1yakaksfb0knqh8y1la6lfr54bfvxk0s2v5w0d5f27lv3ws9zdya";
+    name = "libgccjit0_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/k/keyutils/libkeyutils1_1.6.3-2_amd64.deb;
-    sha256 = "0qrm6y65igcqpmqf9smsf6kxmvgg4l732hzqlk3g6kx5lzk8kb6g";
-    name = "libkeyutils1_1.6.3-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gdbm/libgdbm-compat4t64_1.24-2_amd64.deb;
+    sha256 = "00gaa3zwwbn0pjq1m9nsvvqahzng56fxgdc8h7s7zxgv5p7l7g9c";
+    name = "libgdbm-compat4t64_1.24-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/k/klibc/klibc-utils_2.0.12-1_amd64.deb;
-    sha256 = "0ygxpnmmzmap2x3clk0jmb2sbn2n2zgg2pmhy9sr00pg8n8wl1vq";
-    name = "klibc-utils_2.0.12-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gdbm/libgdbm6t64_1.24-2_amd64.deb;
+    sha256 = "1z3dd7jr22n1zc7aqyxxc846ckfjmkyiwg6v79rpiqliqdl2rd77";
+    name = "libgdbm6t64_1.24-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/k/klibc/libklibc_2.0.12-1_amd64.deb;
-    sha256 = "1989mgwvh686m056f71nbmfk7lxlz6vigwbhkk6lzik9pqk49i3a";
-    name = "libklibc_2.0.12-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gmp/libgmp10_6.3.0+dfsg-3_amd64.deb;
+    sha256 = "08p6chacdvpb1lx6a4xyzgf7j17q4838qz0gzmxg2w0pn1g2dl6h";
+    name = "libgmp10_2%3a6.3.0+dfsg-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/k/kmod/kmod_30+20221128-1_amd64.deb;
-    sha256 = "0raifqjjsl7j8b4rq1a17k6l2nyl4w152pwsq95a3s2g413y46p2";
-    name = "kmod_30+20221128-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gnutls28/libgnutls30t64_3.8.9-3_amd64.deb;
+    sha256 = "16brxbabg9snv8kjvsj0qymkmsfk89axy0fg63zy895lall7pcc5";
+    name = "libgnutls30t64_3.8.9-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/k/kmod/libkmod2_30+20221128-1_amd64.deb;
-    sha256 = "1mvjsss3970w9wdzqj0kr26b262vp6rr7hqm9cjizgazq6zvnqxg";
-    name = "libkmod2_30+20221128-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libgomp1_14.2.0-19_amd64.deb;
+    sha256 = "1m8wc2cbfhr4hdf4kdhbchg4ns5f6hdi2i5hzrg1kws87jis3dvj";
+    name = "libgomp1_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/k/krb5/libgssapi-krb5-2_1.20.1-2+deb12u4_amd64.deb;
-    sha256 = "1fs38mmk6vh2dg8zni1z5ng5f9f7qp43j9x4caqcr6091pcsj85f";
-    name = "libgssapi-krb5-2_1.20.1-2+deb12u4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gpm/libgpm2_1.20.7-11+b2_amd64.deb;
+    sha256 = "0z56fwhfnjhgpfbcq3bpmflqc9k67pfzfgnfiffg73dvwm298xy8";
+    name = "libgpm2_1.20.7-11+b2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/k/krb5/libk5crypto3_1.20.1-2+deb12u4_amd64.deb;
-    sha256 = "0vbqr4mbw875wwx80xx245wqchg3ipqak5fxm8bj2n1hw1g3a8dr";
-    name = "libk5crypto3_1.20.1-2+deb12u4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/binutils/libgprofng0_2.44-3_amd64.deb;
+    sha256 = "0j36yrphvk4cnjg8p473d49swc6x367d1pjxfg37lijwx2yx0dhd";
+    name = "libgprofng0_2.44-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/k/krb5/libkrb5-3_1.20.1-2+deb12u4_amd64.deb;
-    sha256 = "1c62lspgaa00g74yxj35a7034hvsk1dxjvc4gk37k1by59jsn55g";
-    name = "libkrb5-3_1.20.1-2+deb12u4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/k/krb5/libgssapi-krb5-2_1.21.3-5_amd64.deb;
+    sha256 = "1myrabkzc36siyp56dqs235xds2v4yfpm521d60igiwzj5iqqrsk";
+    name = "libgssapi-krb5-2_1.21.3-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/k/krb5/libkrb5support0_1.20.1-2+deb12u4_amd64.deb;
-    sha256 = "1znxqf10ki5p7vpdlwmciqj277465lkdh1v719nf38rh0mlsqzsy";
-    name = "libkrb5support0_1.20.1-2+deb12u4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/nettle/libhogweed6t64_3.10.1-1_amd64.deb;
+    sha256 = "0pzjdrir83pz2agcrva5zbsqxm8yxr4dw8jk57d0kb0ma4aysndh";
+    name = "libhogweed6t64_3.10.1-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/lcms2/liblcms2-2_2.14-2_amd64.deb;
-    sha256 = "0sinq4kiqhdng2s5jvdvs264z9dxf37cxfkhbxfrxa9c603p8hcb";
-    name = "liblcms2-2_2.14-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libhwasan0_14.2.0-19_amd64.deb;
+    sha256 = "1msp0v6i83lfknza01833fp6bl1dd1q1625bcjlk1b6qrabzgnic";
+    name = "libhwasan0_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/less/less_590-2.1~deb12u2_amd64.deb;
-    sha256 = "06nc4ml4850x8qhmipi2iskahxf317iq95fsd48mwqhgbv7fhkiw";
-    name = "less_590-2.1~deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libi/libidn2/libidn2-0_2.3.8-2_amd64.deb;
+    sha256 = "0y42si3w7fj5ijxxpvyycjhkcpjjpf6xynlkqkhzhy25vjy3kc4h";
+    name = "libidn2-0_2.3.8-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libb/libbpf/libbpf1_1.1.2-0+deb12u1_amd64.deb;
-    sha256 = "1vgq94773n2dm89z0y3zzd08zadqvspy849l4384mj7bfzphaxay";
-    name = "libbpf1_1%3a1.1.2-0+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/isl/libisl23_0.27-1_amd64.deb;
+    sha256 = "0d9vnnf1aqxw7sg8psppi3afri4ax2kvnwpvxzhhvh415q21i1dc";
+    name = "libisl23_0.27-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libb/libbsd/libbsd0_0.11.7-2_amd64.deb;
-    sha256 = "02y6n8258192m1bl5lmswhd4lw6cg5zhz5zc5idshqpr825wqcdv";
-    name = "libbsd0_0.11.7-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libitm1_14.2.0-19_amd64.deb;
+    sha256 = "144l36nmsf1l7nc6sl3gbg5clz7s7hfpmqajx6ms7qfd532v7ggy";
+    name = "libitm1_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libc/libcap-ng/libcap-ng0_0.8.3-1+b3_amd64.deb;
-    sha256 = "01rfi12grrzbsiahvxn6l6a9k2m21dh4vvisng472jkyqxllgddl";
-    name = "libcap-ng0_0.8.3-1+b3_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/j/jansson/libjansson4_2.14-2+b3_amd64.deb;
+    sha256 = "0viagp7rk7m28zjp692kqppnvmzglhya24lv731jh4kczri7lw30";
+    name = "libjansson4_2.14-2+b3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libc/libcap2/libcap2_2.66-4+deb12u2_amd64.deb;
-    sha256 = "0xcq48m64dv503qq6axhbzhy3rbdl06q3691rj5p518wvcw5a04b";
-    name = "libcap2_1%3a2.66-4+deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/k/krb5/libk5crypto3_1.21.3-5_amd64.deb;
+    sha256 = "1i010zg5m2bxqyjc6jrzrikkrayra38k3g8w1yx740bzznwc8s1k";
+    name = "libk5crypto3_1.21.3-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libc/libcap2/libcap2-bin_2.66-4+deb12u2_amd64.deb;
-    sha256 = "1l2gfy9g5csvjjrgl5qx3c93xmq3yqf0dkcd11jw6gc69z3qksv5";
-    name = "libcap2-bin_1%3a2.66-4+deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/k/keyutils/libkeyutils1_1.6.3-6_amd64.deb;
+    sha256 = "1fjydpp2kjrx6vjj63vlgd5x697d1x2wdd7fshxbc003pqbss48b";
+    name = "libkeyutils1_1.6.3-6_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libc/libcbor/libcbor0.8_0.8.0-2+b1_amd64.deb;
-    sha256 = "1bskbbzfxab6ri6c1ymqc348rfvyik41dy8qzdx3bhfi38g13gcc";
-    name = "libcbor0.8_0.8.0-2+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/k/klibc/libklibc_2.0.14-1_amd64.deb;
+    sha256 = "1njvkignbdc8ijlrmak4ffd4j5fmdaygwr2fdbs0dvwhlw66cwcc";
+    name = "libklibc_2.0.14-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libe/libedit/libedit2_3.1-20221030-2_amd64.deb;
-    sha256 = "1rlwr3ijari0fggkn7g7l5s01xvwffjmf1idn6fjglqn4yzlmw8w";
-    name = "libedit2_3.1-20221030-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/k/kmod/libkmod2_34.2-2_amd64.deb;
+    sha256 = "0y91nqbsk2qgprk8qn92kp8896f9jhfs16mzx2argakrmkmm0v7f";
+    name = "libkmod2_34.2-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libf/libffi/libffi8_3.4.4-1_amd64.deb;
-    sha256 = "0jn3lhiw4spp86hn1cxb68s9lckcm27a9smwskkcrz0fqcjnr7vd";
-    name = "libffi8_3.4.4-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/k/krb5/libkrb5-3_1.21.3-5_amd64.deb;
+    sha256 = "16kwffswlaxnldasm17n4lc7p39qkvhzxpgh1m51f2ik67znya3y";
+    name = "libkrb5-3_1.21.3-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libf/libfido2/libfido2-1_1.12.0-2+b1_amd64.deb;
-    sha256 = "07half1d9hl3b5nb59k2nln6b8wafrajw4kj3778df6w3bcrra6v";
-    name = "libfido2-1_1.12.0-2+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/k/krb5/libkrb5support0_1.21.3-5_amd64.deb;
+    sha256 = "14lbyc73nwp2spyg2npc71vwckx8w1bcsp1qr6yklgwdsdwln98m";
+    name = "libkrb5support0_1.21.3-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libg/libgcrypt20/libgcrypt20_1.10.1-3_amd64.deb;
-    sha256 = "1x82qzv7zp45nd35bmbcp9d8pb3iccfq8gm3shvrvqv99xzarz5z";
-    name = "libgcrypt20_1.10.1-3_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/liblastlog2-2_2.41-5_amd64.deb;
+    sha256 = "1mwdx1y45s6w5bbr1dqfxbr1h59y8srh479c1dryjgc785dk2spz";
+    name = "liblastlog2-2_2.41-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libg/libgpg-error/libgpg-error0_1.46-1_amd64.deb;
-    sha256 = "1npa1hvfdspgxg3c8gllz3pi4raa9h4jzibgyipcww3k3phlx549";
-    name = "libgpg-error0_1.46-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/lcms2/liblcms2-2_2.16-2_amd64.deb;
+    sha256 = "087mf8vjlvzh8bcll5km6ahvlhv25rbfky4dbirxj6x42w7z0vkj";
+    name = "liblcms2-2_2.16-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libi/libidn2/libidn2-0_2.3.3-1+b1_amd64.deb;
-    sha256 = "1ylaj7a64gqg03g55jp1fzf5jgsxnh3da5vq89kxd0s0hbaic1ym";
-    name = "libidn2-0_2.3.3-1+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/o/openldap/libldap2_2.6.10+dfsg-1_amd64.deb;
+    sha256 = "1g89k7n8sdhyscvxdibf2j7b30bp840k17d87w8r1a0cam59w1k0";
+    name = "libldap2_2.6.10+dfsg-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libl/liblocale-gettext-perl/liblocale-gettext-perl_1.07-5_amd64.deb;
-    sha256 = "1j1x2wz2c2biy4lg0svfdngjsbdyyzai4gv9cla2lszdwyflllpy";
-    name = "liblocale-gettext-perl_1.07-5_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libl/liblocale-gettext-perl/liblocale-gettext-perl_1.07-7+b1_amd64.deb;
+    sha256 = "14x4jhsc2wyaiixxgam93nbrf2gjfhybxh1pargf9mnc4g3i0k3n";
+    name = "liblocale-gettext-perl_1.07-7+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libm/libmd/libmd0_1.0.4-2_amd64.deb;
-    sha256 = "1aryl4jyyvdmgb03gqzg3bgjn1m9xm96x98k3l82g7jh1k9rylq3";
-    name = "libmd0_1.0.4-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/liblsan0_14.2.0-19_amd64.deb;
+    sha256 = "0s6djzzwsrqgpj5ipr5f83ic98d6q8ykd16mcpk4ayi8fvd0gpx0";
+    name = "liblsan0_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libm/libmnl/libmnl0_1.0.4-3_amd64.deb;
-    sha256 = "0z7ahdcsfnp96x3gbim62jkgqfl72wxid22fxbwp5jvk6cpg90a5";
-    name = "libmnl0_1.0.4-3_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/lz4/liblz4-1_1.10.0-4_amd64.deb;
+    sha256 = "07ifyaqsrg8rrpxni8h1ls8wq62m1ky6dq1z5y5s6m97r33w87n3";
+    name = "liblz4-1_1.10.0-4_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libn/libnftnl/libnftnl11_1.2.4-2_amd64.deb;
-    sha256 = "1bqkh83vb5yrhqk39ca3h12xhvq4zhxhy0h6x5j554d1f0a9wqcy";
-    name = "libnftnl11_1.2.4-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/x/xz-utils/liblzma5_5.8.1-1_amd64.deb;
+    sha256 = "14p81xp47c5jilhz4inswrpmsfd0kmqknpcwj2aii2s7c8z8cjrs";
+    name = "liblzma5_5.8.1-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libn/libnsl/libnsl-dev_1.3.0-2_amd64.deb;
-    sha256 = "16fs8ij89j59d3ibfkzyn94wbdl7b34wn8z7pbg7zk8rq64a30dv";
-    name = "libnsl-dev_1.3.0-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libm/libmd/libmd0_1.1.0-2+b1_amd64.deb;
+    sha256 = "0i0v1p9yzb1f939zbw9m3y7nxwj0l2m0izl4306aq7xn74wfqi3j";
+    name = "libmd0_1.1.0-2+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libn/libnsl/libnsl2_1.3.0-2_amd64.deb;
-    sha256 = "1y6nq04zg5d0wg3rh90ziwz4pr3blcl9zx1njhlcn5mhzlvk9n60";
-    name = "libnsl2_1.3.0-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libm/libmnl/libmnl0_1.0.5-3_amd64.deb;
+    sha256 = "1xdsr7zj1mfywkimpmfk8n89jjbzxqa279h3vcxlx58bdq4w3jaf";
+    name = "libmnl0_1.0.5-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libp/libpng1.6/libpng16-16_1.6.39-2_amd64.deb;
-    sha256 = "11nn4vfsxmsyczcbjn81s5lgas8n05r9b657glqvm1wsr9yp4cnw";
-    name = "libpng16-16_1.6.39-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/libmount1_2.41-5_amd64.deb;
+    sha256 = "1xpny1jxizyg35i8085j1a6f0r4awc1baj6iyri60mfjvmxgr7nd";
+    name = "libmount1_2.41-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libp/libpsl/libpsl5_0.21.2-1_amd64.deb;
-    sha256 = "1yqsk058c5638vc04hkg5wgn4521fhcqfx2pn1afgr0409hka3ag";
-    name = "libpsl5_0.21.2-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/m/mpclib3/libmpc3_1.3.1-1+b3_amd64.deb;
+    sha256 = "02rhijp6v1npv9fs3cyd6rs2kdsqm7c1n08b3jj98dp0530sbw1a";
+    name = "libmpc3_1.3.1-1+b3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libs/libseccomp/libseccomp2_2.5.4-1+deb12u1_amd64.deb;
-    sha256 = "13d3xklpj1yhbh16bqxnlyz09m1p3f5120fqa6xgjz6aaxwyd3qh";
-    name = "libseccomp2_2.5.4-1+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/m/mpfr4/libmpfr6_4.2.2-1_amd64.deb;
+    sha256 = "14nd885h2kb5migfnqqp25mfcbkzgg13vhqj6xagrixb3phxrpbm";
+    name = "libmpfr6_4.2.2-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libs/libselinux/libselinux1_3.4-1+b6_amd64.deb;
-    sha256 = "0ps2xlg0cgdbnh3kb3s0db2xllhnriq4svmmb00z81cigclga1rb";
-    name = "libselinux1_3.4-1+b6_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/ncurses/libncursesw6_6.5+20250216-2_amd64.deb;
+    sha256 = "1drqsnk3n33cxl3zg09h88i2ypaspmlnn1isb1a3cn3r2phs5fj7";
+    name = "libncursesw6_6.5+20250216-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libs/libsemanage/libsemanage-common_3.4-1_all.deb;
-    sha256 = "0c7sh86kfbnqdxsbj7cfy061nd202q2mfc5xaf8f69df45n80pw3";
-    name = "libsemanage-common_3.4-1_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/nettle/libnettle8t64_3.10.1-1_amd64.deb;
+    sha256 = "1zhwfg0n4s2ryiwx34nl2yih3s9pd7rrcqzya2x470cwrnlx80qv";
+    name = "libnettle8t64_3.10.1-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libs/libsemanage/libsemanage2_3.4-1+b5_amd64.deb;
-    sha256 = "131apk5238issgnd0zambvjahxndrsgk16i6a9ddxbb652bx0dpx";
-    name = "libsemanage2_3.4-1+b5_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/newt/libnewt0.52_0.52.25-1_amd64.deb;
+    sha256 = "0a3x096y66ns9klni9hq4mbpsxmknh7bb1lqcq05sd3pcdwalgq8";
+    name = "libnewt0.52_0.52.25-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libs/libsepol/libsepol2_3.4-2.1_amd64.deb;
-    sha256 = "0j3bpq80aiy0h8knnw3drgywffz3m9n84qm9hyrrg2l1p5mr965r";
-    name = "libsepol2_3.4-2.1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/nftables/libnftables1_1.1.3-1_amd64.deb;
+    sha256 = "15lq6pzyh48f1r4krsj6db9rdf4n5vszcsa27ifawll4rqyyxjy7";
+    name = "libnftables1_1.1.3-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libs/libssh2/libssh2-1_1.10.0-3+b1_amd64.deb;
-    sha256 = "092gym1qv5qfq5li2ppzghs35sn2qblyd2qy72yxhjm89zikw2nj";
-    name = "libssh2-1_1.10.0-3+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libn/libnftnl/libnftnl11_1.2.9-1_amd64.deb;
+    sha256 = "10yr4wz7mm3s1624m5vkdn95y13qaas7yy84wi2apimrpx3awghv";
+    name = "libnftnl11_1.2.9-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libt/libtasn1-6/libtasn1-6_4.19.0-2+deb12u1_amd64.deb;
-    sha256 = "1nmg036q9n52gac6bambgzi6wbrqsfirx0rjjk84iqlvnq9wc9rc";
-    name = "libtasn1-6_4.19.0-2+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/nghttp2/libnghttp2-14_1.64.0-1.1_amd64.deb;
+    sha256 = "0yqhzg5f3kmyvlxj0z9jh7w8s32gvj27xh6fbkcajwq475az5736";
+    name = "libnghttp2-14_1.64.0-1.1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libt/libtext-charwidth-perl/libtext-charwidth-perl_0.04-11_amd64.deb;
-    sha256 = "03li10dy23n1drli3y164pan3vi2j003pv74rfz9ijaibkjx5n4n";
-    name = "libtext-charwidth-perl_0.04-11_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/nghttp3/libnghttp3-9_1.8.0-1_amd64.deb;
+    sha256 = "0svi71alvnwgagspgc6xir2sfnzs762xrbwqs3qcna98nwrlr3iq";
+    name = "libnghttp3-9_1.8.0-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libt/libtext-iconv-perl/libtext-iconv-perl_1.7-8_amd64.deb;
-    sha256 = "0a4v901lqq0f3hqdl5w8i1akizqxlxkcr2xw6qc7qhxacvvrnp2x";
-    name = "libtext-iconv-perl_1.7-8_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/ngtcp2/libngtcp2-16_1.11.0-1_amd64.deb;
+    sha256 = "08k6qqfp2cjib0079xcdnf77df8a84izk8sifq41kpmp08sz7hh7";
+    name = "libngtcp2-16_1.11.0-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libt/libtext-wrapi18n-perl/libtext-wrapi18n-perl_0.06-10_all.deb;
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/ngtcp2/libngtcp2-crypto-gnutls8_1.11.0-1_amd64.deb;
+    sha256 = "0gzy1mlawxfdkz77y0pfvcv2rfaz5cbv7a7wmh1zw8rvaw2q83h2";
+    name = "libngtcp2-crypto-gnutls8_1.11.0-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/p11-kit/libp11-kit0_0.25.5-3_amd64.deb;
+    sha256 = "0npl8wsackynpg2mg79s0jcw91dx9svj69m3a748nv0n7q3g4jvq";
+    name = "libp11-kit0_0.25.5-3_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/pam/libpam-modules_1.7.0-5_amd64.deb;
+    sha256 = "0g6qrzcxx30mfpg0dzz2lk6qv3mba8kajj0z8z05lxzq2zhssycn";
+    name = "libpam-modules_1.7.0-5_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/pam/libpam-modules-bin_1.7.0-5_amd64.deb;
+    sha256 = "19v1bnjb2px7pbsmxpg2nik18c0v2gb33sg871vk2i4401nhcwnc";
+    name = "libpam-modules-bin_1.7.0-5_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/pam/libpam-runtime_1.7.0-5_all.deb;
+    sha256 = "1gxz25bin5mbahbzy7msfcxarz996vprafv5b9lxnx31xp4r49xh";
+    name = "libpam-runtime_1.7.0-5_all.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/pam/libpam0g_1.7.0-5_amd64.deb;
+    sha256 = "1cczzij8j3zxjrrcw1wrpaimckwpv519ncchi7mfcbfzv0kxwnsg";
+    name = "libpam0g_1.7.0-5_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/pcre2/libpcre2-8-0_10.46-1~deb13u1_amd64.deb;
+    sha256 = "03m6i54bl6ywc8p5f4jgncpn1pf9i63lwwwfpyc49qq7dapm593a";
+    name = "libpcre2-8-0_10.46-1~deb13u1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/perl/libperl5.40_5.40.1-6_amd64.deb;
+    sha256 = "1aaivpnm7k90bcv2afwwz90dm36bxli35dsqgc5l6vzmqcks82pj";
+    name = "libperl5.40_5.40.1-6_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libp/libpng1.6/libpng16-16t64_1.6.48-1_amd64.deb;
+    sha256 = "18h5zb3lqyqqgblrc2hj46fs6zdcssq1spp3bwd21hwmizrl38w0";
+    name = "libpng16-16t64_1.6.48-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/popt/libpopt0_1.19+dfsg-2_amd64.deb;
+    sha256 = "1wp4cd371qfwh63c33kijlr8z1f7rxynk5a2clvzjal50svlkxh7";
+    name = "libpopt0_1.19+dfsg-2_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/procps/libproc2-0_4.0.4-9_amd64.deb;
+    sha256 = "0jwbs3mw8nv1zwyqazgjvargq2cq3gimpfgd2wzzrpdjn6m1rmn9";
+    name = "libproc2-0_2%3a4.0.4-9_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libp/libpsl/libpsl5t64_0.21.2-1.1+b1_amd64.deb;
+    sha256 = "1av8nwyqcqrwn1q0zq42b6q6i1bsiaqfy5p6dxvx3h7bz6qjpm2r";
+    name = "libpsl5t64_0.21.2-1.1+b1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/python3-defaults/libpython3-stdlib_3.13.5-1_amd64.deb;
+    sha256 = "0pqpp4wgd0g93ghjpnqs6kpkcmrnpmkk88agf4wxvk419bb2w53y";
+    name = "libpython3-stdlib_3.13.5-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/python3.13/libpython3.13-minimal_3.13.5-2_amd64.deb;
+    sha256 = "1jyk3awzxgrwn6hr4y8iyqjc4j18v7ynnd72a4bnn8q7nks2p5yl";
+    name = "libpython3.13-minimal_3.13.5-2_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/python3.13/libpython3.13-stdlib_3.13.5-2_amd64.deb;
+    sha256 = "197fs9dvqbfab8k6lqiv578v1hn4mcw5dhh46lzbkclpcv60hlxh";
+    name = "libpython3.13-stdlib_3.13.5-2_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libquadmath0_14.2.0-19_amd64.deb;
+    sha256 = "0ysasqci7fbxgxwfvdmjrw0aw5g77kzxn32d96vkpv73xkq1rdgm";
+    name = "libquadmath0_14.2.0-19_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/r/readline/libreadline8t64_8.2-6_amd64.deb;
+    sha256 = "0rq93lxr5l2m7r6zbmbm88l611djnpcs5vizi21z3jamwysz5bgf";
+    name = "libreadline8t64_8.2-6_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/r/rtmpdump/librtmp1_2.4+20151223.gitfa8646d.1-2+b5_amd64.deb;
+    sha256 = "0s3kd7352p1ha53hp5r0y6p409b1g38fw6z8p4hqfv5y9h0a5flk";
+    name = "librtmp1_2.4+20151223.gitfa8646d.1-2+b5_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/cyrus-sasl2/libsasl2-2_2.1.28+dfsg1-9_amd64.deb;
+    sha256 = "1lm9by0lm15pj46zc7zxbxia4q2r6aq1h3q5l14ip096w1x9vr36";
+    name = "libsasl2-2_2.1.28+dfsg1-9_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/c/cyrus-sasl2/libsasl2-modules-db_2.1.28+dfsg1-9_amd64.deb;
+    sha256 = "06dxqj6abl3lvlras6jk30c2smsswx1vx8mzv7336b6nzdcqdhx5";
+    name = "libsasl2-modules-db_2.1.28+dfsg1-9_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libs/libseccomp/libseccomp2_2.6.0-2_amd64.deb;
+    sha256 = "0cc5h3gjn4y2czvwbrh5gk1g852bzg04vdfqmywqcspv0n717mc9";
+    name = "libseccomp2_2.6.0-2_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libs/libselinux/libselinux1_3.8.1-1_amd64.deb;
+    sha256 = "1md5rvf1jan4vv6anlhymr34nj6i0gdnk8ajb4ppsvcdplr8vfv8";
+    name = "libselinux1_3.8.1-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libs/libsemanage/libsemanage-common_3.8.1-1_all.deb;
+    sha256 = "1jrxdlvi8s2gc7jji6h1cvzd4s94gh5rknd43nykdhj9cy45sdv5";
+    name = "libsemanage-common_3.8.1-1_all.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libs/libsemanage/libsemanage2_3.8.1-1_amd64.deb;
+    sha256 = "1a86qk5rjhb5csvjrc6qw3jmiqgpdljh4qy5izfkpb8pbm8afzgr";
+    name = "libsemanage2_3.8.1-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libs/libsepol/libsepol2_3.8.1-1_amd64.deb;
+    sha256 = "02dsnbvznxwfk7lgx3cs5ljcjx39zv6h0krzjpkrainjlv9x559m";
+    name = "libsepol2_3.8.1-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/b/binutils/libsframe1_2.44-3_amd64.deb;
+    sha256 = "07rifq90vr24dc6276qfg8pfr56ra5yfk8y3k811f9sqvkgjbxiq";
+    name = "libsframe1_2.44-3_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/slang2/libslang2_2.3.3-5+b2_amd64.deb;
+    sha256 = "0bi9ffys8glbah8pc288pzd2x5lhrnp0x2n6yzs5f8hgpqn2mda9";
+    name = "libslang2_2.3.3-5+b2_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/libsmartcols1_2.41-5_amd64.deb;
+    sha256 = "15qswn3chs5rmnhbsscrn39pfxz0cfvah3bikpk2f66133b8pb12";
+    name = "libsmartcols1_2.41-5_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/sqlite3/libsqlite3-0_3.46.1-7_amd64.deb;
+    sha256 = "1r1bd9sk8a8h4xmlls4384l86jm54ckjvdcvbnsly3i8w81zqxl9";
+    name = "libsqlite3-0_3.46.1-7_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/e2fsprogs/libss2_1.47.2-3+b3_amd64.deb;
+    sha256 = "0y2xzjbrsyjlnivwbs90qf0f3dnfjly91jax2qfl4fscdsb1z1im";
+    name = "libss2_1.47.2-3+b3_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libs/libssh2/libssh2-1t64_1.11.1-1_amd64.deb;
+    sha256 = "0n5rj30i8mvwyasapihbk1vgg6qjsrbaxm6iavqp5ij8h792vlvw";
+    name = "libssh2-1t64_1.11.1-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/o/openssl/libssl3t64_3.5.1-1_amd64.deb;
+    sha256 = "1kp1hjysv7f90s8pbxlgv1g658z91pnc7kg1q8cz9c7qa6dsppjm";
+    name = "libssl3t64_3.5.1-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libstdc++6_14.2.0-19_amd64.deb;
+    sha256 = "1q4x10r0xgrbzqj4f757nj5x3xrmiahhgza8wym94yma6xca07xb";
+    name = "libstdc++6_14.2.0-19_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/systemd/libsystemd-shared_257.8-1~deb13u1_amd64.deb;
+    sha256 = "1ly38vxqkyfhxa3kbkpf96385k2w7ylaiscffyc4814q58ia8qdp";
+    name = "libsystemd-shared_257.8-1~deb13u1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/systemd/libsystemd0_257.8-1~deb13u1_amd64.deb;
+    sha256 = "1ls8693484sfsn32hn6dq0x5lbdpdwayragid7c1b8yyv9d5n1w3";
+    name = "libsystemd0_257.8-1~deb13u1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libt/libtasn1-6/libtasn1-6_4.20.0-2_amd64.deb;
+    sha256 = "0c78h8c540zy59hns5yq882prlmv4dadb2w110kadkq91f8hjr99";
+    name = "libtasn1-6_4.20.0-2_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libt/libtext-charwidth-perl/libtext-charwidth-perl_0.04-11+b4_amd64.deb;
+    sha256 = "185giragvzazqfhr1s3ffgpz5jbv8nx7xw3dl7l540kf63gl879s";
+    name = "libtext-charwidth-perl_0.04-11+b4_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libt/libtext-iconv-perl/libtext-iconv-perl_1.7-8+b4_amd64.deb;
+    sha256 = "0xg8aggh993yk3y77bkh4rzx8h3jgcay7vl6fl6i4aklw408ab2l";
+    name = "libtext-iconv-perl_1.7-8+b4_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libt/libtext-wrapi18n-perl/libtext-wrapi18n-perl_0.06-10_all.deb;
     sha256 = "11fyjnir547lcq9l3z6d08dwfl9z5z9xm9fmpyyw72mg15y8ry8p";
     name = "libtext-wrapi18n-perl_0.06-10_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libt/libtirpc/libtirpc-common_1.3.3+ds-1_all.deb;
-    sha256 = "11dgcdxgpgmxg89p52nwwddglmzcnkhiavi38hqm2qdznhlz2giy";
-    name = "libtirpc-common_1.3.3+ds-1_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/ncurses/libtinfo6_6.5+20250216-2_amd64.deb;
+    sha256 = "046cl7zqzgck7rzqvrpgarxr20scvqc7aqlawij8ahg9hdwnm7wb";
+    name = "libtinfo6_6.5+20250216-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libt/libtirpc/libtirpc-dev_1.3.3+ds-1_amd64.deb;
-    sha256 = "0m8xd69k0la5hhqrz1lgjqq2jh7bd9fsl6dfxwkzlkymxrrn8ch3";
-    name = "libtirpc-dev_1.3.3+ds-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libt/libtirpc/libtirpc-common_1.3.6+ds-1_all.deb;
+    sha256 = "1hx6qz960i8w6gz14wql2z254qn7mmf7132n579shlci5hp5h3rh";
+    name = "libtirpc-common_1.3.6+ds-1_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libt/libtirpc/libtirpc3_1.3.3+ds-1_amd64.deb;
-    sha256 = "1iz1y7gwa386vyc61kcj9ypdxmj02y9l0mzzzqgs2va8x6jxaiia";
-    name = "libtirpc3_1.3.3+ds-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libt/libtirpc/libtirpc3t64_1.3.6+ds-1_amd64.deb;
+    sha256 = "1dhki5jrw3k66mygxlk6p80036chms3da8hf65a3a1pmkg03cigg";
+    name = "libtirpc3t64_1.3.6+ds-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libu/libunistring/libunistring2_1.0-2_amd64.deb;
-    sha256 = "0ld9jnnp30a04y7mj4cfjddzcz4wmmy7g78x7iwlsxhx07zbnrnl";
-    name = "libunistring2_1.0-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/t/tree-sitter/libtree-sitter0.22_0.22.6-6+b1_amd64.deb;
+    sha256 = "1q0jrl5zfyf6gfw9z1014401p56wab79p763hn1q0chv4l2pf88a";
+    name = "libtree-sitter0.22_0.22.6-6+b1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libx/libxcrypt/libcrypt-dev_4.4.33-2_amd64.deb;
-    sha256 = "0bzmyydbc6rdza9ggqb1czvl5zxb44cyd05wv8x9wnpp628x5k41";
-    name = "libcrypt-dev_1%3a4.4.33-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libtsan2_14.2.0-19_amd64.deb;
+    sha256 = "19achh158va35vvdrq7qbldymyl7nvl45y65fr89f5kx49l7z7aj";
+    name = "libtsan2_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libx/libxcrypt/libcrypt1_4.4.33-2_amd64.deb;
-    sha256 = "0adxx0iza10jf06cp7v5inksfhbplmw51pla8flymr6lvxf0mxpm";
-    name = "libcrypt1_1%3a4.4.33-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/gcc-14/libubsan1_14.2.0-19_amd64.deb;
+    sha256 = "08ky0x4l8wwgm7irnbf1i3k07wwz2vg0r3jl0vy2z9fnyyza21cj";
+    name = "libubsan1_14.2.0-19_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libx/libxml2/libxml2_2.9.14+dfsg-1.3~deb12u4_amd64.deb;
-    sha256 = "1iwqkgsbm73w027gll1pq6c6x9k4fvsyw4v7y059jckxbwmc7fpk";
-    name = "libxml2_2.9.14+dfsg-1.3~deb12u4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/systemd/libudev1_257.8-1~deb13u1_amd64.deb;
+    sha256 = "1rr90wyqg28gahbf40mjqkmmlrgjvdg8vj6yjv35jivp69l75bi5";
+    name = "libudev1_257.8-1~deb13u1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/libz/libzstd/libzstd1_1.5.4+dfsg2-5_amd64.deb;
-    sha256 = "1yhqjg9mw655g4i55c8qcxjwp64k05111gwnzc8af95p72nba5b3";
-    name = "libzstd1_1.5.4+dfsg2-5_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libu/libunistring/libunistring5_1.3-2_amd64.deb;
+    sha256 = "0imap02ww5fznz8m315fpxwzav01grmpc41dyfb11sh6xw5lklvd";
+    name = "libunistring5_1.3-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/linux/linux-libc-dev_6.1.148-1_amd64.deb;
-    sha256 = "1w9z8zxq7449c1hvhckdd3s0m3rh5wxqyr7vh5196s2ddmjxvsli";
-    name = "linux-libc-dev_6.1.148-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/libuuid1_2.41-5_amd64.deb;
+    sha256 = "1cvd0g652d408lcwrpvvqram0fmllc33yyv6z5sba6vwfd27f90h";
+    name = "libuuid1_2.41-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/linux-base/linux-base_4.9_all.deb;
-    sha256 = "16hh13kkq171lmy4wnzspq2w43wvalxa08k294sqa1bv0v3lkglq";
-    name = "linux-base_4.9_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/t/tcp-wrappers/libwrap0_7.6.q-36_amd64.deb;
+    sha256 = "1v0rviibpswfig6rriclzawfd69vvwpd4r05brn5bcfn2px2mqfd";
+    name = "libwrap0_7.6.q-36_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/linux-signed-amd64/linux-image-6.1.0-39-amd64_6.1.148-1_amd64.deb;
-    sha256 = "0pw597283iknskl0k2kvy8b4l9ngvk7h8npdmlwcyzpjisc4al9v";
-    name = "linux-image-6.1.0-39-amd64_6.1.148-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/w/wtmpdb/libwtmpdb0_0.73.0-3_amd64.deb;
+    sha256 = "1kqg5qicjn5hcsfsl3l5xb6gifyh1blgyv7zzb3xynrqbqck15db";
+    name = "libwtmpdb0_0.73.0-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/linux-signed-amd64/linux-image-amd64_6.1.148-1_amd64.deb;
-    sha256 = "0s0vbvx9ym44npwc8msp4g6cdi4lf6wbagfygpx4j525b6vkr7bj";
-    name = "linux-image-amd64_6.1.148-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libx/libxml2/libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u1_amd64.deb;
+    sha256 = "1y4r1r3i8s1ia8094f754nlr477vk5xvkdnz5gn7jqz8v07klx5l";
+    name = "libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/logrotate/logrotate_3.21.0-1_amd64.deb;
-    sha256 = "0cmahmlvm2my3fvl15a11wfzq6afr0vacqdx28pmpy2sylqwssjf";
-    name = "logrotate_3.21.0-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/iptables/libxtables12_1.8.11-2_amd64.deb;
+    sha256 = "05nvx0cq77njz1i7hnag48gn9ravj4d54pwzpbb9hppgz9csmrad";
+    name = "libxtables12_1.8.11-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/lsb/lsb-base_11.6_all.deb;
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/x/xxhash/libxxhash0_0.8.3-2_amd64.deb;
+    sha256 = "0zqm9js6b9gcisahvy5vvj34j2pm1zlc3csbvgsl9h3gsmj71nl1";
+    name = "libxxhash0_0.8.3-2_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/libz/libzstd/libzstd1_1.5.7+dfsg-1_amd64.deb;
+    sha256 = "1ygf91lv4x3h0vg97sq9rg5gik5zqjdi7j8an2lfn9f9rzm2lsig";
+    name = "libzstd1_1.5.7+dfsg-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/linux-base/linux-base_4.12_all.deb;
+    sha256 = "1lkhixy7d75dxvs8gxhd5azn9x3jbvmy72lqkaar08nzvs0kn6mj";
+    name = "linux-base_4.12_all.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/linux-signed-amd64/linux-image-6.12.43+deb13-amd64_6.12.43-1_amd64.deb;
+    sha256 = "1bpm4sffhh238gb07d9sfmmzgbgc86pynf15mbayy6nyl02yf09y";
+    name = "linux-image-6.12.43+deb13-amd64_6.12.43-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/linux-signed-amd64/linux-image-amd64_6.12.43-1_amd64.deb;
+    sha256 = "1xk7ikqq4pxhbrdxkkfy4nfgwpsxpv0gmbs43abp5fvy70cs2nkq";
+    name = "linux-image-amd64_6.12.43-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/linux/linux-libc-dev_6.12.43-1_all.deb;
+    sha256 = "15v2nwckla8bh7lhcahnfjiz7zyaza789id59hypa6ph4hj729ny";
+    name = "linux-libc-dev_6.12.43-1_all.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/linux-base/linux-sysctl-defaults_4.12_all.deb;
+    sha256 = "1yry8a0sc9m5yac6ww40i4a2p94xhqz92dzh442q4kqygrbf2vi2";
+    name = "linux-sysctl-defaults_4.12_all.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/g/glibc/locales_2.41-12_all.deb;
+    sha256 = "0ykrawy3fdhizjf7wxm1q74n3wzv9cvgh23aplndnw5s5ngcml42";
+    name = "locales_2.41-12_all.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/login_4.16.0-2+really2.41-5_amd64.deb;
+    sha256 = "0dbc75kmrcssn8dld6rzn36fw77vhs3bz4xxm19n57l2nqpdb1k2";
+    name = "login_1%3a4.16.0-2+really2.41-5_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/shadow/login.defs_4.17.4-2_all.deb;
+    sha256 = "1d7jrj0bsc7xajs4li0zi6r1vvixi9brvsxggbg8hmdz5hjbifxl";
+    name = "login.defs_1%3a4.17.4-2_all.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/logrotate/logrotate_3.22.0-1_amd64.deb;
+    sha256 = "1dwny8ivz5gx646wjyyf8gimc3hljmq3rs3ykr1rnb1gzc899kba";
+    name = "logrotate_3.22.0-1_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/e/e2fsprogs/logsave_1.47.2-3+b3_amd64.deb;
+    sha256 = "0paspk0kw2d7ia436b5aa5ig0zfzjv3hl9sf379hja0sfp28wc5z";
+    name = "logsave_1.47.2-3+b3_amd64.deb";
+  }
+  {
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/l/lsb/lsb-base_11.6_all.deb;
     sha256 = "0hn63ybmnb4isz0z86kcj5cd81i9rliw06rsvwv6drw0f8bdvgpq";
     name = "lsb-base_11.6_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/lvm2/dmsetup_1.02.185-2_amd64.deb;
-    sha256 = "118bhr9qxzf7jfg9z23b8pa31nn5jvn6kpkjs875b0rwp68c8gy7";
-    name = "dmsetup_2%3a1.02.185-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/m/make-dfsg/make_4.4.1-2_amd64.deb;
+    sha256 = "1infajr29wyvcmas467kam9vd4d15vb27m6cd1hb10skcsg71abh";
+    name = "make_4.4.1-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/lvm2/libdevmapper1.02.1_1.02.185-2_amd64.deb;
-    sha256 = "017y5h6lvc02sb68srnvna01kgq2v9xwzsipyv6fspq56si8r9xa";
-    name = "libdevmapper1.02.1_2%3a1.02.185-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/m/mawk/mawk_1.3.4.20250131-1_amd64.deb;
+    sha256 = "14ijcdxb2d25qzrsz35lg0hhzp7a43mb3a3cr8dr5y6zqiq49qdd";
+    name = "mawk_1.3.4.20250131-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/l/lz4/liblz4-1_1.9.4-1_amd64.deb;
-    sha256 = "1lw9jgpalg34297zs3n5ip6va44pnlwphab0pllgishxxxnfikb4";
-    name = "liblz4-1_1.9.4-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/m/media-types/media-types_13.0.0_all.deb;
+    sha256 = "0gpmf8q1qw31wcq0y7rl1fnp0xqya71j9jqr9bvvrc9dnyqf9207";
+    name = "media-types_13.0.0_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/m/mawk/mawk_1.3.4.20200120-3.1_amd64.deb;
-    sha256 = "0y3z2m5a3nxaixwimn3iicxxwc7kmhd119721kasjkl5j7rq7g5w";
-    name = "mawk_1.3.4.20200120-3.1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/mount_2.41-5_amd64.deb;
+    sha256 = "0mn275a9drkp45icbsdvicsig30zkz6iirqmhj6hvmbn1vmsra1c";
+    name = "mount_2.41-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/m/media-types/media-types_10.0.0_all.deb;
-    sha256 = "1pamk6qmxh25h3da71cpy5chp37lnby2rdzxw3i8m51r7g5nv95a";
-    name = "media-types_10.0.0_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/nano/nano_8.4-1_amd64.deb;
+    sha256 = "0hlfjr305xy5dvcbxxggzzam5p7apsicv2saf9mldfsb6jliygn9";
+    name = "nano_8.4-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/m/mpclib3/libmpc3_1.3.1-1_amd64.deb;
-    sha256 = "101gwmwqcwahj19k4px10a3pzlsqijhk946br2qgji0fg529bxyp";
-    name = "libmpc3_1.3.1-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/ncurses/ncurses-base_6.5+20250216-2_all.deb;
+    sha256 = "05794gy46f6mqpbjk6d9dkm3f6xd6fgyjsm32p2772d3c197f3hr";
+    name = "ncurses-base_6.5+20250216-2_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/m/mpfr4/libmpfr6_4.2.0-1_amd64.deb;
-    sha256 = "0yyp995cmh5nq888984ban0qxxc4djwjfzvpfjhbd448wysa5drp";
-    name = "libmpfr6_4.2.0-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/ncurses/ncurses-bin_6.5+20250216-2_amd64.deb;
+    sha256 = "1r31zkg5p0lp6ndyjni1120gyrv4kb5q65ydmnwd97hyfvs2b9a0";
+    name = "ncurses-bin_6.5+20250216-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/nano/nano_7.2-1+deb12u1_amd64.deb;
-    sha256 = "0s69iab6vbvd0hk1dlgdq8zvgaq0d315w8jr4iaiib551abb7aa5";
-    name = "nano_7.2-1+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/net-tools/net-tools_2.10-1.3_amd64.deb;
+    sha256 = "0f9iv4s4x61izhkz5sxbl9jycsyy8ql6s77wx2hjlk7ik25x6dp1";
+    name = "net-tools_2.10-1.3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/ncurses/libncursesw6_6.4-4_amd64.deb;
-    sha256 = "1v3bdacjkhw0a8jp9g4g3lvga6q012nj415pbyv3hnjnvi9pmylq";
-    name = "libncursesw6_6.4-4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/netbase/netbase_6.5_all.deb;
+    sha256 = "07j7339ic4kk4g9nc75wvrpgah9085q6bv7rlsq3ggbyjj9gmfkn";
+    name = "netbase_6.5_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/ncurses/libtinfo6_6.4-4_amd64.deb;
-    sha256 = "0lcslicnhhjip3098l733z37v5dj8qxzlnna5359047m727r0b87";
-    name = "libtinfo6_6.4-4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/nftables/nftables_1.1.3-1_amd64.deb;
+    sha256 = "0f8cbyn4dwrryzzbdw2sz0kb5zvap8hybfcx94n6x9zkm8dsdprd";
+    name = "nftables_1.1.3-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/ncurses/ncurses-base_6.4-4_all.deb;
-    sha256 = "02a9s9srvdn7fqj56agm5g54k5pnbi4ids9f0s5s429whfgxildz";
-    name = "ncurses-base_6.4-4_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/o/openssh/openssh-client_10.0p1-7_amd64.deb;
+    sha256 = "0s6nx501hnq8as6ds112i9drrkbwksi6dvjbjdbn6zpicfy48r40";
+    name = "openssh-client_1%3a10.0p1-7_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/ncurses/ncurses-bin_6.4-4_amd64.deb;
-    sha256 = "0inv4g8wr518ynyk4xppci6a823c78rzn2qz2jvp2vgf792nwv9r";
-    name = "ncurses-bin_6.4-4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/o/openssh/openssh-server_10.0p1-7_amd64.deb;
+    sha256 = "0f5w8vqi4xm94ax3f4ihb2igiaq51d7l858lfm830ra5xl1hcb0l";
+    name = "openssh-server_1%3a10.0p1-7_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/net-tools/net-tools_2.10-0.1+deb12u2_amd64.deb;
-    sha256 = "1g6hzq6blb3gksbg1ylrpm6c5vdi2l827n471pa8lgzslh0yjjkj";
-    name = "net-tools_2.10-0.1+deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/o/openssh/openssh-sftp-server_10.0p1-7_amd64.deb;
+    sha256 = "0bj6hkid8ikvfh1zz6vr62ksc0l7rc4mw3f8nm6anmpwq5x8mf1m";
+    name = "openssh-sftp-server_1%3a10.0p1-7_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/netbase/netbase_6.4_all.deb;
-    sha256 = "0ryq3h1rbix8jfjr0dhg6qlxf18wbpvckpf5as78fvzyq143rci9";
-    name = "netbase_6.4_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/o/openssl/openssl_3.5.1-1_amd64.deb;
+    sha256 = "1c00mk4vfn1qzwphbp6vq2rns7vxhrak9rr998la8ldlw3j6g7dy";
+    name = "openssl_3.5.1-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/nettle/libhogweed6_3.8.1-2_amd64.deb;
-    sha256 = "156ba22xq1mc5q0d18c8kcn36fqdfb6jsijs99s1kd9cig18b0gd";
-    name = "libhogweed6_3.8.1-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/o/openssl/openssl-provider-legacy_3.5.1-1_amd64.deb;
+    sha256 = "1bjhnzxagylh7gfnhhkd3ayiladsl9yg6y4r3zmzcw9h45vnijf7";
+    name = "openssl-provider-legacy_3.5.1-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/nettle/libnettle8_3.8.1-2_amd64.deb;
-    sha256 = "0q827xdk7r8hpxhs8lnm0br6y8w4kqavjardz7q95zcz51p2x4j5";
-    name = "libnettle8_3.8.1-2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/shadow/passwd_4.17.4-2_amd64.deb;
+    sha256 = "1f5qayx2bx4388aij0dxjywmh8g0ly3zfqilza42hzclqr0yzsn5";
+    name = "passwd_1%3a4.17.4-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/newt/libnewt0.52_0.52.23-1+b1_amd64.deb;
-    sha256 = "1m95zf69j7xmnqnh78fbwxdfy5fnla1ds5vr1a52crcf1qvwl3jb";
-    name = "libnewt0.52_0.52.23-1+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/perl/perl_5.40.1-6_amd64.deb;
+    sha256 = "1f7mr0wkais93diar6nps39rsvhxy2jk5kyx7dzb7sa98va97v0i";
+    name = "perl_5.40.1-6_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/newt/whiptail_0.52.23-1+b1_amd64.deb;
-    sha256 = "1jjm5yrh7dkr5cf1q6y737bcs1a54z2ijlbghva5a5lxb5xbbxv1";
-    name = "whiptail_0.52.23-1+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/perl/perl-base_5.40.1-6_amd64.deb;
+    sha256 = "12y76pkp5z0bydpdq961ksra6ar0xr5k9a16j1bdqrm62c30dwcl";
+    name = "perl-base_5.40.1-6_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/nftables/libnftables1_1.0.6-2+deb12u2_amd64.deb;
-    sha256 = "0iqrhmk95048bybfaqyzw4vb0yihvs1sr5jjy9xxk6dspzwj70is";
-    name = "libnftables1_1.0.6-2+deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/perl/perl-modules-5.40_5.40.1-6_all.deb;
+    sha256 = "02wbq1k4lyy262jqq3cwdxgbb0bzw46vjrnni945hn64y0djrm6z";
+    name = "perl-modules-5.40_5.40.1-6_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/nftables/nftables_1.0.6-2+deb12u2_amd64.deb;
-    sha256 = "1378vgms13fibpc2nlacz4418ab4layds0hwfwx1c5wcwl6g4vwn";
-    name = "nftables_1.0.6-2+deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/procps/procps_4.0.4-9_amd64.deb;
+    sha256 = "0xak5bx2zfrzfhxkdd71h1aaihifqnziyssxb19gqwk7fyv0pfad";
+    name = "procps_2%3a4.0.4-9_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/n/nghttp2/libnghttp2-14_1.52.0-1+deb12u2_amd64.deb;
-    sha256 = "1f9v22b1jc2zq83qc8xwiqz7dzakbmh5s16gsp3llr8yhf6fpqyv";
-    name = "libnghttp2-14_1.52.0-1+deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/python-apt/python-apt-common_3.0.0_all.deb;
+    sha256 = "033fgpz1kka822ln5mk4spfam52a0fd8dx0adasimq04z8svdb4s";
+    name = "python-apt-common_3.0.0_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/o/openldap/libldap-2.5-0_2.5.13+dfsg-5_amd64.deb;
-    sha256 = "1va7n5fkfw8fiiil24ycs2lfxw03c3f5x54dcaacaja1apv30v2b";
-    name = "libldap-2.5-0_2.5.13+dfsg-5_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/python3-defaults/python3_3.13.5-1_amd64.deb;
+    sha256 = "1c1w4bal7vfxw125dik6rlsshf6b1n59zlvdkb0ych3ivis82f61";
+    name = "python3_3.13.5-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/o/openssh/openssh-client_9.2p1-2+deb12u7_amd64.deb;
-    sha256 = "0adnwvn1mbhkpxi0d0vzdvnlbwr6y7qpkpxvg3hdxgfs46147kzb";
-    name = "openssh-client_1%3a9.2p1-2+deb12u7_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/python-apt/python3-apt_3.0.0_amd64.deb;
+    sha256 = "0676j2g45bipmx8hh05s2ad6if1p496jr44b50889nk3vf6spmz7";
+    name = "python3-apt_3.0.0_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/o/openssh/openssh-server_9.2p1-2+deb12u7_amd64.deb;
-    sha256 = "11a7dagk6y97xglabjx1vwbyp2q2l5lvai791mjmj44yysapkb7x";
-    name = "openssh-server_1%3a9.2p1-2+deb12u7_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/python3-defaults/python3-minimal_3.13.5-1_amd64.deb;
+    sha256 = "05cn76dj8a6m4fg2clca58ww9g3i0f0awfrzdrkrys7kxcdkglm5";
+    name = "python3-minimal_3.13.5-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/o/openssh/openssh-sftp-server_9.2p1-2+deb12u7_amd64.deb;
-    sha256 = "1j2p6mi01mk9fx1nrqys5xd3a85dhi7yazjp8ba7lp3k8f4hbjlh";
-    name = "openssh-sftp-server_1%3a9.2p1-2+deb12u7_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/python3.13/python3.13_3.13.5-2_amd64.deb;
+    sha256 = "1inz5xrrw907jawbb6vcyw0mkw53mqfw8ach8yll6frdg76mr36g";
+    name = "python3.13_3.13.5-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/o/openssl/libssl3_3.0.17-1~deb12u2_amd64.deb;
-    sha256 = "0s1fcpx9bghq2y282i4bb9zb9bbh24p7npdyh1ai47cxkpdjjz6r";
-    name = "libssl3_3.0.17-1~deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/p/python3.13/python3.13-minimal_3.13.5-2_amd64.deb;
+    sha256 = "1a7c4v08bg2p6iy0h054xj0rn16xngg12i3wdzxvksg9dm8ipmfj";
+    name = "python3.13-minimal_3.13.5-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/o/openssl/openssl_3.0.17-1~deb12u2_amd64.deb;
-    sha256 = "1s9s5xzsj55jaq8x5h7m1jkws0nfr26j31yyxcf8n48p1vsmgib4";
-    name = "openssl_3.0.17-1~deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/r/readline/readline-common_8.2-6_all.deb;
+    sha256 = "1ada1rnnnw63gxnz4g1vsrvz2q7dlic1dcmh3kqiirhdpyh8lzpp";
+    name = "readline-common_8.2-6_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/p11-kit/libp11-kit0_0.24.1-2_amd64.deb;
-    sha256 = "08kvh3qf7i7w9fq0jz5si5p8lz031i5izd6d1w33y0dzvpx304r5";
-    name = "libp11-kit0_0.24.1-2_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/pam/libpam-modules_1.5.2-6+deb12u1_amd64.deb;
-    sha256 = "08i22ibamji6qk9yqlw47ypzwr3qb7cxnsfj3jmqfxvh6q72f7c5";
-    name = "libpam-modules_1.5.2-6+deb12u1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/pam/libpam-modules-bin_1.5.2-6+deb12u1_amd64.deb;
-    sha256 = "074q098149a9jfxxh4jq14k46pka521hhcbzbbpq76rr5wnnjspw";
-    name = "libpam-modules-bin_1.5.2-6+deb12u1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/pam/libpam-runtime_1.5.2-6+deb12u1_all.deb;
-    sha256 = "08a0zdmpg2vdbb4wrdb7mj7cwvf43a825lwk38yvgp3bf4d320ys";
-    name = "libpam-runtime_1.5.2-6+deb12u1_all.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/pam/libpam0g_1.5.2-6+deb12u1_amd64.deb;
-    sha256 = "1psramg6rf2g7v1lz95idaxwb4ghqvv0ks5s2y7rrh7r2xgvwq73";
-    name = "libpam0g_1.5.2-6+deb12u1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/pcre2/libpcre2-8-0_10.42-1_amd64.deb;
-    sha256 = "0dgrp8nvaqvv5ikjv55aqyrkl8x0zsg5zsz8y0mzxkbn9m7va383";
-    name = "libpcre2-8-0_10.42-1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/perl/perl-base_5.36.0-7+deb12u3_amd64.deb;
-    sha256 = "06pw5ra3yqskhlncpzwxafrlllyj24ihl6qywz6hf611ds979j4f";
-    name = "perl-base_5.36.0-7+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/popt/libpopt0_1.19+dfsg-1_amd64.deb;
-    sha256 = "0kqraislardgmsf3q2l63z35frcmydzwfxgpaii9kkas4n4b953g";
-    name = "libpopt0_1.19+dfsg-1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/procps/libproc2-0_4.0.2-3_amd64.deb;
-    sha256 = "1bnyaig3drsficw34d1bgjc2lcxh70y6lq2lk65zpsi9378aaaz8";
-    name = "libproc2-0_2%3a4.0.2-3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/procps/procps_4.0.2-3_amd64.deb;
-    sha256 = "1hfxhd20l5inqj9h2smckjwa4qy2qn9ppwc1j63ayyfbg5bygl6r";
-    name = "procps_2%3a4.0.2-3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/python-apt/python-apt-common_2.6.0_all.deb;
-    sha256 = "19gi3mc3arkyshrccrkrkn7b4nxzrwj2mxrk7xhh5035wnks2xjy";
-    name = "python-apt-common_2.6.0_all.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/python-apt/python3-apt_2.6.0_amd64.deb;
-    sha256 = "085d2dn4wwfka12z40gc511zfn16cmviykkvxj4iz87rwm9s1yi1";
-    name = "python3-apt_2.6.0_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/python3-defaults/libpython3-stdlib_3.11.2-1+b1_amd64.deb;
-    sha256 = "0vkq9i1q1ihsh27g1qywx96yid9w84aaisnr1qv1w6lmbhfqjn2f";
-    name = "libpython3-stdlib_3.11.2-1+b1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/python3-defaults/python3_3.11.2-1+b1_amd64.deb;
-    sha256 = "0x1vbwpjr9rkr72pw3cy0095w8mjskdwfbhpcf82v456s7xxmxik";
-    name = "python3_3.11.2-1+b1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/python3-defaults/python3-minimal_3.11.2-1+b1_amd64.deb;
-    sha256 = "1alzp5mss3c0i022mjz934l9vhih13mi7ixzmy0xg1p6f2363y9h";
-    name = "python3-minimal_3.11.2-1+b1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/python3.11/libpython3.11-minimal_3.11.2-6+deb12u6_amd64.deb;
-    sha256 = "1d0z9jmcan1n3373jqrbc3fxazni5aaj10jlv4qf1gcndx8kj5mj";
-    name = "libpython3.11-minimal_3.11.2-6+deb12u6_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/python3.11/libpython3.11-stdlib_3.11.2-6+deb12u6_amd64.deb;
-    sha256 = "1i7s32rrrihbagn21c9bixn2n9n2wqv9jd9dbmd60nsx7m6kb7s0";
-    name = "libpython3.11-stdlib_3.11.2-6+deb12u6_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/python3.11/python3.11_3.11.2-6+deb12u6_amd64.deb;
-    sha256 = "1rsdcklphl386yhm2z4zdfih2qjs9n6d01pn7kq5ivd4xcw6x8kr";
-    name = "python3.11_3.11.2-6+deb12u6_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/p/python3.11/python3.11-minimal_3.11.2-6+deb12u6_amd64.deb;
-    sha256 = "1m4hdm57gipw65lq3w7csn30yi40j95sy5h2qv4fl664kffw8hj7";
-    name = "python3.11-minimal_3.11.2-6+deb12u6_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/r/readline/libreadline8_8.2-1.3_amd64.deb;
-    sha256 = "0rkf91j2m38c2lbb7s3zy20yh983przr2vcdz7dnix0wf39vnbp0";
-    name = "libreadline8_8.2-1.3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/r/readline/readline-common_8.2-1.3_all.deb;
-    sha256 = "0p73nis91pc0da2h99p500aqq4wx6fnicm2lc6irlhjnzqipacb9";
-    name = "readline-common_8.2-1.3_all.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/r/rpcsvc-proto/rpcsvc-proto_1.4.3-1_amd64.deb;
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/r/rpcsvc-proto/rpcsvc-proto_1.4.3-1_amd64.deb;
     sha256 = "18w13jzq4dl3d058gm72y0pgp04nfgyg95f8j36392jgd690db1j";
     name = "rpcsvc-proto_1.4.3-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/r/rsync/rsync_3.2.7-1+deb12u2_amd64.deb;
-    sha256 = "0cmzv6m0zhdrpxd7mn04b7gs32v38myx2qzbpirzgqz37bvbb17i";
-    name = "rsync_3.2.7-1+deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/r/rsync/rsync_3.4.1+ds1-5_amd64.deb;
+    sha256 = "1674v87blk66k28888ac4fv6nivs8jlq1gf17xyk1b41xkbdm5y3";
+    name = "rsync_3.4.1+ds1-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/r/rtmpdump/librtmp1_2.4+20151223.gitfa8646d.1-2+b2_amd64.deb;
-    sha256 = "11qwz4yis701i64hzgra71f8pgj3nq3899f63r16wiicvhh91xp1";
-    name = "librtmp1_2.4+20151223.gitfa8646d.1-2+b2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/d/dh-runit/runit-helper_2.16.4_all.deb;
+    sha256 = "0km58mk4ilncshas2cgc60n8sbmnypffggzjryhla5ka0g9ncn4a";
+    name = "runit-helper_2.16.4_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/sed/sed_4.9-1_amd64.deb;
-    sha256 = "1pqm44zs27l5f8k45k9dis6hbk3zgal38mgj9gc4i12hx7gsqz0p";
-    name = "sed_4.9-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/sed/sed_4.9-2_amd64.deb;
+    sha256 = "0m2k58nm66f2q23gcjgj63515fcpqm1qqvpg2096nqpfd3cpblah";
+    name = "sed_4.9-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/sensible-utils/sensible-utils_0.0.17+nmu1_all.deb;
-    sha256 = "0xlajp197br7pk9lggnl4g3p3ihf2r3c8hahxmq4dv4n75w6zrp0";
-    name = "sensible-utils_0.0.17+nmu1_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/sensible-utils/sensible-utils_0.0.25_all.deb;
+    sha256 = "03j7ygqx55f8rg8k2qd19y70m6llhhhcrxfvihac7327qdrrnfl7";
+    name = "sensible-utils_0.0.25_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/shadow/login_4.13+dfsg1-1+deb12u1_amd64.deb;
-    sha256 = "0zdyqmp2l9kb5482szqzh9m0xdxxdp2p7fjpkxgx6jimibgfc721";
-    name = "login_1%3a4.13+dfsg1-1+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/r/rust-sequoia-sqv/sqv_1.3.0-3_amd64.deb;
+    sha256 = "1xqf6fzhdvgr1p2fmzw8g0r8fbxiv1apq3i3b6bhjb8brmncwz5d";
+    name = "sqv_1.3.0-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/shadow/passwd_4.13+dfsg1-1+deb12u1_amd64.deb;
-    sha256 = "1va775583vzqfz0z5n2b5d6r2m4n506i0baqklyi2ljlkbjwcvxz";
-    name = "passwd_1%3a4.13+dfsg1-1+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/sudo/sudo_1.9.16p2-3_amd64.deb;
+    sha256 = "01bnldc9h0llnxasfc11srmybrb89sh2nd3mlc0rwkh2izcbdxk8";
+    name = "sudo_1.9.16p2-3_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/slang2/libslang2_2.3.3-3_amd64.deb;
-    sha256 = "0gs1jjpv25jh2091j6dax4j5vmyf8p5d5k20ncjr28pg574fqg2v";
-    name = "libslang2_2.3.3-3_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/systemd/systemd_257.8-1~deb13u1_amd64.deb;
+    sha256 = "0f2szjcihcdcx8q441c64q3y23wsglli12d8bmv91a9ll2wbknbg";
+    name = "systemd_257.8-1~deb13u1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/sqlite3/libsqlite3-0_3.40.1-2+deb12u2_amd64.deb;
-    sha256 = "1qj17lld902lq2q9092kyfngchy2vzjf1gzf98i25r5lx508pmx8";
-    name = "libsqlite3-0_3.40.1-2+deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/systemd/systemd-sysv_257.8-1~deb13u1_amd64.deb;
+    sha256 = "0n4lyk4xilwmfj04zh1bfjvq98anhxsnyzyhy58c9pymdx5a1cv3";
+    name = "systemd-sysv_257.8-1~deb13u1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/sudo/sudo_1.9.13p3-1+deb12u2_amd64.deb;
-    sha256 = "15lia994s9clh3zc40gyl7kdvk6xslxg1wphjxv8c4frdxzraw7j";
-    name = "sudo_1.9.13p3-1+deb12u2_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/sysvinit/sysvinit-utils_3.14-4_amd64.deb;
+    sha256 = "1v2qsdhc4by9cyqvmjkqa5lm1xvw0h01nl0y95dng2gz1lv5gsf7";
+    name = "sysvinit-utils_3.14-4_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/systemd/libsystemd-shared_252.39-1~deb12u1_amd64.deb;
-    sha256 = "11bajmgx2szbf3sj71dg15ssyqmahr835s6f9mabgjp5hcikb7n9";
-    name = "libsystemd-shared_252.39-1~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/t/tar/tar_1.35+dfsg-3.1_amd64.deb;
+    sha256 = "1ppimrpp44z3wf392qnzcx6dzyh2mr64r2kv2jipc419mbhh4k11";
+    name = "tar_1.35+dfsg-3.1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/systemd/libsystemd0_252.39-1~deb12u1_amd64.deb;
-    sha256 = "0ka1kgpqqcrkf6apk0ppc6kb57qnf8y2yq78rm1mrrg4ik2ixqbk";
-    name = "libsystemd0_252.39-1~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/i/inetutils/telnet_0.17+2.6-3_all.deb;
+    sha256 = "0q7a30vxw4ss3sa44wzv44v4rssf164jb89ddf89hqynrjdf1dhb";
+    name = "telnet_0.17+2.6-3_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/systemd/libudev1_252.39-1~deb12u1_amd64.deb;
-    sha256 = "1ix0aknwnpjs3y2xgxnmc49iqlyb4sml6247d7shhi5gb9q2g4c4";
-    name = "libudev1_252.39-1~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/t/tzdata/tzdata_2025b-4+deb13u1_all.deb;
+    sha256 = "05qg0j0r7v9iagla32bp20lar4z10zhxfyz9zzpbagshhi8pza0r";
+    name = "tzdata_2025b-4+deb13u1_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/systemd/systemd_252.39-1~deb12u1_amd64.deb;
-    sha256 = "0jj311f3hvivyj7vcwvaqpjhb1djb451lg05xbnql40288d0vjl7";
-    name = "systemd_252.39-1~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/ucf/ucf_3.0052_all.deb;
+    sha256 = "0nxrvivxl2kxi8n8nibm576pw9kfgrcc5l19rqs71l0sc9d6snmb";
+    name = "ucf_3.0052_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/systemd/systemd-sysv_252.39-1~deb12u1_amd64.deb;
-    sha256 = "1a3ia82i6z35da42szbmdj5sc8rc63b46qipqg87rmf4nfrbv8i0";
-    name = "systemd-sysv_252.39-1~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/s/systemd/udev_257.8-1~deb13u1_amd64.deb;
+    sha256 = "1ijfba6p9kayva0fjwb0hjqdx4v8s35spshi2q2msh6lf7zxbn5q";
+    name = "udev_257.8-1~deb13u1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/systemd/udev_252.39-1~deb12u1_amd64.deb;
-    sha256 = "00x53xcsk8k0c3wqb63dcgvyjwnmvnyww9zsv1gxq6j7b0rdi4m0";
-    name = "udev_252.39-1~deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/unzip/unzip_6.0-29_amd64.deb;
+    sha256 = "159sjc3x6y4g816rdyyw6c5sv4gj7b80crlfrwvy815psmvz93b1";
+    name = "unzip_6.0-29_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/s/sysvinit/sysvinit-utils_3.06-4_amd64.deb;
-    sha256 = "03mrbim7gfhszrnyy9vw7f0k4wh59xxjx8if8d9fqs472110hy8i";
-    name = "sysvinit-utils_3.06-4_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/u/util-linux/util-linux_2.41-5_amd64.deb;
+    sha256 = "1ifry7p43cyvw4ral8yq8ddrw0ww44l4j5l6kj4441j1xlzkkz27";
+    name = "util-linux_2.41-5_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/t/tar/tar_1.34+dfsg-1.2+deb12u1_amd64.deb;
-    sha256 = "1hxc0m30v0acswf14pgrf0b6npvh7lk8kdd8h4gifs99iklr5yr4";
-    name = "tar_1.34+dfsg-1.2+deb12u1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/v/vim/vim-common_9.1.1230-2_all.deb;
+    sha256 = "065a30zg4k72rqshsnv187hyl87lzdnkmsj4yk8yxi6bfpkf7xxw";
+    name = "vim-common_2%3a9.1.1230-2_all.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/t/tasksel/tasksel_3.73_all.deb;
-    sha256 = "0pf5qwhsvqr66c3g2rimj68a01lsppg9s1zh0l3dsc06r7gpk1k1";
-    name = "tasksel_3.73_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/v/vim/vim-tiny_9.1.1230-2_amd64.deb;
+    sha256 = "0r3gamrhmng18278f0f31mglzfswzp5w7skz501jdff7mnsk8mb7";
+    name = "vim-tiny_2%3a9.1.1230-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/t/tasksel/tasksel-data_3.73_all.deb;
-    sha256 = "088m6arpq20q8fnnm48pvzv8hj2jw9v7xl40vsd4zx9gld3zn5h0";
-    name = "tasksel-data_3.73_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/w/wget/wget_1.25.0-2_amd64.deb;
+    sha256 = "10q6k2a1y891sp2apg6ns0f2k2gp7c5xg1vvbb7js6vq7kbcljan";
+    name = "wget_1.25.0-2_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/t/tcp-wrappers/libwrap0_7.6.q-32_amd64.deb;
-    sha256 = "1y2mzkp45hr26jd10gd3hlyy54s804w4zcajvk7p8kdsldljdknb";
-    name = "libwrap0_7.6.q-32_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/n/newt/whiptail_0.52.25-1_amd64.deb;
+    sha256 = "0vr4byblzw6ijh49gyp10z8ryxlgn1f8w59r1a69a0p8yi4lnhwa";
+    name = "whiptail_0.52.25-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/t/texinfo/install-info_6.8-6+b1_amd64.deb;
-    sha256 = "0079vx0gkvw0vz26v577rk70nxb3cbzdzkg8gziwhbcazn31jnq1";
-    name = "install-info_6.8-6+b1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/x/xz-utils/xz-utils_5.8.1-1_amd64.deb;
+    sha256 = "0hsj3par9njmh4vapjhzak6lk95wcmyck4fxs3lbpixq0ma5fkzk";
+    name = "xz-utils_5.8.1-1_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/t/tzdata/tzdata_2025b-0+deb12u2_all.deb;
-    sha256 = "0ajxlmgl8xf58fd4z0pmx6zkv25pyfwl7l61j9mshx4rpjn636vi";
-    name = "tzdata_2025b-0+deb12u2_all.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/z/zip/zip_3.0-15_amd64.deb;
+    sha256 = "1jsryn3v27yqbilghibd855rzbddqh3gqq9m6d2zgj0rzl0vvz3v";
+    name = "zip_3.0-15_amd64.deb";
   }
   {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/ucf/ucf_3.0043+nmu1+deb12u1_all.deb;
-    sha256 = "0985n1ldrnzk3l29ygng5b6n8rgm6ihm0fn0p78ziw3y69fjv3wj";
-    name = "ucf_3.0043+nmu1+deb12u1_all.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/unzip/unzip_6.0-28_amd64.deb;
-    sha256 = "13h6cm4708p5zczi7fc4qbdlwl1nhnhrk0ncwv9chb1q6jf55ndk";
-    name = "unzip_6.0-28_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/usrmerge/usr-is-merged_37~deb12u1_all.deb;
-    sha256 = "16fylvh14j9yq1lc6dvnmbpcwivhgf14kx6pkvsydbwr1mrq12wh";
-    name = "usr-is-merged_37~deb12u1_all.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/util-linux/bsdutils_2.38.1-5+deb12u3_amd64.deb;
-    sha256 = "07ikxigl27d3xlzbwk4991kx764dpanc6ip023kh6ika00migbkc";
-    name = "bsdutils_1%3a2.38.1-5+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/util-linux/fdisk_2.38.1-5+deb12u3_amd64.deb;
-    sha256 = "1494yjf0vb5cncdjfca6kr2mjp0rxnb37c9pxgmkp34nxrpmmgx7";
-    name = "fdisk_2.38.1-5+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/util-linux/libblkid1_2.38.1-5+deb12u3_amd64.deb;
-    sha256 = "0hrrsp346vhk79imc5akbf4sgd298c9fr48gvzycm4ciy9vk622s";
-    name = "libblkid1_2.38.1-5+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/util-linux/libfdisk1_2.38.1-5+deb12u3_amd64.deb;
-    sha256 = "0q4iv6z74vz301nycr3zws3j6lf8d2f6vgz0cfgm4wnayv7lbwca";
-    name = "libfdisk1_2.38.1-5+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/util-linux/libmount1_2.38.1-5+deb12u3_amd64.deb;
-    sha256 = "1hr3qfm3x4fvydl9n3vhqxk7r7b0ns87fxg9vmd84lb901mjsvpl";
-    name = "libmount1_2.38.1-5+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/util-linux/libsmartcols1_2.38.1-5+deb12u3_amd64.deb;
-    sha256 = "1c13llyw2yh928wbr3nkw24530vi7ygqj90nqn7m61zwjml8q244";
-    name = "libsmartcols1_2.38.1-5+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/util-linux/libuuid1_2.38.1-5+deb12u3_amd64.deb;
-    sha256 = "1bxfvsrcc79bqffh4b4n4hby4anpjg8spjrbhj5d4qns461kkzsz";
-    name = "libuuid1_2.38.1-5+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/util-linux/mount_2.38.1-5+deb12u3_amd64.deb;
-    sha256 = "0yha4xai2580sz4b803b0y0qav9fxg8x8sb97c9w2jw85z3d4vj5";
-    name = "mount_2.38.1-5+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/util-linux/util-linux_2.38.1-5+deb12u3_amd64.deb;
-    sha256 = "0d1gwk003npp9larc53cjvsmpf18qydzrx3k0fffxqdj4kzl3clf";
-    name = "util-linux_2.38.1-5+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/u/util-linux/util-linux-extra_2.38.1-5+deb12u3_amd64.deb;
-    sha256 = "126nwv9nsvxdmyz577s33p7q4rwqv6fp4y16x0c7mi75d26ad5xh";
-    name = "util-linux-extra_2.38.1-5+deb12u3_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/v/vim/vim-common_9.0.1378-2+deb12u2_all.deb;
-    sha256 = "0p5zpi7smmmw7fi1h8wjb5c2ma8i1ypxq3v357njhjikjnxwg4i0";
-    name = "vim-common_2%3a9.0.1378-2+deb12u2_all.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/v/vim/vim-tiny_9.0.1378-2+deb12u2_amd64.deb;
-    sha256 = "0gvs38rx0yqm2q17d3xlpac3v42kbknxnzxxmp0kzfklp8ibx2hn";
-    name = "vim-tiny_2%3a9.0.1378-2+deb12u2_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/w/wget/wget_1.21.3-1+deb12u1_amd64.deb;
-    sha256 = "100g734qcljvx6djjx73xgxjn278akpdk0039znar34a3lnhb2dk";
-    name = "wget_1.21.3-1+deb12u1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/x/xxhash/libxxhash0_0.8.1-1_amd64.deb;
-    sha256 = "071gbd82pk7zw6jaynp2ac811dz255fmvlpvh52p8l43ik8sa6bc";
-    name = "libxxhash0_0.8.1-1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/x/xz-utils/liblzma5_5.4.1-1_amd64.deb;
-    sha256 = "1rw2prgb4nbc0bm5p8qs17jjbqf57nzaz4f6w4scbahn5d8bj8fk";
-    name = "liblzma5_5.4.1-1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/x/xz-utils/xz-utils_5.4.1-1_amd64.deb;
-    sha256 = "1fqd56wvv0bny8r5al2s2fxmjl7vznrywin0c2zmw5vla6lhz76a";
-    name = "xz-utils_5.4.1-1_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/z/zip/zip_3.0-13_amd64.deb;
-    sha256 = "15lbanmqg6pnxsvkz3slbcra3ff6mkm3wl28sjvbkismwiha6xw8";
-    name = "zip_3.0-13_amd64.deb";
-  }
-  {
-    url = http://snapshot.debian.org/archive/debian/20250924T085743Z//pool/main/z/zlib/zlib1g_1.2.13.dfsg-1_amd64.deb;
-    sha256 = "1r4cq33nsijibs64r3sngc3r9whfybpscl3nwbsjgpzy24a1vpfp";
-    name = "zlib1g_1%3a1.2.13.dfsg-1_amd64.deb";
+    url = http://snapshot.debian.org/archive/debian/20250929T085637Z//pool/main/z/zlib/zlib1g_1.3.dfsg+really1.3.1-1+b1_amd64.deb;
+    sha256 = "03f93bbniyrjr9k0bc3ddphjjzwh3l651sidb0ad2si3sr0ffnq1";
+    name = "zlib1g_1%3a1.3.dfsg+really1.3.1-1+b1_amd64.deb";
   }
 ]
