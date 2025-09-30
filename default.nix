@@ -17,7 +17,7 @@ let
   ## Release version of the packet broker service.  The commit for the
   ## release is tagged with "release-<version>". See
   ## README.md#versioning for the full Git workflow.
-  version = "8";
+  version = "9";
   versionFile = pkgs.writeTextDir "version" "${version}:${gitTag}\n";
   nixProfile = "/nix/var/nix/profiles/packet-broker";
 
