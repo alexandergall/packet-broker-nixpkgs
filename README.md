@@ -33,14 +33,24 @@ ONIE installer for the initial setup and a tool for managing releases
 on a running system.
 
 Currently, the base OS provided by the ONIE installer is a basic
-version of Debian 12 combined with an installation of the [Nix package
-manager](https://nixos.org/manual/nixpkgs/stable/).  While Debian is
-used to manage the host itself, all components of the Packet Broker
-service are provided by Nix. This repository depends on the [Nix
-packaging of the Tofino
+version of Debian 13.1 combined with an installation of the [Nix
+package manager](https://nixos.org/manual/nixpkgs/stable/).  While
+Debian is used to manage the host itself, all components of the Packet
+Broker service are provided by Nix. This repository depends on the
+[Nix packaging of the Tofino
 SDE](https://github.com/alexandergall/bf-sde-nixpkgs) and the [ONIE
 installer
 builder](https://github.com/alexandergall/onie-debian-nix-installer).
+
+The original SDE was closed source and required an NDA from Intel to
+access.  Most of the SDE has now been open-sourced as
+[open-p4studio](https://github.com/p4lang/open-p4studio) by the p4lang
+consortium. Unfortunatley, that version is limited to the Tofino
+software emulation and to get full ASIC support still requires access
+to the original SDE. Nix packaging for this hybrid version is
+currently provided on a [separate branch of the bf-sde-nixpkgs
+repository(https://github.com/alexandergall/bf-sde-nixpkgs/tree/open-p4studio).
+
 The main advantages of using this framework are
 
    * Declarative style of package management: all properties and
@@ -91,21 +101,22 @@ time.  The Packet Broker packages support the following platforms
    * `accton_wedge100bf_65x`
    * `accton_as9516_32d`
    * `netberg_aurora_710`
-   * `stordis_bf6064x_t`
+   * `stordis_bf6064x_t` (BSP-less mode)
    * `stordis_bf2556x_1t` (BSP-less mode)
    * `inventec_d10064` (BSP-less mode)
    * `asterfusion_x308p`
    * `asterfusion_x312p`
    * `asterfusion_x532p`
    * `asterfusion_x564p`
+   * `asterfusion_x732q_t`
    * `model`
    * `modelT2`
 
-The `as9516` is based on Tofino2, all other platforms are based on
-Tofino1. The `model` and `modelT2` are pseudo platforms that use the
-software emulation of the Tofino1 and Tofino2, respectively. They can
-be instantiated on systems that don't have an actual ASIC for testing
-purposes.
+The `as9516` and `X732Q-T` are based on Tofino2, all other platforms
+are based on Tofino1. The `model` and `modelT2` are pseudo platforms
+that use the software emulation of the Tofino1 and Tofino2,
+respectively. They can be instantiated on systems that don't have an
+actual ASIC for testing purposes.
 
 The platforms marked with "BSP-less mode" don't provide a "baseboard
 support package" for the current SDE version. This means that the
@@ -528,15 +539,15 @@ provided it supports the `x86-64` architecture.
 
 For details how to set up your build system please refer to the first
 section of the [documentation of the SDE Nix
-package](https://github.com/alexandergall/bf-sde-nixpkgs#bf-sde-nixpkgs). You
+package](https://github.com/alexandergall/bf-sde-nixpkgs/tree/open-p4studio#bf-sde-nixpkgs). You
 need to perform the steps
 
    * [Install the Nix package manager in multi-user
-     mode](https://github.com/alexandergall/bf-sde-nixpkgs#install-the-nix-package-manager-in-multi-user-mode)
+     mode](https://github.com/alexandergall/bf-sde-nixpkgs/tree/open-p4studio#install-the-nix-package-manager-in-multi-user-mode)
    * [Fetch and verify source
-     archives](https://github.com/alexandergall/bf-sde-nixpkgs#fetch-and-verify-source-archives)
+     archives](https://github.com/alexandergall/bf-sde-nixpkgs/tree/open-p4studio#fetch-and-verify-source-archives)
    * [Add archives to the Nix
-     store](https://github.com/alexandergall/bf-sde-nixpkgs#add-archives-to-the-nix-store)
+     store](https://github.com/alexandergall/bf-sde-nixpkgs/tree/open-p4studio#add-archives-to-the-nix-store)
 
 Then clone this repository
 
@@ -548,7 +559,7 @@ Check out the desired release, e.g.
 
 ```
 $ cd packet-broker-nixpkgs
-$ git checkout release-5
+$ git checkout release-8
 ```
 
 To build the ONIE installer, execute
